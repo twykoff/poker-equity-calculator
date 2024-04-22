@@ -1,105 +1,280 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, SafeAreaView, View, TextInput, Button } from 'react-native';
-import App from './App';
+import { StyleSheet, Text, SafeAreaView, View, TextInput, Button, TouchableOpacity } from 'react-native';
+import React, {useImperativeHandle, forwardRef, useRef} from 'react';
+
+import Card from './Card';
 
 
 
 
 
-export default function CardGrid(pressFunction) {
-  function pressedButton(card) {
-    pressFunction(card);
+const CardGrid = (props, ref) => {
+
+  const cardGridRefAs = useRef();
+  const cardGridRefKs = useRef();
+  const cardGridRefQs = useRef();
+  const cardGridRefJs = useRef();
+  const cardGridRefTs = useRef();
+  const cardGridRef9s = useRef();
+  const cardGridRef8s = useRef();
+  const cardGridRef7s = useRef();
+  const cardGridRef6s = useRef();
+  const cardGridRef5s = useRef();
+  const cardGridRef4s = useRef();
+  const cardGridRef3s = useRef();
+  const cardGridRef2s = useRef();
+    
+  const cardGridRefAh = useRef();
+  const cardGridRefKh = useRef();
+  const cardGridRefQh = useRef();
+  const cardGridRefJh = useRef();
+  const cardGridRefTh = useRef();
+  const cardGridRef9h = useRef();
+  const cardGridRef8h = useRef();
+  const cardGridRef7h = useRef();
+  const cardGridRef6h = useRef();
+  const cardGridRef5h = useRef();
+  const cardGridRef4h = useRef();
+  const cardGridRef3h = useRef();
+  const cardGridRef2h = useRef();
+  
+  const cardGridRefAc = useRef();
+  const cardGridRefKc = useRef();
+  const cardGridRefQc = useRef();
+  const cardGridRefJc = useRef();
+  const cardGridRefTc = useRef();
+  const cardGridRef9c = useRef();
+  const cardGridRef8c = useRef();
+  const cardGridRef7c = useRef();
+  const cardGridRef6c = useRef();
+  const cardGridRef5c = useRef();
+  const cardGridRef4c = useRef();
+  const cardGridRef3c = useRef();
+  const cardGridRef2c = useRef();
+  
+  const cardGridRefAd = useRef();
+  const cardGridRefKd = useRef();
+  const cardGridRefQd = useRef();
+  const cardGridRefJd = useRef();
+  const cardGridRefTd = useRef();
+  const cardGridRef9d = useRef();
+  const cardGridRef8d = useRef();
+  const cardGridRef7d = useRef();
+  const cardGridRef6d = useRef();
+  const cardGridRef5d = useRef();
+  const cardGridRef4d = useRef();
+  const cardGridRef3d = useRef();
+  const cardGridRef2d = useRef();
+
+  useImperativeHandle(ref, () => ({
+    // methods connected to `ref`
+    clearCards: () => { clearCards() },
+    addCardBack: (cardValue) => {addCardBack(cardValue)}
+  }))
+
+  
+  const pressedButton = (cardValue) => {
+    //console.log("cardGrid " + cardValue)
   }
+
+  
+  const clearCards = () => {
+    //console.log("clear cards")
+    cardGridRefAs.current.clearCard();
+    cardGridRefKs.current.clearCard();
+    cardGridRefQs.current.clearCard();
+    cardGridRefJs.current.clearCard();
+    cardGridRefTs.current.clearCard();
+    cardGridRef9s.current.clearCard();
+    cardGridRef8s.current.clearCard();
+    cardGridRef7s.current.clearCard();
+    cardGridRef6s.current.clearCard();
+    cardGridRef5s.current.clearCard();
+    cardGridRef4s.current.clearCard();
+    cardGridRef3s.current.clearCard();
+    cardGridRef2s.current.clearCard();
+    
+    cardGridRefAh.current.clearCard();
+    cardGridRefKh.current.clearCard();
+    cardGridRefQh.current.clearCard();
+    cardGridRefJh.current.clearCard();
+    cardGridRefTh.current.clearCard();
+    cardGridRef9h.current.clearCard();
+    cardGridRef8h.current.clearCard();
+    cardGridRef7h.current.clearCard();
+    cardGridRef6h.current.clearCard();
+    cardGridRef5h.current.clearCard();
+    cardGridRef4h.current.clearCard();
+    cardGridRef3h.current.clearCard();
+    cardGridRef2h.current.clearCard();
+    
+    cardGridRefAc.current.clearCard();
+    cardGridRefKc.current.clearCard();
+    cardGridRefQc.current.clearCard();
+    cardGridRefJc.current.clearCard();
+    cardGridRefTc.current.clearCard();
+    cardGridRef9c.current.clearCard();
+    cardGridRef8c.current.clearCard();
+    cardGridRef7c.current.clearCard();
+    cardGridRef6c.current.clearCard();
+    cardGridRef5c.current.clearCard();
+    cardGridRef4c.current.clearCard();
+    cardGridRef3c.current.clearCard();
+    cardGridRef2c.current.clearCard();
+    
+    cardGridRefAd.current.clearCard();
+    cardGridRefKd.current.clearCard();
+    cardGridRefQd.current.clearCard();
+    cardGridRefJd.current.clearCard();
+    cardGridRefTd.current.clearCard();
+    cardGridRef9d.current.clearCard();
+    cardGridRef8d.current.clearCard();
+    cardGridRef7d.current.clearCard();
+    cardGridRef6d.current.clearCard();
+    cardGridRef5d.current.clearCard();
+    cardGridRef4d.current.clearCard();
+    cardGridRef3d.current.clearCard();
+    cardGridRef2d.current.clearCard();
+  }
+
+  const addCardBack = (cardValue) => {
+    //console.log("clear cards")
+    cardGridRefAs.current.clearSpecificCard(cardValue);
+    cardGridRefKs.current.clearSpecificCard(cardValue);
+    cardGridRefQs.current.clearSpecificCard(cardValue);
+    cardGridRefJs.current.clearSpecificCard(cardValue);
+    cardGridRefTs.current.clearSpecificCard(cardValue);
+    cardGridRef9s.current.clearSpecificCard(cardValue);
+    cardGridRef8s.current.clearSpecificCard(cardValue);
+    cardGridRef7s.current.clearSpecificCard(cardValue);
+    cardGridRef6s.current.clearSpecificCard(cardValue);
+    cardGridRef5s.current.clearSpecificCard(cardValue);
+    cardGridRef4s.current.clearSpecificCard(cardValue);
+    cardGridRef3s.current.clearSpecificCard(cardValue);
+    cardGridRef2s.current.clearSpecificCard(cardValue);
+    
+    cardGridRefAh.current.clearSpecificCard(cardValue);
+    cardGridRefKh.current.clearSpecificCard(cardValue);
+    cardGridRefQh.current.clearSpecificCard(cardValue);
+    cardGridRefJh.current.clearSpecificCard(cardValue);
+    cardGridRefTh.current.clearSpecificCard(cardValue);
+    cardGridRef9h.current.clearSpecificCard(cardValue);
+    cardGridRef8h.current.clearSpecificCard(cardValue);
+    cardGridRef7h.current.clearSpecificCard(cardValue);
+    cardGridRef6h.current.clearSpecificCard(cardValue);
+    cardGridRef5h.current.clearSpecificCard(cardValue);
+    cardGridRef4h.current.clearSpecificCard(cardValue);
+    cardGridRef3h.current.clearSpecificCard(cardValue);
+    cardGridRef2h.current.clearSpecificCard(cardValue);
+    
+    cardGridRefAc.current.clearSpecificCard(cardValue);
+    cardGridRefKc.current.clearSpecificCard(cardValue);
+    cardGridRefQc.current.clearSpecificCard(cardValue);
+    cardGridRefJc.current.clearSpecificCard(cardValue);
+    cardGridRefTc.current.clearSpecificCard(cardValue);
+    cardGridRef9c.current.clearSpecificCard(cardValue);
+    cardGridRef8c.current.clearSpecificCard(cardValue);
+    cardGridRef7c.current.clearSpecificCard(cardValue);
+    cardGridRef6c.current.clearSpecificCard(cardValue);
+    cardGridRef5c.current.clearSpecificCard(cardValue);
+    cardGridRef4c.current.clearSpecificCard(cardValue);
+    cardGridRef3c.current.clearSpecificCard(cardValue);
+    cardGridRef2c.current.clearSpecificCard(cardValue);
+    
+    cardGridRefAd.current.clearSpecificCard(cardValue);
+    cardGridRefKd.current.clearSpecificCard(cardValue);
+    cardGridRefQd.current.clearSpecificCard(cardValue);
+    cardGridRefJd.current.clearSpecificCard(cardValue);
+    cardGridRefTd.current.clearSpecificCard(cardValue);
+    cardGridRef9d.current.clearSpecificCard(cardValue);
+    cardGridRef8d.current.clearSpecificCard(cardValue);
+    cardGridRef7d.current.clearSpecificCard(cardValue);
+    cardGridRef6d.current.clearSpecificCard(cardValue);
+    cardGridRef5d.current.clearSpecificCard(cardValue);
+    cardGridRef4d.current.clearSpecificCard(cardValue);
+    cardGridRef3d.current.clearSpecificCard(cardValue);
+    cardGridRef2d.current.clearSpecificCard(cardValue);
+  }
+ 
   return (
     <SafeAreaView>
       <View style={styles.flexContainer}>
-        <Button style={styles.buttonStyle} title="2c" onPress={() => pressedButton("2c")}/>
-        <Button style={styles.buttonStyle} title="3c" onPress={() => pressedButton("3c")}/>
-        <Button style={styles.buttonStyle} title="4c" onPress={() => pressedButton("4c")}/>
-        <Button style={styles.buttonStyle} title="5c" onPress={() => pressedButton("5c")}/>
-        <Button style={styles.buttonStyle} title="6c" onPress={() => pressedButton("6c")}/>
-        <Button style={styles.buttonStyle} title="7c" onPress={() => pressedButton("7c")}/>
-        <Button style={styles.buttonStyle} title="8c" onPress={() => pressedButton("8c")}/>
+        <Card cardValue="As" pressedButton={props.pressedButton} ref={cardGridRefAs}></Card>
+        <Card cardValue="Ks" pressedButton={props.pressedButton} ref={cardGridRefKs}></Card>
+        <Card cardValue="Qs" pressedButton={props.pressedButton} ref={cardGridRefQs}></Card>
+        <Card cardValue="Js" pressedButton={props.pressedButton} ref={cardGridRefJs}></Card>
+        <Card cardValue="Ts" pressedButton={props.pressedButton} ref={cardGridRefTs}></Card>
+        <Card cardValue="9s" pressedButton={props.pressedButton} ref={cardGridRef9s}></Card>
+        <Card cardValue="8s" pressedButton={props.pressedButton} ref={cardGridRef8s}></Card>
+        <Card cardValue="7s" pressedButton={props.pressedButton} ref={cardGridRef7s}></Card>
+        <Card cardValue="6s" pressedButton={props.pressedButton} ref={cardGridRef6s}></Card>
+        <Card cardValue="5s" pressedButton={props.pressedButton} ref={cardGridRef5s}></Card>
+        <Card cardValue="4s" pressedButton={props.pressedButton} ref={cardGridRef4s}></Card>
+        <Card cardValue="3s" pressedButton={props.pressedButton} ref={cardGridRef3s}></Card>
+        <Card cardValue="2s" pressedButton={props.pressedButton} ref={cardGridRef2s}></Card>
       </View>
-
-      <View style={styles.flexContainer}>    
-        <Button style={styles.buttonStyle} title="9c" onPress={() => pressedButton("9c")}/>
-        <Button style={styles.buttonStyle} title="Tc" onPress={() => pressedButton("Tc")}/>
-        <Button style={styles.buttonStyle} title="Jc" onPress={() => pressedButton("Jc")}/>
-        <Button style={styles.buttonStyle} title="Qc" onPress={() => pressedButton("Qc")}/>
-        <Button style={styles.buttonStyle} title="Kc" onPress={() => pressedButton("Kc")}/>
-        <Button style={styles.buttonStyle} title="Ac" onPress={() => pressedButton("Ac")}/>
+      
+      <View style={styles.flexContainer}>
+        <Card cardValue="Ah" pressedButton={props.pressedButton} ref={cardGridRefAh}></Card>
+        <Card cardValue="Kh" pressedButton={props.pressedButton} ref={cardGridRefKh}></Card>
+        <Card cardValue="Qh" pressedButton={props.pressedButton} ref={cardGridRefQh}></Card>
+        <Card cardValue="Jh" pressedButton={props.pressedButton} ref={cardGridRefJh}></Card>
+        <Card cardValue="Th" pressedButton={props.pressedButton} ref={cardGridRefTh}></Card>
+        <Card cardValue="9h" pressedButton={props.pressedButton} ref={cardGridRef9h}></Card>
+        <Card cardValue="8h" pressedButton={props.pressedButton} ref={cardGridRef8h}></Card>
+        <Card cardValue="7h" pressedButton={props.pressedButton} ref={cardGridRef7h}></Card>
+        <Card cardValue="6h" pressedButton={props.pressedButton} ref={cardGridRef6h}></Card>
+        <Card cardValue="5h" pressedButton={props.pressedButton} ref={cardGridRef5h}></Card>
+        <Card cardValue="4h" pressedButton={props.pressedButton} ref={cardGridRef4h}></Card>
+        <Card cardValue="3h" pressedButton={props.pressedButton} ref={cardGridRef3h}></Card>
+        <Card cardValue="2h" pressedButton={props.pressedButton} ref={cardGridRef2h}></Card>
       </View>
 
       <View style={styles.flexContainer}>
-        <Button style={styles.buttonStyle} title="2d" onPress={() => pressedButton("2d")}/>
-        <Button style={styles.buttonStyle} title="3d" onPress={() => pressedButton("3d")}/>
-        <Button style={styles.buttonStyle} title="4d" onPress={() => pressedButton("4d")}/>
-        <Button style={styles.buttonStyle} title="5d" onPress={() => pressedButton("5d")}/>
-        <Button style={styles.buttonStyle} title="6d" onPress={() => pressedButton("6d")}/>
-        <Button style={styles.buttonStyle} title="7d" onPress={() => pressedButton("7d")}/>
-        <Button style={styles.buttonStyle} title="8d" onPress={() => pressedButton("8d")}/>
+        <Card cardValue="Ac" pressedButton={props.pressedButton} ref={cardGridRefAc}></Card>
+        <Card cardValue="Kc" pressedButton={props.pressedButton} ref={cardGridRefKc}></Card>
+        <Card cardValue="Qc" pressedButton={props.pressedButton} ref={cardGridRefQc}></Card>
+        <Card cardValue="Jc" pressedButton={props.pressedButton} ref={cardGridRefJc}></Card>
+        <Card cardValue="Tc" pressedButton={props.pressedButton} ref={cardGridRefTc}></Card>
+        <Card cardValue="9c" pressedButton={props.pressedButton} ref={cardGridRef9c}></Card>
+        <Card cardValue="8c" pressedButton={props.pressedButton} ref={cardGridRef8c}></Card>
+        <Card cardValue="7c" pressedButton={props.pressedButton} ref={cardGridRef7c}></Card>
+        <Card cardValue="6c" pressedButton={props.pressedButton} ref={cardGridRef6c}></Card>
+        <Card cardValue="5c" pressedButton={props.pressedButton} ref={cardGridRef5c}></Card>
+        <Card cardValue="4c" pressedButton={props.pressedButton} ref={cardGridRef4c}></Card>
+        <Card cardValue="3c" pressedButton={props.pressedButton} ref={cardGridRef3c}></Card>
+        <Card cardValue="2c" pressedButton={props.pressedButton} ref={cardGridRef2c}></Card>
       </View>
 
-      <View style={styles.flexContainer}>    
-        <Button style={styles.buttonStyle} title="9d" onPress={() => pressedButton("9d")}/>
-        <Button style={styles.buttonStyle} title="Td" onPress={() => pressedButton("Td")}/>
-        <Button style={styles.buttonStyle} title="Jd" onPress={() => pressedButton("Jd")}/>
-        <Button style={styles.buttonStyle} title="Qd" onPress={() => pressedButton("Qd")}/>
-        <Button style={styles.buttonStyle} title="Kd" onPress={() => pressedButton("Kd")}/>
-        <Button style={styles.buttonStyle} title="Ad" onPress={() => pressedButton("Ad")}/>
+      <View style={styles.flexContainer}>
+        <Card cardValue="Ad" pressedButton={props.pressedButton} ref={cardGridRefAd}></Card>
+        <Card cardValue="Kd" pressedButton={props.pressedButton} ref={cardGridRefKd}></Card>
+        <Card cardValue="Qd" pressedButton={props.pressedButton} ref={cardGridRefQd}></Card>
+        <Card cardValue="Jd" pressedButton={props.pressedButton} ref={cardGridRefJd}></Card>
+        <Card cardValue="Td" pressedButton={props.pressedButton} ref={cardGridRefTd}></Card>
+        <Card cardValue="9d" pressedButton={props.pressedButton} ref={cardGridRef9d}></Card>
+        <Card cardValue="8d" pressedButton={props.pressedButton} ref={cardGridRef8d}></Card>
+        <Card cardValue="7d" pressedButton={props.pressedButton} ref={cardGridRef7d}></Card>
+        <Card cardValue="6d" pressedButton={props.pressedButton} ref={cardGridRef6d}></Card>
+        <Card cardValue="5d" pressedButton={props.pressedButton} ref={cardGridRef5d}></Card>
+        <Card cardValue="4d" pressedButton={props.pressedButton} ref={cardGridRef4d}></Card>
+        <Card cardValue="3d" pressedButton={props.pressedButton} ref={cardGridRef3d}></Card>
+        <Card cardValue="2d" pressedButton={props.pressedButton} ref={cardGridRef2d}></Card>
       </View>
 
-      <View style={styles.flexContainer}>  
-        <Button style={styles.buttonStyle} title="2h" onPress={() => pressedButton("2h")}/>
-        <Button style={styles.buttonStyle} title="3h" onPress={() => pressedButton("3h")}/>
-        <Button style={styles.buttonStyle} title="4h" onPress={() => pressedButton("4h")}/>
-        <Button style={styles.buttonStyle} title="5h" onPress={() => pressedButton("5h")}/>
-        <Button style={styles.buttonStyle} title="6h" onPress={() => pressedButton("6h")}/>
-        <Button style={styles.buttonStyle} title="7h" onPress={() => pressedButton("7h")}/>
-        <Button style={styles.buttonStyle} title="8h" onPress={() => pressedButton("8h")}/>
-      </View>
-
-      <View style={styles.flexContainer}>    
-        <Button style={styles.buttonStyle} title="9h" onPress={() => pressedButton("9h")}/>
-        <Button style={styles.buttonStyle} title="Th" onPress={() => pressedButton("Th")}/>
-        <Button style={styles.buttonStyle} title="Jh" onPress={() => pressedButton("Jh")}/>
-        <Button style={styles.buttonStyle} title="Qh" onPress={() => pressedButton("Qh")}/>
-        <Button style={styles.buttonStyle} title="Kh" onPress={() => pressedButton("Kh")}/>
-        <Button style={styles.buttonStyle} title="Ah" onPress={() => pressedButton("Ah")}/>
-      </View>
-
-      <View style={styles.flexContainer}>    
-        <Button style={styles.buttonStyle} title="2s" onPress={() => pressedButton("2s")}/>
-        <Button style={styles.buttonStyle} title="3s" onPress={() => pressedButton("3s")}/>
-        <Button style={styles.buttonStyle} title="4s" onPress={() => pressedButton("4s")}/>
-        <Button style={styles.buttonStyle} title="5s" onPress={() => pressedButton("5s")}/>
-        <Button style={styles.buttonStyle} title="6s" onPress={() => pressedButton("6s")}/>
-        <Button style={styles.buttonStyle} title="7s" onPress={() => pressedButton("7s")}/>
-        <Button style={styles.buttonStyle} title="8s" onPress={() => pressedButton("8s")}/>
-      </View>
-
-      <View style={styles.flexContainer}>    
-        <Button style={styles.buttonStyle} title="9s" onPress={() => pressedButton("9s")}/>
-        <Button style={styles.buttonStyle} title="Ts" onPress={() => pressedButton("Ts")}/>
-        <Button style={styles.buttonStyle} title="Js" onPress={() => pressedButton("Js")}/>
-        <Button style={styles.buttonStyle} title="Qs" onPress={() => pressedButton("Qs")}/>
-        <Button style={styles.buttonStyle} title="Ks" onPress={() => pressedButton("Ks")}/>
-        <Button style={styles.buttonStyle} title="As" onPress={() => pressedButton("As")}/>
-      </View>
     </SafeAreaView>
   )}
+
   
   const styles = StyleSheet.create({
     flexContainer: {
       flexDirection: 'row',
-      flexWrap: 'wrap'
-    },
-    buttonStyle: {
-      minWidth: '13%',
-      maxWidth: '13%',
+      flexWrap: 'wrap',
+      padding: 2,
     },
   });
+
+  export default forwardRef(CardGrid)
 
 
 

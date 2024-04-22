@@ -14,57 +14,11 @@ import CalculateRazz from './CalculateRazz';
 
 export default class PokerGame {
 
-  //variables
-  //holeCardsPerPlayer
-  //upCardsPerPlayer
-  //boardCardsPerBoard
-  //boardsPerHand
-
-  //ex nlhe
   
-  //holeCardsPerPlayer 2
-  //upCardsPerPlayer   0
-  //boardCardsPerBoard 5
-  //boardsPerHand      1
 
-  //ex derailment
+
+
   
-  //holeCardsPerPlayer 5
-  //upCardsPerPlayer   0
-  //boardCardsPerBoard 5
-  //boardsPerHand      3
-
-  //isFlopGame
-  //isDrawGame
-  //isStudGame
-
-  //
-
-  //need functions
-  //calculate equities
-
-
-
-  function clearCards() {
-    setTextOneOne('');
-    setTextOneTwo('');
-    setTextOneThree('');
-    setTextOneFour('');
-    setTextOneFive('');
-
-    setTextTwoOne('');
-    setTextTwoTwo('');
-    setTextTwoThree('');
-    setTextTwoFour('');
-    setTextTwoFive('');
-
-
-    setTextBoardOne('');
-    setTextBoardTwo('');
-    setTextBoardThree('');
-    setTextBoardFour('');
-    setTextBoardFive(''); 
-  }
 
   function checkCards() {
     return 1;
@@ -113,7 +67,7 @@ export default class PokerGame {
     b1 = -1;
     b2 = -1;
     b3 = -1;
-    b4 = -1; 
+    b4 = -1;
     b5 = -1;
 
     let cardCount;

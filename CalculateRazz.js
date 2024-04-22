@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, SafeAreaView, View, TextInput, Button } from 'react-native';
-import App from './App';
+
 
 
 
@@ -8,7 +8,9 @@ import App from './App';
 
 export default function CalculateRazz(cards) {
     function getRank(card) {
-        return (card % 13);
+        if(card % 13 == 12)
+            return 0
+        return (card % 13) + 1;
     }
 
     let card1;
@@ -24,7 +26,6 @@ export default function CalculateRazz(cards) {
     card4 = -1;
     card5 = -1;
     cardCount = 0;
-    
 
     let ranks;
 
@@ -53,38 +54,26 @@ export default function CalculateRazz(cards) {
     singleCount = 0;
     singleDigit = [0, 0, 0, 0, 0];
 
-    for(i = 11; i >= 0; i--) {
+    for(i = 12; i > 0; i--) {
         if(ranks[i] == 4) {
-            quadDigit = i + 1;
+            quadDigit = i;
             quadCount++;
         }
         if(ranks[i] == 3) {
-            tripDigit = i + 1;
+            tripDigit = i;
             tripCount++;
         }
         if(ranks[i] == 2) {
-            pairDigit[pairCount++] = i + 1;
+            pairDigit[pairCount++] = i;
         }
         if(ranks[i] == 1) {
-            singleDigit[singleCount++] = i + 1;
+            singleDigit[singleCount++] = i;
         }
     }
 
-    if(ranks[12] == 4) {
-        quadDigit = 0;
-        quadCount++;
-    }
-    if(ranks[12] == 3) {
-        tripDigit = 0;
-        tripCount++;
-    }
-    if(ranks[12] == 2) {
-        pairDigit[pairCount++] = 0;
-    }
-    if(ranks[12] == 1) {
-        singleDigit[singleCount++] = 0;
-    }
+    
 
+    
 
     if(quadCount == 1) {
         //is quads
@@ -97,6 +86,7 @@ export default function CalculateRazz(cards) {
             returnString = returnString + '0'
         }
         returnString = returnString + singleDigit[0];
+        returnString = returnString + '000000'
         return returnString;
     }
     if(tripCount == 1 && pairCount == 1) {
@@ -110,6 +100,7 @@ export default function CalculateRazz(cards) {
             returnString = returnString + '0'
         }
         returnString = returnString + pairDigit[0];
+        returnString = returnString + '000000'
         return returnString;
     }
     if(tripCount == 1) {
@@ -127,6 +118,7 @@ export default function CalculateRazz(cards) {
             returnString = returnString + '0'
         }
         returnString = returnString + singleDigit[1];
+        returnString = returnString + '0000'
         return returnString;
     }
     if(pairCount == 2) {
@@ -143,11 +135,11 @@ export default function CalculateRazz(cards) {
         if(singleDigit[0] < 10) {
             returnString = returnString + '0'
         }
-        returnString = returnString + singleDigit[0] + "0000"
+        returnString = returnString + singleDigit[0] + '0000'
         return returnString;
     }
     if(pairCount == 1) {
-        //is trips
+        //is one pair
         returnString = '2'
         if(pairDigit[0] < 10) {
             returnString = returnString + '0'
@@ -165,6 +157,7 @@ export default function CalculateRazz(cards) {
             returnString = returnString + '0'
         }
         returnString = returnString + singleDigit[2];
+        returnString = returnString + '00'
         return returnString;
     }
 
@@ -190,5 +183,7 @@ export default function CalculateRazz(cards) {
         returnString = returnString + '0'
     }
     returnString = returnString + singleDigit[4];
+    //console.log(cards)
+    //console.log(returnString)
     return returnString;
 };
