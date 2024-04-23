@@ -15,7 +15,7 @@ import BoardGrid from './BoardGrid';
 import Game from './Game';
 import { getPlayerCardCount, getBoardCount, getCardsPerBoard } from './GameUtils';
 
-import { testNLHE } from './Test/BasicTest';
+import { testNLHE, testOmaha6, testLow, testLow8 } from './Test/BasicTest';
 
 
 import awsExports from './src/aws-exports'
@@ -122,10 +122,14 @@ const App = () => {
 
 
   const clearCards = () => {
-    testNLHE()
+    //testNLHE()
+    //testOmaha6()
+    //testLow()
+    testLow8()
     cardGridRef.current.clearCards()
     playerGridRef.current.clearCards()
     boardGridRef.current.clearCards()
+    setPlayerFocus()
   }
 
   const pressedButton = (cardValue) => {

@@ -3,46 +3,76 @@ import { StyleSheet, Text, SafeAreaView, View, TextInput, Button } from 'react-n
 
 
 
-export function CalculateHighFull(cardArray, boardArray) {
-    //for now this is 6 card plo
+export function CalculateHighFull(cardArray, boardArray, cardCount) {
+    //for now this is plo
 
-    ranks         = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-    ranksPlayer   = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    ranksPlayerM2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    ranksPlayerM1 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-    
-    ranksBoard    = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    ranksBoardM3  = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    ranksBoardM1  = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    let printDebug = 0
 
-    suits         = [0, 0, 0, 0]
-    
-    suitsPlayer   = [0, 0, 0, 0]
-    suitsPlayerM2 = [0, 0, 0, 0]
-    suitsPlayerM1 = [0, 0, 0, 0]
+    let ranks         = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+    let ranksPlayer   = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    let ranksPlayerM2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    let ranksPlayerM1 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
     
-    suitsBoard    = [0, 0, 0, 0]
-    suitsBoardM3  = [0, 0, 0, 0]
-    suitsBoardM1  = [0, 0, 0, 0]
+    let ranksBoard    = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    let ranksBoardM3  = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    let ranksBoardM1  = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-    ranksSuitPlayer = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    ranksSuitBoard  = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    let suits         = [0, 0, 0, 0]
+    
+    let suitsPlayer   = [0, 0, 0, 0]
+    let suitsPlayerM2 = [0, 0, 0, 0]
+    let suitsPlayerM1 = [0, 0, 0, 0]
+
+    
+    let suitsBoard    = [0, 0, 0, 0]
+    let suitsBoardM3  = [0, 0, 0, 0]
+    let suitsBoardM1  = [0, 0, 0, 0]
+
+    let ranksSuitPlayer = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    let ranksSuitBoard  = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
     let i, j
 
-    for(i = 0; i < 6; i++) {
-        ranksPlayer[getRank(cardArray)]++
-        suitsPlayer[getRank(cardArray)]++
+    let retNow = 0
+    let returnString = ''
+    if(retNow == 1) {
+        return returnString
+    }
+
+    if(printDebug == 1) {
+        console.log(cardArray)
+        console.log(boardArray)
+    }
+
+    for(i = 0; i < cardCount; i++) {
+        ranksPlayer[getRank(cardArray[i])]++
+        suitsPlayer[getSuit(cardArray[i])]++
     }
 
     for(i = 0; i < 5; i++) {
-        ranksBoard[getRank(cardArray)]++
-        suitsBoard[getRank(cardArray)]++
+        ranksBoard[getRank(boardArray[i])]++
+        suitsBoard[getSuit(boardArray[i])]++
     }
 
+    if(printDebug == 1) {
+        for(i = 0; i < 13; i++) {
+            console.log("RP[" + i + "] = " + ranksPlayer[i])
+        }
+        for(i = 0; i < 13; i++) {
+            console.log("RB[" + i + "] = " + ranksBoard[i])
+        }
+        for(i = 0; i < 4; i++) {
+            console.log("SP[" + i + "] = " + suitsPlayer[i])
+        }
+        for(i = 0; i < 4; i++) {
+            console.log("SB[" + i + "] = " + suitsBoard[i])
+        }
+    }
+    
     for(i = 0; i < 13; i++) {
         if(ranksPlayer[i] > 2) 
             ranksPlayerM2[i] = 2
@@ -54,7 +84,7 @@ export function CalculateHighFull(cardArray, boardArray) {
             ranksPlayerM1[i] = ranksPlayer[i]
         
         if(ranksBoard[i] > 3) 
-            ranksBoardM3[i] = 2
+            ranksBoardM3[i] = 3
         else 
             ranksBoardM3[i] = ranksBoard[i]
         if(ranksBoard[i] > 1) 
@@ -76,7 +106,7 @@ export function CalculateHighFull(cardArray, boardArray) {
             suitsPlayerM1[i] = suitsPlayer[i]
         
         if(suitsBoard[i] > 3) 
-            suitsBoardM3[i] = 2
+            suitsBoardM3[i] = 3
         else 
             suitsBoardM3[i] = suitsBoard[i]
         if(suitsBoard[i] > 1) 
@@ -87,12 +117,25 @@ export function CalculateHighFull(cardArray, boardArray) {
         suits[i] = suitsPlayer[i] + suitsBoard[i]
     }
 
+    retNow = 0
+    if(retNow == 1) {
+        return returnString
+    }
     //check for straight flush
     let isFlush = -1
 
+    let debugFlush = 0
+
     for(i = 0; i < 4; i++) {
-        if(suitsPlayer[i] >= 2 && suitsBoard[i] >= 3)
+        if(suitsPlayerM2[i] >= 2 && suitsBoardM3[i] >= 3) {    
             isFlush = i
+            if(debugFlush == 1) {
+                console.log("SPM2[" + i + "]: " + suitsPlayerM2[i])
+                console.log("SBM3[" + i + "]: " + suitsBoardM3[i])
+                console.log("SP  [" + i + "]: " + suitsPlayer[i])
+                console.log("SB  [" + i + "]: " + suitsBoard[i])
+            }
+        }
     }
 
     let totalCount = 0
@@ -127,10 +170,10 @@ export function CalculateHighFull(cardArray, boardArray) {
                 returnString = '9'
                 straightRank = i + 4
                 if(straightRank >= 10) {
-                    returnString += i + '00000000'
+                    returnString += straightRank + '00000000'
                 }
                 else {
-                    returnString += '0' + i + '00000000'
+                    returnString += '0' + straightRank + '00000000'
                 }
                 return returnString
             }
@@ -151,9 +194,9 @@ export function CalculateHighFull(cardArray, boardArray) {
     for(i = 12; i >= 0; i--) {
         if(ranksPlayerM2[i] + ranksBoardM3[i] == 4) {
             if(i >= 10)
-                returnString = '9' + i
+                returnString = '8' + i
             else   
-                returnString = '90' + i
+                returnString = '80' + i
             for(j = 12; j >= 0; j--) {
                 if(j != i) {
                     if(ranksPlayerM2[i] == 2 && ranksBoard[j] >= 1) {
@@ -177,16 +220,34 @@ export function CalculateHighFull(cardArray, boardArray) {
         }
     }
 
+    
+    retNow = 0
+    if(retNow == 1) {
+        return returnString
+    }
+
+    let debugFullHouse = 0
+
     let tripsDigit = -1
     //check for full house
     for(i = 12; i >= 0; i--) {
+
+        if(debugFullHouse == 1) {
+            console.log("RPM2[" + i + "]: " + ranksPlayerM2[i])
+            console.log("RPB3[" + i + "]: " + ranksBoardM3[i])
+
+        }
         if(ranksPlayerM2[i] + ranksBoardM3[i] >= 3) {
-            tripsDigit = i
+            if(debugFullHouse == 1) {
+                console.log("TRIPS: " + i)
+            }
+            if(tripsDigit == -1)
+                tripsDigit = i
             for(j = 12; j >= 0; j--) {
                 if(i != j) {
-                    if((ranksPlayerM2[i] == 2 && ranksBoardM3[i] >= 2)
+                    if((ranksPlayerM2[i] >= 2 && ranksBoardM3[j] >= 2)
                         || (ranksPlayerM2[i] == 1 && ranksPlayerM2[j] >= 1 && ranksBoardM3[j] >= 1)
-                        || (ranksPlayerM2[i] == 0 && ranksBoardM3[j] >= 2)
+                        || (ranksPlayerM2[i] == 0 && ranksPlayerM2[j] >= 2)
                         ) {
                         returnString = '7'
                         if(i >= 10)
@@ -204,6 +265,9 @@ export function CalculateHighFull(cardArray, boardArray) {
             }
         }
     }
+
+    
+
 
     let singlePlayerCount = 0
     let singleBoardCount = 0
@@ -231,10 +295,17 @@ export function CalculateHighFull(cardArray, boardArray) {
     }
 
     //check for straight
+    let debugStraight = 0
+
+
     let ranksTotalM1 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
     for(i = 0; i < 13; i++) {
-        if(ranksPlayer[i] > 0 || ranksBoard[i] > 0)
-            ranksTotalM1[i] = 0
+        if(ranksPlayer[i] > 0 || ranksBoard[i] > 0) {
+            ranksTotalM1[i] = 1
+        }
+        if(debugStraight == 1)
+            console.log("RTM[" + i + "] " + ranksTotalM1[i])
     }
     playerCount = ranksPlayerM1[12] + ranksPlayerM1[11] + ranksPlayerM1[10]
         + ranksPlayerM1[9]
@@ -244,19 +315,32 @@ export function CalculateHighFull(cardArray, boardArray) {
         + ranksTotalM1[9]
 
     let straightRank
+
+
+    if(debugStraight == 1) {
+        console.log(ranksPlayerM2)
+        console.log(ranksBoardM3)
+    }
     for(i = 8; i >= 0; i--) {
         playerCount += ranksPlayerM1[i]
         boardCount += ranksBoardM1[i]
         totalCount += ranksTotalM1[i]
 
+        if(debugStraight == 1) {
+            console.log("PC[" + i + "]: " + playerCount)
+            console.log("BC[" + i + "]: " + boardCount)
+            console.log("TC[" + i + "]: " + totalCount)
+        }
+
+
         if(playerCount >= 2 && boardCount >= 3 && totalCount == 5) {
             returnString = '5'
             straightRank = i + 4
             if(straightRank >= 10) {
-                returnString += i + '00000000'
+                returnString += straightRank + '00000000'
             }
             else {
-                returnString += '0' + i + '00000000'
+                returnString += '0' + straightRank + '00000000'
             }
             return returnString
         }
@@ -267,95 +351,153 @@ export function CalculateHighFull(cardArray, boardArray) {
 
     }
 
+    retNow = 0
+    if(retNow == 1) {
+        return returnString
+    }
+
     playerCount += ranksPlayerM1[12]
     boardCount += ranksBoardM1[12]
-    totalCount += ranksTotalM1[12]
+    totalCount += ranksTotalM1[12]        
+    
+    if(debugStraight == 1) {
+        console.log("PC[" + i + "]: " + playerCount)
+        console.log("BC[" + i + "]: " + boardCount)
+        console.log("TC[" + i + "]: " + totalCount)
+    }
 
     if(playerCount >= 2 && boardCount >= 3 && totalCount == 5) {
         returnString = '50300000000'
         return returnString
     }
 
+    let debugTrips = 0
 
     //check for trips (combined with full house check)
     if(tripsDigit != -1) {
         returnString = '4'
+        if(debugTrips == 1)
+            console.log("TD: " + tripsDigit)
         if(tripsDigit >= 10)
-            returnString += i
+            returnString += tripsDigit
         else
-            returnString += '0' + i
-        playerCount = ranksPlayer[tripsDigit]
+            returnString += '0' + tripsDigit
+        playerCount = ranksPlayerM2[tripsDigit]
         boardCount = ranksBoardM3[tripsDigit]
 
-        for(i = 12; i >= 0 && (playerCount + boardCount) < 5; i--) {
-            if(i != tripsDigit && playerCount < 2 && ranksPlayer[i] > 0) {
-                playerCount++
-                if(i >= 10)
-                    returnString += i
-                else
-                    returnString += '0' + i
-            }
-        
-            if(i != tripsDigit && boardCount < 3 && ranksBoard[i] > 0) {
-                boardCount++
-                if(i >= 10)
-                    returnString += i
-                else
-                    returnString += '0' + i
+        if(playerCount == 3 && boardCount == 1) {
+            //not sure how to handle
+        }
+        else {
+
+            for(i = 12; i >= 0 && (playerCount + boardCount) < 5; i--) {
+                if(i != tripsDigit && playerCount < 2 && ranksPlayer[i] > 0) {
+                    playerCount++
+                    if(i >= 10)
+                        returnString += i
+                    else
+                        returnString += '0' + i
+                }
+            
+                if(i != tripsDigit && boardCount < 3 && ranksBoard[i] > 0) {
+                    boardCount++
+                    if(i >= 10)
+                        returnString += i
+                    else
+                        returnString += '0' + i
+                }
             }
         }
-        returnString += '00'
+        returnString += '0000'
+        return returnString
     }
 
+    
+
+    retNow = 0
+    if(retNow == 1) {
+        return returnString
+    }
     let firstPair = -1
 
     let foundSecondPair = -1
+
+    let debugTwoPair = 0
+    let skipTwoPair = 0
     //check for 2 pair
     for(i = 12; i >= 0; i--) {
+        playerCount = 0
+        boardCount = 0
         if(ranksPlayerM2[i] + ranksBoardM3[i] == 2) {
-            firstPair = i
+            if(firstPair == -1)
+                firstPair = i
+            
+            if(debugTwoPair == 1) {
+                console.log(ranksPlayerM2)
+                console.log(ranksBoardM3)
+            }
             playerCount = ranksPlayerM2[i]
             boardCount = ranksBoardM3[i]
-            for(j = i - 1; j >= 0; j--) {
-                if(ranksPlayerM2[i] - playerCount >= 2) {
-                    foundSecondPair = 1
+            
+
+            for(j = i - 1; skipTwoPair != 1 && j >= 0; j--) {
+                if(debugTwoPair == 1) {
+                    console.log("J: " + j)
+                    console.log("RPM2[" + j + "] " + ranksPlayerM2[j])
+                    console.log(playerCount)
+                    console.log("RBM3[" + j + "] " + ranksBoardM3[j])
+                    console.log(boardCount)
+                }
+               
+                if(playerCount == 0 && ranksPlayerM2[j] >= 2) {
+                    foundSecondPair = j
+                    j = 0
                     playerCount = 2
                 }
-                if(ranksBoardM3[i] - boardCount >= 2) {
-                    foundSecondPair = 1
+                else if(boardCount <= 1 && ranksBoardM3[j] >= 2) {
+                    foundSecondPair = j
+                    j = 0
                     boardCount += 2
                 }
-                if(ranksPlayerM2[i] - playerCount >= 1 && ranksBoardM3[i] - boardCount >= 1) {
-                    foundSecondPair = 1
+                else if(playerCount <= 1 && ranksPlayerM2[j] >= 1 && ranksBoardM3[j] >= 1) {
+                    foundSecondPair = j
+                    if(debugTwoPair == 1) {
+                        console.log("FOUND IT: " + j)
+                    }
+                    j = 0
                     boardCount++
                     playerCount++
                 }
             }
-            if(foundSecondPair == 1) {
+
+            if(debugTwoPair == 1) {
+                console.log("FSP: " + foundSecondPair)
+            }
+            if(foundSecondPair != -1) {
                 returnString = '3'
                 if(i >= 10)
                     returnString += i
                 else
                     returnString += '0' + i
-                if(j >= 10)
-                    returnString += j
+                if(foundSecondPair >= 10)
+                    returnString += foundSecondPair
                 else
-                    returnString += '0' + j
-                for(i = 12; i >= 0 && (playerCount + boardCount) < 5; i--) {
-                    if(playerCount < 2 && ranksPlayer[i] > 0) {
+                    returnString += '0' + foundSecondPair
+                for(j = 12; j >= 0 && (playerCount + boardCount) < 5; j--) {
+                    if(playerCount < 2 && ranksPlayer[j] > 0 && j != i && j != foundSecondPair) {
                         playerCount++
-                        if(i >= 10)
-                            returnString += i
+                        if(j >= 10)
+                            returnString += j
                         else
-                            returnString += '0' + i
+                            returnString += '0' + j
                     }
                 
-                    if(boardCount < 3 && ranksBoard[i] > 0) {
+                    if(boardCount < 3 && ranksBoard[j] > 0 && j != i && j != foundSecondPair) {
                         boardCount++
-                        if(i >= 10)
-                            returnString += i
+                        if(j >= 10)
+                            returnString += j
                         else
-                            returnString += '0' + i
+                            returnString += '0' + j
                     }
                 }            
 
@@ -365,23 +507,30 @@ export function CalculateHighFull(cardArray, boardArray) {
         }
     }
 
-
+    retNow = 0
+    if(retNow == 1) {
+        return returnString
+    }
 
     //check for 1 pair
 
     if(firstPair != -1) {
         playerCount = ranksPlayerM2[firstPair]
         boardCount = ranksBoardM3[firstPair]
+        returnString += '2'
+        if(firstPair < 10)
+            returnString += '0'
+        returnString += firstPair
+
         for(i = 12; i >= 0 && (playerCount + boardCount) < 5; i--) {
-            if(playerCount < 2 && ranksPlayer[i] > 0) {
+            if(i != firstPair && playerCount < 2 && ranksPlayer[i] > 0) {
                 playerCount++
                 if(i >= 10)
                     returnString += i
                 else
                     returnString += '0' + i
             }
-        
-            if(boardCount < 3 && ranksBoard[i] > 0) {
+            else if(i != firstPair && boardCount < 3 && ranksBoard[i] > 0) {
                 boardCount++
                 if(i >= 10)
                     returnString += i
@@ -397,7 +546,7 @@ export function CalculateHighFull(cardArray, boardArray) {
 
     //else no pair
 
-    retrunString = '1'
+    returnString = '1'
 
     for(i = 12; i >= 0 && (singlePlayerCount + singleBoardCount) < 5; i--) {
         if(singlePlayerCount < 2 && ranksPlayer[i] > 0) {
@@ -613,7 +762,7 @@ export default function CalculateHigh(cards) {
         return returnString
     }
     if(pairCount == 1) {
-        //is trips
+        //is 1 pair
         returnString = '2'
         if(pairDigit[0] < 10) {
             returnString = returnString + '0'
@@ -660,11 +809,11 @@ export default function CalculateHigh(cards) {
     return returnString;
 }
 
-const getRank = (card) => {
+export const getRank = (card) => {
     return (card % 13);
 }
 
-const getSuit = (card) => {
+export const getSuit = (card) => {
     if(card < 13)
         return 0;
     if(card < 26)
@@ -864,7 +1013,7 @@ export const CalculateHighVar = (card1, card2, card3, card4, card5) => {
         return returnString
     }
     if(pairCount == 1) {
-        //is trips
+        //is one pair
         returnString = '2'
         if(pairDigit[0] < 10) {
             returnString = returnString + '0'
