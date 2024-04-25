@@ -191,6 +191,8 @@ const App = () => {
           
           <Button title="Play PLO4" onPress={() => chooseGame('PLO4')}></Button>
           <Button title="Play Double Board PLO" onPress={() => chooseGame('DBPLO4')}></Button>
+          <Button title="Play Badacey" onPress={() => chooseGame('Badacey')}></Button>
+          <Button title="Play Badeucey" onPress={() => chooseGame('Badeucey')}></Button>
           {/*
           <Button title="Play PLO5" onPress={() => chooseGame('PLO5')}></Button>
           <Button title="Play PLO6" onPress={() => chooseGame('PLO6')}></Button>

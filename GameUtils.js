@@ -13,6 +13,10 @@ export const getPlayerCardCount = (game) => {
         return 6
     if(game === 'DBPLO4')
         return 4
+    if(game === 'Badacey')
+        return 5
+    if(game === 'Badeucey')
+        return 5
 }
 
 export const getBoardCount = (game) => {
@@ -28,6 +32,10 @@ export const getBoardCount = (game) => {
         return 1
     if(game === 'DBPLO4')
         return 2
+    if(game === 'Badacey')
+        return 0
+    if(game === 'Badeucey')
+        return 0
 }
 
 export const getCardsPerBoard = (game) => {
@@ -43,6 +51,10 @@ export const getCardsPerBoard = (game) => {
         return 5
     if(game === 'DBPLO4')
         return 5
+    if(game === 'Badacey')
+        return 0
+    if(game === 'Badeucey')
+        return 0
 }
 
 export const setGameEquity = (playerWins, playerScoop, numTrials) => {

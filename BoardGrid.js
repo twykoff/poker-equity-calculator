@@ -65,6 +65,9 @@ const BoardGrid = (props, ref) => {
   }
 
   const setBoardFocus = () => {
+    if(boardCount == 0) {
+      return
+    }
     if(focusBoard != 0)
       clearFocus(focusBoard, focusCard)
     addFocus(1,0)
@@ -81,6 +84,9 @@ const BoardGrid = (props, ref) => {
     let newFocusBoard = focusBoard
     let newFocusCard = focusCard
 
+    if(boardCount == 0) {
+      return
+    }
 
     if(currentFocusCard < cardCount - 1) {
       setFocusCard(currentFocusCard + 1)
@@ -114,6 +120,9 @@ const BoardGrid = (props, ref) => {
   }
 
   const fullClearFocus = () => { 
+    if(boardCount == 0) {
+      return
+    }
     if(focusBoard != 0)
       clearFocus(focusBoard, focusCard)
   }

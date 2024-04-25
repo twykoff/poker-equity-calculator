@@ -17,23 +17,6 @@ import CalculateHigh from './CalculateHigh';
     let playerHighScore = []
     for(i = 0; i < playerCount; i++) {
       playerHighScore[i] = calculatePlayerScore(cardArray[i], boardArray[0])
-      //playerHighScore[i] = '10000000000'
-    }
-
-
-    
-    if(displayHighScores || displayLowScores) {
-      //console.log(cardArray)
-      //console.log(newBoardCards)
-    }
-    
-    if(displayHighScores) {
-      //console.log("P1S: " + playerOneHighScore)
-      //console.log("P2S: " + playerTwoHighScore)
-    }
-    if(displayLowScores) {
-      //console.log("P1L: " + playerOneLowScore)
-      //console.log("P2L: " + playerTwoLowScore)
     }
 
     let maxHighScore = '00000000000'

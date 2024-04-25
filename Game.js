@@ -5,6 +5,7 @@ import { runTrialBigOh } from './BigOh'
 import { runTrialNLHE } from './NLHE'
 import { runTrialPLO4 } from './PLOH4'
 import { runTrialDBPLO4 } from './DBPLO4'
+import { runTrialBadacey } from './Badacey'
 
 
 import { getRandomCards, setGameEquity, setUpPlayerBoardRandom } from './GameUtils';
@@ -38,6 +39,7 @@ const Game = (props, ref) => {
   const PLO5Ref = useRef()
   const PLO6Ref = useRef()
   const DBPLO4Ref = useRef()
+  const badaceyRef = useRef()
   
   useImperativeHandle(ref, () => ({
     calculateEquity: (gameName, path) => {calculateEquity(gameName, path)},
@@ -216,6 +218,8 @@ const Game = (props, ref) => {
       return runTrialPLO4(cardArray, boardArray, playerCount)
     if(gameName === 'DBPLO4')
       return runTrialDBPLO4(cardArray, boardArray, playerCount)
+    if(gameName === 'Badacey' || gameName === 'Badeucey')
+      return runTrialBadacey(cardArray, playerCount, gameName)
     /*
     if(gameName === 'PLO5')
       PLO5Ref.current.runTrial()
