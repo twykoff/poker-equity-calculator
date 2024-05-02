@@ -1,5 +1,5 @@
-import CalculateHigh, { CalculateHighXCards } from './CalculateHigh';
-import {CalculateHighFull} from './CalculateHigh'
+const calculateHigh = require('./CalculateHigh.js');
+
 import CalculateRazz, { CalculateLow8OrBetterXCards } from './CalculateRazz';
 import {Calculate8BetterFull} from './CalculateRazz'
 
@@ -12,13 +12,14 @@ import {Calculate8BetterFull} from './CalculateRazz'
 
     let playerHighScore = []
     for(i = 0; i < playerCount; i++) {
-      playerHighScore[i] = CalculateHighXCards(cardArray[i], 7)
+      playerHighScore[i] = calculateHigh.calculateHighXCards(cardArray[i], 7)
       //playerHighScore[i] = '10000000000'
     }
 
     
     let playerLowScore = []
     for(i = 0; i < playerCount; i++) {
+      //need to change to true razz no qualifier
       playerLowScore[i] = CalculateLow8OrBetterXCards(cardArray[i], 7)
     }
 

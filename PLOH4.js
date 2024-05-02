@@ -1,4 +1,4 @@
-import CalculateHigh from './CalculateHigh';
+const calculateHigh = require('./CalculateHigh.js');
 
 
 
@@ -85,7 +85,7 @@ import CalculateHigh from './CalculateHigh';
             for(n = m + 1; n < 5; n++) {
               sendArray[4] = localBoardArray[n];
              
-              score = CalculateHigh(sendArray);
+              score = calculateHigh.calculateHigh(sendArray);
               //score = '10000000000'
               if(score > returnScore) {
                 returnScore = score;

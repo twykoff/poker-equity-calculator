@@ -1,4 +1,4 @@
-import { CalculateHighXCards } from './CalculateHigh';
+const calculateHigh = require('./CalculateHigh.js)';
 
 import {getCardReverse} from './GameUtils'
 
@@ -64,7 +64,7 @@ export const calculatePlayerScore = (cardArray, boardArray) => {
   
   sendArray = [0,0,0,0,0]
 
-  return CalculateHighXCards([cardArray[0], cardArray[1], boardArray[0], boardArray[1],
+  return calculateHigh.calculateHighXCards([cardArray[0], cardArray[1], boardArray[0], boardArray[1],
     boardArray[2], boardArray[3], boardArray[4]], 7)
 
  

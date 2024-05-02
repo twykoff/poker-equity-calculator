@@ -1,5 +1,5 @@
-import CalculateHigh from './CalculateHigh';
-import { CalculateHighXCards } from './CalculateHigh';
+const calculateHigh = require('./CalculateHigh.js');
+
 
 import {getCardReverse} from './GameUtils'
 
@@ -11,7 +11,7 @@ export const runTrialStud = (cardArray, playerCount) => {
   
   let playerHighScore = []
   for(i = 0; i < playerCount; i++) {
-    playerHighScore[i] = CalculateHighXCards(cardArray[i], 7)
+    playerHighScore[i] = calculateHigh.calculateHighXCards(cardArray[i], 7)
   }
   
   let maxHighScore = '00000000000'

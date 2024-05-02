@@ -1,7 +1,8 @@
-import CalculateHigh from './CalculateHigh';
-import {CalculateHighFull} from './CalculateHigh'
+const calculateHigh = require('./CalculateHigh.js');
 import CalculateRazz from './CalculateRazz';
-import CalculateBadugi from './CalculateBadugi'
+
+const calculateBadugi = require('./CalculateBadugi.js')
+
 import {Calculate8BetterFull} from './CalculateRazz'
 
 
@@ -11,23 +12,19 @@ import {Calculate8BetterFull} from './CalculateRazz'
     let displayLowScores = true
     let displayHighScores = true
 
-    console.log("PC: " + playerCount)
     let playerRazzScore = []
     for(i = 0; i < playerCount; i++) {
       if(game == 'Badacey')
         playerRazzScore[i] = CalculateRazz(cardArray[i])
       else
-        playerRazzScore[i] = CalculateHigh(cardArray[i])
+        playerRazzScore[i] = calculateHigh.calculateHigh(cardArray[i])
 
     }
 
     
     let playerBadugiScore = []
     for(i = 0; i < playerCount; i++) {
-      playerBadugiScore[i] = CalculateBadugi(cardArray[i], game)
-
-      console.log("I " + i)
-      console.log(playerBadugiScore[i])
+      playerBadugiScore[i] = calculateBadugi.calculateBadugi(cardArray[i], game)
     }
 
     let minRazzScore = '99999999999'

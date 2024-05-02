@@ -1,4 +1,5 @@
-import CalculateHigh from './CalculateHigh';
+const calculateHigh = require('./CalculateHigh.js');
+
 import CalculateRazz from './CalculateRazz';
 
 import { getRandomCards, getCard } from './GameUtils';
@@ -222,7 +223,7 @@ const PLOH5 = (props, ref) => {
             sendArray[3] = boardArray[m];
             for(n = m + 1; n < 5; n++) {
               sendArray[4] = boardArray[n];
-              score = CalculateHigh(sendArray);
+              score = calculateHigh.calculateHigh(sendArray);
               if(score > returnScore) {
                 returnScore = score;
               }

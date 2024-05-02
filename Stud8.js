@@ -1,5 +1,5 @@
-import CalculateHigh, { CalculateHighXCards } from './CalculateHigh';
-import {CalculateHighFull} from './CalculateHigh'
+const calculateHigh = require('./CalculateHigh.js');
+
 import CalculateRazz, { CalculateLow8OrBetterXCards } from './CalculateRazz';
 import {Calculate8BetterFull} from './CalculateRazz'
 
@@ -12,7 +12,7 @@ import {Calculate8BetterFull} from './CalculateRazz'
 
     let playerHighScore = []
     for(i = 0; i < playerCount; i++) {
-      playerHighScore[i] = CalculateHighXCards(cardArray[i], 7)
+      playerHighScore[i] = calculateHigh.calculateHighXCards(cardArray[i], 7)
       //playerHighScore[i] = '10000000000'
     }
 
@@ -125,7 +125,7 @@ import {Calculate8BetterFull} from './CalculateRazz'
             for(n = m + 1; n < 5; n++) {
               sendArray[4] = localBoardArray[n];
               if(game == 'high') {
-                score = CalculateHigh(sendArray);
+                score = calculateHigh.calculateHigh(sendArray);
                 //score = '10000000000'
                 if(score > returnScore) {
                   returnScore = score;

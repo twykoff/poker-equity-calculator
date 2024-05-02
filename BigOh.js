@@ -1,4 +1,4 @@
-import CalculateHigh from './CalculateHigh';
+const calculateHigh require('./CalculateHigh.js');
 import {CalculateHighFull} from './CalculateHigh'
 import CalculateRazz from './CalculateRazz';
 import {Calculate8BetterFull} from './CalculateRazz'
@@ -138,7 +138,7 @@ import {Calculate8BetterFull} from './CalculateRazz'
             for(n = m + 1; n < 5; n++) {
               sendArray[4] = localBoardArray[n];
               if(game == 'high') {
-                score = CalculateHigh(sendArray);
+                score = calculateHigh.calculateHigh(sendArray);
                 //score = '10000000000'
                 if(score > returnScore) {
                   returnScore = score;

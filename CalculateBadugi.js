@@ -1,6 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, SafeAreaView, View, TextInput, Button } from 'react-native';
-import { getPlayerCardCount } from './GameUtils';
+module.exports = {
+    calculateBadugi: (cards, game) => CalculateBadugi(cards, game)
+}
 
 
 function getRank(card, game) {
@@ -24,7 +24,7 @@ export const getSuit = (card) => {
     return 3;
 }
 
-export default function CalculateBadugi(cards, game) {
+const CalculateBadugi = (cards, game) => {
 
     let cardCount = cards.length
     let i, j, k, m;
@@ -126,7 +126,7 @@ const calculateSubset = (cards, game) => {
     for(i = 12; i >= 0; i--) {
         
         if(ranks[i] > 1) {
-            console.log("RANKS " + i + " " + ranks[i])
+            return '999999999'
         }
         if(ranks[i] == 1) {
             if(i == 0) {

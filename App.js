@@ -137,7 +137,7 @@ const App = () => {
     //testNLHE()
     //testOmaha6()
     //testLow()
-    testLow8()
+    //testLow8()
     cardGridRef.current.clearCards()
     playerGridRef.current.clearCards()
     boardGridRef.current.clearCards()

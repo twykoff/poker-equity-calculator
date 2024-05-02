@@ -1,9 +1,13 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, SafeAreaView, View, TextInput, Button } from 'react-native';
+module.exports = {
+    calculateHighFull: (cardArray, boardArray, cardCount) => CalculateHighFull(cardArray, boardArray, cardCount),
+    calculateHigh: (cards) => CalculateHigh(cards),
+    calculateHighXCards: (cards, cardCount) => CalculateHighXCards(cards, cardCount),
+    calculateHighVar: (card1, card2, card3, card4, card5) => CalculateHighVar(card1, card2, card3, card4, card5)
+}
 
 
 
-export function CalculateHighFull(cardArray, boardArray, cardCount) {
+const CalculateHighFull = (cardArray, boardArray, cardCount) => {
     //for now this is plo
 
 
@@ -571,7 +575,7 @@ export function CalculateHighFull(cardArray, boardArray, cardCount) {
 }
 
 
-export default function CalculateHigh(cards) {
+const CalculateHigh = (cards) => {
 
     let i;
     card1 = -1;
@@ -803,7 +807,7 @@ export default function CalculateHigh(cards) {
     return returnString;
 }
 
-export function CalculateHighXCards(cards, cardCount) {
+const CalculateHighXCards = (cards, cardCount) => {
     let i;
 
     let ranks, suits;
@@ -1034,7 +1038,7 @@ export const getSuit = (card) => {
     return 3;
 }
 
-export const CalculateHighVar = (card1, card2, card3, card4, card5) => {
+const CalculateHighVar = (card1, card2, card3, card4, card5) => {
 
 
     let cardCount;
