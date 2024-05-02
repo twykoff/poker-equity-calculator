@@ -5,6 +5,8 @@ export const getPlayerCardCount = (game) => {
         return 2
     if(game === 'BigOh')
         return 5
+    if(game === 'PLO8')
+        return 4
     if(game === 'PLO4')
         return 4
     if(game === 'PLO5')
@@ -13,16 +15,46 @@ export const getPlayerCardCount = (game) => {
         return 6
     if(game === 'DBPLO4')
         return 4
+    if(game === 'DBPLO5')
+        return 5
+    if(game === 'DBPLO6')
+        return 6
+    if(game === 'Best Best 4')
+        return 4
+    if(game === 'Best Best 5')
+        return 5
+    if(game === 'Derailment 4')
+        return 4
+    if(game === 'Derailment 5')
+        return 5
     if(game === 'Badacey')
         return 5
     if(game === 'Badeucey')
         return 5
+    if(game === 'Badugi')
+        return 4
+    if(game === 'Stud')
+        return 7
+    if(game === 'Stud 8 or Better')
+        return 7
+    if(game === 'Stud Hi Lo')
+        return 7
+    if(game === 'Razz')
+        return 7
+    if(game === '2 To 7')
+        return 5    
+    if(game === '5 Card Draw')
+        return 5    
+    if(game === 'Ace to 5 Draw')
+        return 5    
 }
 
 export const getBoardCount = (game) => {
     if(game === 'NLHE')
         return 1
     if(game === 'BigOh')
+        return 1
+    if(game === 'PLO8')
         return 1
     if(game === 'PLO4')
         return 1
@@ -32,16 +64,46 @@ export const getBoardCount = (game) => {
         return 1
     if(game === 'DBPLO4')
         return 2
+    if(game === 'DBPLO5')
+        return 2
+    if(game === 'DBPLO6')
+        return 2
+    if(game === 'Best Best 4')
+        return 2
+    if(game === 'Best Best 5')
+        return 2
+    if(game === 'Derailment 4')
+        return 3
+    if(game === 'Derailment 5')
+        return 3
     if(game === 'Badacey')
         return 0
     if(game === 'Badeucey')
         return 0
+    if(game === 'Badugi')
+        return 0
+    if(game === 'Stud')
+        return 0
+    if(game === 'Stud 8 or Better')
+        return 0
+    if(game === 'Stud Hi Lo')
+        return 0
+    if(game === 'Razz')
+        return 0
+    if(game === '2 To 7')
+        return 0
+    if(game === '5 Card Draw')
+        return 0    
+    if(game === 'Ace to 5 Draw')
+        return 0  
 }
 
 export const getCardsPerBoard = (game) => {
     if(game === 'NLHE')
         return 5
     if(game === 'BigOh')
+        return 5
+    if(game === 'PLO8')
         return 5
     if(game === 'PLO4')
         return 5
@@ -51,10 +113,38 @@ export const getCardsPerBoard = (game) => {
         return 5
     if(game === 'DBPLO4')
         return 5
+    if(game === 'DBPLO5')
+        return 5
+    if(game === 'DBPLO6')
+        return 5
+    if(game === 'Best Best 4')
+        return 5
+    if(game === 'Best Best 5')
+        return 5
+    if(game === 'Derailment 4')
+        return 5
+    if(game === 'Derailment 5')
+        return 5
     if(game === 'Badacey')
         return 0
     if(game === 'Badeucey')
         return 0
+    if(game === 'Badugi')
+        return 0
+    if(game === 'Stud')
+        return 0
+    if(game === 'Stud 8 or Better')
+        return 0
+    if(game === 'Stud Hi Lo')
+        return 0
+    if(game === 'Razz')
+        return 0
+    if(game === '2 To 7')
+        return 0
+    if(game === '5 Card Draw')
+        return 0    
+    if(game === 'Ace to 5 Draw')
+        return 0  
 }
 
 export const setGameEquity = (playerWins, playerScoop, numTrials) => {

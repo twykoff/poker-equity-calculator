@@ -90,6 +90,49 @@ export function CalculateLow8OrBetter(cards) {
     return returnString;
 };
 
+export function CalculateLow8OrBetterXCards(cards, cardCount) {
+    let i;
+    let ranks;
+
+    ranks = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    
+    
+    for(i = 0; i < cardCount; i++) {
+        ranks[getRank(cards[i])]++;
+    }
+
+
+    let returnString;
+
+
+    let quadCount, quadDigit;
+    let tripCount, tripDigit;
+    let pairCount, pairDigit;
+    let singleCount, singleDigit;
+
+    quadCount = 0;
+    quadDigit = 0;
+    tripCount = 0;
+    tripDigit = 0;
+    pairCount = 0;
+    pairDigit = [0, 0];
+    singleCount = 0;
+    singleDigit = [0, 0, 0, 0, 0];
+
+    returnString = ''
+
+    for(i = 0; i < 8 && singleCount < 5; i++) {
+        if(ranks[i] >= 1) {
+            returnString = '0' + i + returnString
+        }
+    }
+
+    if(singleCount == 5)
+        return '1' + returnString
+
+    return '99999999999'
+};
+
 export function CalculateLowOmaha8(cardArray, boardArray, cardCount) {
     //for now this is 6 card plo
 

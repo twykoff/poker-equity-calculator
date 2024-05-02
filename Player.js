@@ -98,10 +98,6 @@ const Player = (props, ref) => {
     let i
     const oldCardCount = cardCount
 
-    /*
-    console.log(oldCardCount)
-    console.log(cardCountParam)
-    */
     
     if(cardCountParam > oldCardCount) {
       setCardCount(cardCountParam)

@@ -3,10 +3,12 @@ import CalculateRazz from './CalculateRazz';
 
 import { runTrialBigOh } from './BigOh'
 import { runTrialNLHE } from './NLHE'
-import { runTrialPLO4 } from './PLOH4'
+import { runTrialPLO4 } from './PLOH4.js'
 import { runTrialDBPLO4 } from './DBPLO4'
 import { runTrialBadacey } from './Badacey'
-
+import { runTrialStud } from './Stud.js';
+import { runTrialStud8 } from './Stud8.js';
+import { runTrialStudHiLoReg } from './StudHiLoReg.js';
 
 import { getRandomCards, setGameEquity, setUpPlayerBoardRandom } from './GameUtils';
 import { getBoardCards, getBoardCountSlice, getCardsPerBoard } from './src/Redux/boardSlice'
@@ -142,7 +144,7 @@ const Game = (props, ref) => {
     
     
     let i, j
-    let numTrials = 10000
+    let numTrials = 1000
     let d1 = Date.now()
     let d2
     let diff
@@ -220,6 +222,12 @@ const Game = (props, ref) => {
       return runTrialDBPLO4(cardArray, boardArray, playerCount)
     if(gameName === 'Badacey' || gameName === 'Badeucey')
       return runTrialBadacey(cardArray, playerCount, gameName)
+    if(gameName === 'Stud')
+      return runTrialStud(cardArray, playerCount)
+    if(gameName === 'Stud8')
+      return runTrialStud8(cardArray, playerCount)
+    if(gameName === 'StudHiLoReg')
+      return runTrialStudHiLoReg(cardArray, playerCount)
     /*
     if(gameName === 'PLO5')
       PLO5Ref.current.runTrial()

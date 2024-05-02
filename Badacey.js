@@ -18,12 +18,16 @@ import {Calculate8BetterFull} from './CalculateRazz'
         playerRazzScore[i] = CalculateRazz(cardArray[i])
       else
         playerRazzScore[i] = CalculateHigh(cardArray[i])
+
     }
 
     
     let playerBadugiScore = []
     for(i = 0; i < playerCount; i++) {
-      playerBadugiScore[i] = calculatePlayerScore(cardArray[i], game)
+      playerBadugiScore[i] = CalculateBadugi(cardArray[i], game)
+
+      console.log("I " + i)
+      console.log(playerBadugiScore[i])
     }
 
     let minRazzScore = '99999999999'
@@ -95,31 +99,4 @@ import {Calculate8BetterFull} from './CalculateRazz'
   
 
 
-  const calculatePlayerScore = (cardArray, game) => {
-    let returnScore;
-    let i;
-    let j;
-    let score;
 
-    returnScore = '99999999999';
-    
-    
-    for(i = 0; i < 2; i++) {
-      for(j = i + 1; j < 3; j++) {
-        for(k = 0; k < 4; k++) {
-          for(m = k + 1; m < 5; m++) {
-            score = CalculateBadugi([cardArray[i], cardArray[j], cardArray[k], cardArray[m]], game);
-            if(score < returnScore) {
-              returnScore = score;
-            }
-          }
-        }
-      }
-    }
-
-    console.log(cardArray)
-    console.log(game)
-    console.log("RET STRING: " + returnScore)
-
-    return returnScore;
-  }

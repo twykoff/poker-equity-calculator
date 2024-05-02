@@ -10,7 +10,9 @@ import {setPlayerCountFunc, setCardsPerPlayer} from './src/Redux/playerSlice'
 
 
 const PlayerGrid = (props, ref) => {
+  
 
+  
   const playerRef = useRef([])
   
   const [playerCount, setPlayerCount] = useState(2)
@@ -27,6 +29,7 @@ const PlayerGrid = (props, ref) => {
   
   const dispatch = useDispatch()
 
+  
   useImperativeHandle(ref, () => ({
     // methods connected to `ref`
     clearCards: () => { clearCards() },
@@ -38,11 +41,11 @@ const PlayerGrid = (props, ref) => {
     getPlayerCount: (setAboveCount) => {getPlayerCount(setAboveCount)},
     setCardsPerPlayer: (newCardsPerPlayer) => {setCardsPerPlayer(newCardsPerPlayer)}
   }))
-
+  
+ 
   const setCardsPerPlayer = (newCardsPerPlayer) => {
     let i
     setCardCount(newCardsPerPlayer)
-    //dispatch(setCardsPerPlayer({cardsPerPlayer: newCardsPerPlayer}))
     for(i = 1; i <= playerCount; i++)
       playerRef.current[i].newCardCount(newCardsPerPlayer)
   }
@@ -190,6 +193,7 @@ const PlayerGrid = (props, ref) => {
   
   return (
     <SafeAreaView>
+      <Text>PlayerGrid</Text>
       <Player playerNumber="1" cardCount={cardCount} removeCard={removeCard} showPlayer={true} 
         ref={el => playerRef.current[1] = el}></Player>
       <Player playerNumber="2" cardCount={cardCount} removeCard={removeCard} showPlayer={true} 
@@ -210,6 +214,7 @@ const PlayerGrid = (props, ref) => {
       
       <Button title="Add Player" onPress={() => addPlayer()} disabled={addDisabled}></Button>
       <Button title="Remove Player" onPress={() => removePlayer()} disabled={removeDisabled}></Button>
+
     </SafeAreaView>
   )}
   

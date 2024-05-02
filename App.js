@@ -1,6 +1,9 @@
 import { useState, useRef} from 'react'
 //mport { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, SafeAreaView, TextInput, Button, ScrollView, Platform, StatusBar, TouchableOpacity, Image} from 'react-native';
+import { StyleSheet, Text, SafeAreaView, TextInput, Button, ScrollView, Platform, StatusBar, Modal} from 'react-native';
+
+
+
 
 import { store } from './src/Redux/store';
 import { Provider } from 'react-redux';
@@ -10,7 +13,9 @@ import {getBoardCards, getBoardsSet, setCardsPerBoard, setBoardCountFunc} from '
 
 
 import CardGrid from './CardGrid';
+
 import PlayerGrid from './PlayerGrid';
+
 import BoardGrid from './BoardGrid';
 import Game from './Game';
 import { getPlayerCardCount, getBoardCount, getCardsPerBoard } from './GameUtils';
@@ -18,15 +23,6 @@ import { getPlayerCardCount, getBoardCount, getCardsPerBoard } from './GameUtils
 import { testNLHE, testOmaha6, testLow, testLow8 } from './Test/BasicTest';
 
 
-import awsExports from './src/aws-exports'
-Amplify.configure(awsExports)
-import { post } from 'aws-amplify/api';
-import { Amplify } from 'aws-amplify';
-
-import { API } from 'aws-amplify'
-
-const myAPI = "lambdatest"
-const path = '/random'; 
 
 
 const AppWrapper = () => {
@@ -41,24 +37,30 @@ const AppWrapper = () => {
 
 const App = () => {
   
+  /*
   const [thisResponse, setResponse] = useState('')
 
   const playerCards = useSelector(getPlayerCards)
   const playerCount = useSelector((state) => getPlayerCount(state))
   const boardCards = useSelector((state) => getBoardCards(state))
+  */
   const cardGridRef = useRef();
   const playerGridRef = useRef();
   const boardGridRef = useRef();
 
+  
   const gameRef = useRef();
 
   const dispatch = useDispatch()
 
-  
+  const [isGameChangeVisible, setGameChangeVisible] = useState(false)
 
+
+  
   const initialGame = 'NLHE'
 
   const [currentGame, setCurrentGame] = useState(initialGame)
+  
   const [cardsPerPlayer, setCardsPerPlayer] = useState(getPlayerCardCount(initialGame))
   const [boardCount, setBoardCount] = useState(getBoardCount(initialGame))
   const [cardsPerBoard, setCPB] = useState(getCardsPerBoard(initialGame))
@@ -117,9 +119,19 @@ const App = () => {
 
       setPlayerFocus()
     }
+
+    setGameChangeVisible(false)
   }
 
 
+
+
+  const showGameChange = () => {
+    setGameChangeVisible(true)
+  }
+  const hideGameChange = () => {
+    setGameChangeVisible(false)
+  }
 
   const clearCards = () => {
     //testNLHE()
@@ -146,13 +158,14 @@ const App = () => {
     }
   }
   
-
+  
   const removeCardPlayer = (cardValue) => {
     cardGridRef.current.addCardBack(cardValue)
     boardGridRef.current.clearFocus()
     setFocusOnBoard(false)
     
-  }  
+  } 
+   
   
   const removeCardBoard = (cardValue) => {
     cardGridRef.current.addCardBack(cardValue)
@@ -170,33 +183,38 @@ const App = () => {
     boardGridRef.current.clearFocus()
     setFocusOnBoard(false)
   }
+  
 
   return (
       <SafeAreaView style={styles.container}>
         <ScrollView>
 
           <Text>GAME: {currentGame} </Text>
-          
+
           <PlayerGrid removeCard={removeCardPlayer} setBoardFocus={setBoardFocus} setPlayerFocus={setPlayerFocus} 
             cardsPerPlayer={cardsPerPlayer} ref={playerGridRef}></PlayerGrid>
+
           <BoardGrid removeCard={removeCardBoard} setBoardFocus={setBoardFocus} ref={boardGridRef} boardCount={boardCount} cardsPerBoard="5"></BoardGrid>
+
           <Button title="Calculate Equity from Server" onPress={() => calculateEquityRemote()}></Button>
           <Button title="Calculate Equity from Local" onPress={() => calculateEquityLocal()}></Button>
           <Button title="Calculate Equity on Phone" onPress={() => calculateEquityOnHardware()}></Button>
           <Button title="Clear Cards" onPress={() => clearCards()}></Button>
-          
+          <Button title="Change Game" onPress={() => showGameChange()} ></Button>       
+            
           <CardGrid pressedButton={pressedButton} ref={cardGridRef}></CardGrid>
-          <Button title="Play BigO" onPress={() => chooseGame('BigOh')}></Button>
-          <Button title="Play NLHE" onPress={() => chooseGame('NLHE')}></Button>
-          
-          <Button title="Play PLO4" onPress={() => chooseGame('PLO4')}></Button>
-          <Button title="Play Double Board PLO" onPress={() => chooseGame('DBPLO4')}></Button>
-          <Button title="Play Badacey" onPress={() => chooseGame('Badacey')}></Button>
-          <Button title="Play Badeucey" onPress={() => chooseGame('Badeucey')}></Button>
-          {/*
-          <Button title="Play PLO5" onPress={() => chooseGame('PLO5')}></Button>
-          <Button title="Play PLO6" onPress={() => chooseGame('PLO6')}></Button>
-          */}
+          <Modal visible={isGameChangeVisible} onRequestClose={() => hideGameChange()}>
+            <ScrollView>
+              <Button title="Play BigO" onPress={() => chooseGame('BigOh')}></Button>
+              <Button title="Play NLHE" onPress={() => chooseGame('NLHE')}></Button>
+              
+              <Button title="Play PLO4" onPress={() => chooseGame('PLO4')}></Button>
+              <Button title="Play Double Board PLO" onPress={() => chooseGame('DBPLO4')}></Button>
+              <Button title="Play Badacey" onPress={() => chooseGame('Badacey')}></Button>
+              <Button title="Play Badacey" onPress={() => chooseGame('Badacey')}></Button>
+              <Button title="Close" onPress={() => hideGameChange()}></Button>
+            </ScrollView>
+          </Modal>
           <Game ref={gameRef}/>
           
         </ScrollView>

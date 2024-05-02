@@ -20,8 +20,8 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.theEquityApp",
-      "versionCode": 1,
+      "package": "com.twykoff.theEquityApp",
+      "versionCode": 3,
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#FFFFFF"
