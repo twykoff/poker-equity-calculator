@@ -1,3 +1,59 @@
+import {Alert} from 'react-native'
+
+import axios from 'axios'
+
+
+
+export async function runGameServer (game, playerCount, cardArray, boardArray, path) {
+  return await postTodo(game,playerCount, cardArray, boardArray, path)
+
+  function postTodo(game, playerCount, cardArray, boardArray, path) {
+      //return fetch('http://18.188.193.162:3000/',
+      return axios.post(path,
+      
+      {
+          
+          body:JSON.stringify( {
+            game: game, 
+            playerCount: playerCount, 
+            playerCards: cardArray,
+            boardCards: boardArray
+          })
+      })
+      //.then(data => theText = data.json())
+      .then(function(response) {
+        //Alert.alert(response)
+        console.log(response)
+        console.log(response.data.numTrials)
+        return response.data
+      })
+      .catch(function (error) {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log("ERROR RESPONSE")
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          console.log("ERROR REQUEST")
+          console.log(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log("OTHER ERROR")
+          console.log('Error', error.message);
+        }
+        console.log(error.config);
+        Alert.alert(error)
+
+        
+      })
+  }
+}
+/*
 export async function runGameServer (game, playerCount, cardArray, boardArray, path) {
     return await postTodo(game,playerCount, cardArray, boardArray, path)
 
@@ -6,6 +62,7 @@ export async function runGameServer (game, playerCount, cardArray, boardArray, p
         return fetch(path,
         
         {
+            mode: 'cors',
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -18,38 +75,11 @@ export async function runGameServer (game, playerCount, cardArray, boardArray, p
               boardCards: boardArray
             })
         })
-        /*.then(res => {
-          return res.json();
-        })*/
         .then(data => theText = data.json())
         .then(response => {
-          //console.log(JSON.stringify(response))
+          //Alert.alert(response)
           return response
-          //const jsonObj = {theObj: response}
-          //console.log(jsonObj)
         })
-        /*
-        const restOperation = get({
-          apiName: myAPI,
-          path: path,
-          options: {
-            body: {
-              message: 'Mow the lawn',
-              game: "NLHE",
-              cards: [1,2,3,4,5]
-            }
-          }
-        });
-    
-        console.log("BEF AWAIT 1")
-        const { body } = await restOperation.response;
-        console.log("AFTER BODY")
-        const response = await body.json();
-        console.log("AFER RESONSE")
-    
-        console.log('POST call succeeded');
-        console.log(response);
-        setResponse(response)\
-      */
     }
 }
+*/

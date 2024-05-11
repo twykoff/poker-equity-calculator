@@ -8,6 +8,7 @@ const initialState = {
     playerOneScoops: 0,
     playerTwoScoops: 0,
     setChops: 0},
+    numTrials: 0,
 }
 
 export const equitySlice = createSlice({
@@ -17,6 +18,10 @@ export const equitySlice = createSlice({
         setEquity: (state, actions) => {
             state.showEquity = true
             state.equityStruct = actions.payload.equity
+        },
+
+        setNumTrials: (state, actions) => {
+            state.numTrials = actions.payload.numTrials
         },
 
         showEquity: (state) => {
@@ -34,7 +39,7 @@ export const equitySlice = createSlice({
     },
 })
 
-export const {setEquity, showEquity, hideEquity, clearEquity} = equitySlice.actions
+export const {setEquity, setNumTrials, showEquity, hideEquity, clearEquity} = equitySlice.actions
 
 
 
@@ -42,6 +47,8 @@ export const getEquity = (state, playerNumber) => (playerNumber == 1 ? state.equ
     state.equity.equityStruct.playerTwoEquity : 0)
 export const getScoop = (state, playerNumber) => (playerNumber == 1 ? state.equity.equityStruct.playerOneScoops: playerNumber == 2 ? 
     state.equity.equityStruct.playerTwoScoops : 0)
+
+export const getNumTrials = (state) => state.equity.numTrials
    
 
 export const getChops = (state) => state.equity.equityStruct.setChops

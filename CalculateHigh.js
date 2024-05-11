@@ -1,13 +1,15 @@
 module.exports = {
-    calculateHighFull: (cardArray, boardArray, cardCount) => CalculateHighFull(cardArray, boardArray, cardCount),
+    calculateHighOmahaFull: (cardArray, boardArray, cardCount) => CalculateHighOmahaFull(cardArray, boardArray, cardCount),
     calculateHigh: (cards) => CalculateHigh(cards),
     calculateHighXCards: (cards, cardCount) => CalculateHighXCards(cards, cardCount),
-    calculateHighVar: (card1, card2, card3, card4, card5) => CalculateHighVar(card1, card2, card3, card4, card5)
+    calculateHighVar: (card1, card2, card3, card4, card5) => CalculateHighVar(card1, card2, card3, card4, card5),
+    getRank: (card) => getRank(card),
+    getSuit: (card) => getSuit(card)
 }
 
 
 
-const CalculateHighFull = (cardArray, boardArray, cardCount) => {
+const CalculateHighOmahaFull = (cardArray, boardArray, cardCount) => {
     //for now this is plo
 
 
@@ -812,7 +814,7 @@ const CalculateHighXCards = (cards, cardCount) => {
 
     let ranks, suits;
 
-    ranks = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    ranks = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     suits = [0, 0, 0, 0];
     
     for(i = 0; i < cardCount; i++) {
@@ -820,33 +822,46 @@ const CalculateHighXCards = (cards, cardCount) => {
         ranks[getRank(cards[i])]++;
     }
 
+    let ranksSuit = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
     let maxSuit;
 
     let returnString;
 
+    let suitCount = 0
+
     //check for flush (and straightFlush)
     maxSuit = 0;
+    let suitFlush = 0
     for(i = 0; i < 4; i++) {
-        if(suits[i] > maxSuit)
+        if(suits[i] > maxSuit) {
             maxSuit = suits[i];
+            suitFlush = i
+        }
     }
 
-    if(maxSuit == 5) {
+    if(maxSuit >= 5) {
         //is a flush or straightFlush
 
         isStraight = 0;
 
+        for(i = 0; i < cardCount; i++) {
+            if(getSuit(cards[i]) == suitFlush) {
+                ranksSuit[getRank(cards[i])]++
+            }
+        }
+
         returnString = '6';
         for(i = 12; i >= 0; i--) {
-            if(ranks[i] == 1) {
+            if(ranksSuit[i] == 1 && suitCount < 5) {
                 if(i < 10)
                     returnString = returnString + '0';
                 returnString = returnString + i;
+                suitCount++
             }
 
             if(i >= 4) {
-                if(ranks[i] == 1 && ranks[i-1] == 1 && ranks[i - 2] == 1 && ranks[i - 3] == 1 && ranks[i - 4] == 1) {
+                if(ranksSuit[i] == 1 && ranksSuit[i-1] == 1 && ranksSuit[i - 2] == 1 && ranksSuit[i - 3] == 1 && ranksSuit[i - 4] == 1) {
                     
                     if(i < 10)
                         return '90' + i + '00000000';
@@ -854,7 +869,7 @@ const CalculateHighXCards = (cards, cardCount) => {
                 }
             }
             if(i == 3) {
-                if(ranks[i] == 1 && ranks[i-1] == 1 && ranks[i - 2] == 1 && ranks[i - 3] == 1 && ranks[12] == 1) {
+                if(ranksSuit[i] == 1 && ranksSuit[i-1] == 1 && ranksSuit[i - 2] == 1 && ranksSuit[i - 3] == 1 && ranksSuit[12] == 1) {
                     
                     return '90300000000';
                 }
@@ -1024,11 +1039,11 @@ const CalculateHighXCards = (cards, cardCount) => {
     return returnString;
 }
 
-export const getRank = (card) => {
+const getRank = (card) => {
     return (card % 13);
 }
 
-export const getSuit = (card) => {
+const getSuit = (card) => {
     if(card < 13)
         return 0;
     if(card < 26)

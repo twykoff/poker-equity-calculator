@@ -1,5 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, SafeAreaView, View, TextInput, Button } from 'react-native';
+module.exports = {
+    calculateLow8OrBetter: (cards) => CalculateLow8OrBetter(cards),
+    calculateLow8OrBetterXCards: (cards, cardCount) => CalculateLow8OrBetterXCards(cards, cardCount),
+    calculateLowOmahaFull: (cardArray, boardArray, cardCount) => CalculateLowOmahaFull(cardArray, boardArray, cardCount),
+    calculateRazz: (cards) => CalculateRazz(cards),
+    calculateRazz7Cards: (cards) => CalculateRazz7Cards(cards)
+}
 
 
 function getRank(card) {
@@ -8,7 +13,7 @@ function getRank(card) {
     return (card % 13) + 1;
 }
 
-export function CalculateLow8OrBetter(cards) {
+const CalculateLow8OrBetter = (cards) => {
 
     
     let i;
@@ -88,9 +93,9 @@ export function CalculateLow8OrBetter(cards) {
     //console.log(cards)
     //console.log(returnString)
     return returnString;
-};
+}
 
-export function CalculateLow8OrBetterXCards(cards, cardCount) {
+const CalculateLow8OrBetterXCards = (cards, cardCount) => {
     let i;
     let ranks;
 
@@ -124,6 +129,7 @@ export function CalculateLow8OrBetterXCards(cards, cardCount) {
     for(i = 0; i < 8 && singleCount < 5; i++) {
         if(ranks[i] >= 1) {
             returnString = '0' + i + returnString
+            singleCount++
         }
     }
 
@@ -131,9 +137,9 @@ export function CalculateLow8OrBetterXCards(cards, cardCount) {
         return '1' + returnString
 
     return '99999999999'
-};
+}
 
-export function CalculateLowOmaha8(cardArray, boardArray, cardCount) {
+const CalculateLowOmahaFull = (cardArray, boardArray, cardCount) => {
     //for now this is 6 card plo
 
 
@@ -232,7 +238,7 @@ const getScore = (cards) => {
     return '10' + cards[0] + '0' + cards[1] + '0' + cards[2] + '0' + cards[3] + '0' + cards[4]
 }
 
-export default function CalculateRazz(cards) {
+const CalculateRazz = (cards) => {
 
     let cardCount
     let i;
@@ -265,7 +271,7 @@ export default function CalculateRazz(cards) {
     singleCount = 0;
     singleDigit = [0, 0, 0, 0, 0];
 
-    for(i = 12; i > 0; i--) {
+    for(i = 12; i >= 0; i--) {
         if(ranks[i] == 4) {
             quadDigit = i;
             quadCount++;
@@ -282,7 +288,8 @@ export default function CalculateRazz(cards) {
         }
     }
 
-    
+    //console.log(cards)
+    //console.log(ranks)
 
     
 
@@ -397,4 +404,314 @@ export default function CalculateRazz(cards) {
     //console.log(cards)
     //console.log(returnString)
     return returnString;
-};
+}
+
+const CalculateRazz7Cards = (cards) => {
+
+    let i;
+
+    let ranks;
+
+    let cardCount = 7
+
+    ranks = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    
+    
+    for(i = 0; i < cardCount; i++) {
+        ranks[getRank(cards[i])]++;
+        //console.log("card " + cards[i] + " " + getRank(cards[i]))
+    }
+
+
+    let returnString;
+
+
+    let quadCount, quadDigit;
+    let tripCount, tripDigit;
+    let pairCount, pairDigit;
+    let singleCount, singleDigit;
+    let totalSingleCount, totalSingleDigit
+
+    quadCount = 0;
+    quadDigit = 0;
+    tripCount = 0;
+    tripDigit = [-1, -1];
+    pairCount = 0;
+    pairDigit = [-1, -1, -1];
+    singleCount = 0;
+    singleDigit = [-1, -1, -1, -1, -1, -1, -1];
+    totalSingleCount = 0;
+    totalSingleDigit = [-1, -1, -1, -1, -1, -1, -1];
+
+    for(i = 0; i <= 12; i++) {
+        if(ranks[i] == 4) {
+            quadDigit = i;
+            quadCount++;
+        }
+        if(ranks[i] == 3) {
+            tripDigit[tripCount++] = i;
+        }
+        if(ranks[i] == 2) {
+            pairDigit[pairCount++] = i;
+        }
+        if(ranks[i] == 1) {
+            singleDigit[singleCount++] = i;
+        }
+        if(ranks[i] >= 1) {
+            totalSingleDigit[totalSingleCount++] = i;
+        }
+    }
+
+    /*
+    console.log("TC " + tripCount)
+    console.log("PC " + pairCount)
+    console.log("SC " + singleCount)
+    */
+
+    let loopSingle, loopPair, loopTrip, addedSingle
+
+    if(quadCount == 1 && tripCount == 1) {
+        //full house
+        returnString = '5'
+        if(quadDigit < tripDigit[0]) {
+            if(tripDigit[0] < 10)
+                returnString += '0'
+            returnString += tripDigit[0]
+            if(quadDigit < 10)
+                returnString += '0'
+            returnString += quadDigit
+        }
+        else {
+            if(quadDigit < 10)
+                returnString += '0'
+            returnString += quadDigit
+            if(tripDigit[0] < 10)
+                returnString += '0'
+            returnString += tripDigit[0]
+        }
+
+        returnString += '000000'
+        return returnString
+    }
+
+    if(quadCount == 1 && pairCount == 1) {
+        returnString = '3'
+        if(quadDigit < pairDigit[0]) {
+            if(pairDigit[0] < 10)
+                returnString += '0'
+            returnString += pairDigit[0]
+            if(quadDigit < 10)
+                returnString += '0'
+            returnString += quadDigit
+        }
+        else {
+            if(quadDigit < 10)
+                returnString += '0'
+            returnString += quadDigit
+            if(pairDigit[0] < 10)
+                returnString += '0'
+            returnString += pairDigit[0]
+        }
+
+        if(singleDigit[0] < 10)
+            returnString += '0'
+        returnString += singleDigit[0]
+
+        returnString += '0000'
+        return returnString
+    }
+
+    if(tripCount == 2 && pairCount == 0) {
+        returnString = '3'
+        if(tripDigit[1] < 10)
+            returnString += '0'
+        returnString += tripDigit[1]
+        if(tripDigit[0] < 10)
+            returnString += '0'
+        returnString += tripDigit[0]
+
+        if(singleDigit[0] < 10)
+            returnString += '0'
+        returnString += singleDigit[0]
+
+        returnString += '0000'
+        return returnString
+    }
+
+    
+    if(tripCount == 1 && pairCount == 2) {
+        returnString = '3'
+        if(tripDigit[0] < pairDigit[0]) {
+            if(pairDigit[0] < 10)
+                returnString += '0'
+            returnString += pairDigit[0]
+            if(tripDigit[0] < 10)
+                returnString += '0'
+            returnString += tripDigit[0]
+            if(pairDigit[1] < 10)
+                returnString += '0'
+            returnString += pairDigit[1]
+        }
+        else if(tripDigit[0] < pairDigit[1]) {
+            if(tripDigit[0] < 10)
+                returnString += '0'
+            returnString += tripDigit[0]
+            if(pairDigit[0] < 10)
+                returnString += '0'
+            returnString += pairDigit[0]
+            if(pairDigit[1] < 10)
+                returnString += '0'
+            returnString += pairDigit[1]
+        }
+        else {
+            if(pairDigit[1] < 10)
+                returnString += '0'
+            returnString += pairDigit[1]
+            if(pairDigit[0] < 10)
+                returnString += '0'
+            returnString += pairDigit[0]
+            if(tripDigit[0] < 10)
+                returnString += '0'
+            returnString += tripDigit[0]
+        }
+        returnString += '0000'
+        return returnString
+    }
+
+    let singleReturnString
+    if(quadCount == 1) {
+        returnString = '2'
+        if(quadDigit < 10)
+            returnString += '0'
+        returnString += quadDigit
+
+        addedSingle = 0
+        singleReturnString = ''
+        for(i = 0; i <= 12 && addedSingle < 3; i++) {
+            if(singleDigit[addedSingle] == i) {
+                if(i < 10)
+                    singleReturnString = '0' + i + singleReturnString
+                else
+                    singleReturnString = i + singleReturnString 
+                addedSingle++                
+            }
+        }
+        returnString = returnString + singleReturnString + '00'
+
+        //console.log("QUADS")
+        //console.log(returnString)
+        return returnString
+    }
+
+    let pairDigitUsed
+    if(tripCount == 1 && pairCount == 1) {
+        returnString = '2'
+        if(tripDigit[0] < pairDigit[0]) {
+            if(tripDigit[0] < 10)
+                returnString += '0'
+            returnString += tripDigit[0]
+            pairDigitUsed = tripDigit[0]
+        }
+        else {
+            if(pairDigit[0] < 10)
+                returnString += '0'
+            returnString += pairDigit[0]
+            pairDigitUsed = pairDigit[0]
+        }
+        addedSingle = 0
+        singleReturnString = ''
+        for(i = 0; i <= 12; i++) {
+            if(totalSingleDigit[addedSingle] == i) {
+                if(pairDigitUsed != i) {
+
+                    if(i < 10)
+                        singleReturnString = '0' + i + singleReturnString
+                    else
+                        singleReturnString = i + singleReturnString 
+                }
+                addedSingle++                
+            }
+        }
+        returnString = returnString + singleReturnString + '00'
+
+        //console.log("TRIPS PAIR")
+        //console.log(returnString)
+        return returnString
+    }
+
+    if(pairCount == 3) {
+        returnString = '2'
+        
+        if(pairDigit[0] < 10)
+            returnString += '0'
+        returnString += pairDigit[0]
+        
+        pairDigitUsed = pairDigit[0]
+
+        addedSingle = 0
+        singleReturnString = ''
+        for(i = 0; i <= 12; i++) {
+            if(totalSingleDigit[addedSingle] == i) {
+                if(pairDigitUsed != i) {
+
+                    if(i < 10)
+                        singleReturnString = '0' + i + singleReturnString
+                    else
+                        singleReturnString = i + singleReturnString 
+                }
+                addedSingle++                
+            }
+        }
+        returnString = returnString + singleReturnString + '00'
+
+        //console.log("3 PAIR")
+        //console.log(returnString)
+        return returnString
+    }
+
+    if(tripCount + pairCount + singleCount >= 5) {
+        returnString = ''
+        loopSingle = 0
+        loopPair = 0
+        loopTrip = 0
+        addedSingle = 0
+        for(i = 0; i <= 12 && addedSingle < 5; i++) {
+            if(loopSingle < singleCount && singleDigit[loopSingle] == i) {
+                if(i < 10)
+                    returnString = '0' + i + returnString
+                else
+                    returnString = i + returnString 
+                loopSingle++
+                addedSingle++                
+            }
+            if(loopPair < pairCount && pairDigit[loopPair] == i) {
+                if(i < 10)
+                    returnString = '0' + i + returnString
+                else
+                    returnString = i + returnString 
+                loopPair++
+                addedSingle++   
+                
+            }
+            if(loopTrip < tripCount && tripDigit[loopTrip] == i) {
+                if(i < 10)
+                    returnString = '0' + i + returnString
+                else
+                    returnString = i + returnString 
+                loopTrip++
+                addedSingle++   
+                
+            }
+        }
+
+        return '1' + returnString
+    }
+
+   
+    
+    return '88888888888'
+}
+
+//possibilities
+
+//

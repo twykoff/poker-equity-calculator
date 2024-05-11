@@ -1,16 +1,19 @@
-const calculateHigh = require('./CalculateHigh.js)';
-
-import {getCardReverse} from './GameUtils'
+const calculateHigh = require('./CalculateHigh.js')
 
 
+module.exports = {
+  runTrial: (cardArray, boardArray, playerCount) => runTrial(cardArray, boardArray, playerCount)
+}
 
-export const runTrialNLHE = (cardArray, boardArray, playerCount) => {
+
+
+const runTrial = (cardArray, boardArray, playerCount) => {
   let i
 
   
   let playerHighScore = []
   for(i = 0; i < playerCount; i++) {
-    playerHighScore[i] = calculatePlayerScore(cardArray[i], boardArray[0])
+    playerHighScore[i] = calculateHigh.calculateHighXCards(getCardArray(cardArray[i], boardArray[0]), 7)
   }
 
 
@@ -56,17 +59,7 @@ export const runTrialNLHE = (cardArray, boardArray, playerCount) => {
     playerScoop: playerScoop}
 }
  
-export const calculatePlayerScore = (cardArray, boardArray) => {
-  let returnScore;
-  let i;
-  let j;
-  let score;
-  
-  sendArray = [0,0,0,0,0]
-
-  return calculateHigh.calculateHighXCards([cardArray[0], cardArray[1], boardArray[0], boardArray[1],
-    boardArray[2], boardArray[3], boardArray[4]], 7)
-
- 
+const getCardArray = (cardArray, boardArray) => {
+  return [cardArray[0], cardArray[1], boardArray[0], boardArray[1], boardArray[2], boardArray[3], boardArray[4]]
 }
 

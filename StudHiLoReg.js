@@ -1,12 +1,14 @@
 const calculateHigh = require('./CalculateHigh.js');
+const calculateRazz = require('./CalculateRazz.js')
 
-import CalculateRazz, { CalculateLow8OrBetterXCards } from './CalculateRazz';
-import {Calculate8BetterFull} from './CalculateRazz'
+module.exports = {
+  runTrial: (cardArray, playerCount) => runTrial(cardArray, playerCount)
+}
 
 
 
 
-  export const runTrialStudHiLoReg = (cardArray, boardArray, playerCount) => {
+  const runTrial = (cardArray, playerCount) => {
     let displayLowScores = true
     let displayHighScores = true
 
@@ -20,7 +22,17 @@ import {Calculate8BetterFull} from './CalculateRazz'
     let playerLowScore = []
     for(i = 0; i < playerCount; i++) {
       //need to change to true razz no qualifier
-      playerLowScore[i] = CalculateLow8OrBetterXCards(cardArray[i], 7)
+      playerLowScore[i] = calculateRazz.calculateRazz7Cards(cardArray[i])
+      //console.log(playerLowScore[i] + " " + i)
+      if(playerLowScore[i] == '88888888888') {
+        console.log("no Razz")
+        console.log(cardArray[i])
+      }
+      if(playerLowScore[i].length != 11) { 
+        console.log("wrong length")
+        console.log(cardArray[i])
+        console.log(playerLowScore[i])
+      }
     }
 
 
@@ -46,7 +58,7 @@ import {Calculate8BetterFull} from './CalculateRazz'
         isHighScore[i] = 0
     }
 
-    let minLowScore = '10706050403'
+    let minLowScore = '99999999999'
 
     for(i = 0; i < playerCount; i++) {
       if(playerLowScore[i] < minLowScore)

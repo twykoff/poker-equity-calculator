@@ -1,21 +1,19 @@
-const calculateHigh = require('./CalculateHigh.js');
-import CalculateRazz from './CalculateRazz';
+const calculateHigh = require('./CalculateHigh.js')
+const calculateRazz = require('./CalculateRazz.js')
 
 const calculateBadugi = require('./CalculateBadugi.js')
 
-import {Calculate8BetterFull} from './CalculateRazz'
+module.exports = {
+  runTrial: (cardArray, playerCount, gameName) => runTrial(cardArray, playerCount, gameName)
+}
 
 
-
-
-  export const runTrialBadacey = (cardArray, playerCount, game) => {
-    let displayLowScores = true
-    let displayHighScores = true
+  export const runTrial = (cardArray, playerCount, gameName) => {
 
     let playerRazzScore = []
     for(i = 0; i < playerCount; i++) {
-      if(game == 'Badacey')
-        playerRazzScore[i] = CalculateRazz(cardArray[i])
+      if(gameName == 'Badacey')
+        playerRazzScore[i] = calculateRazz.calculateRazz(cardArray[i])
       else
         playerRazzScore[i] = calculateHigh.calculateHigh(cardArray[i])
 
@@ -24,7 +22,7 @@ import {Calculate8BetterFull} from './CalculateRazz'
     
     let playerBadugiScore = []
     for(i = 0; i < playerCount; i++) {
-      playerBadugiScore[i] = calculateBadugi.calculateBadugi(cardArray[i], game)
+      playerBadugiScore[i] = calculateBadugi.calculateBadugi(cardArray[i], gameName)
     }
 
     let minRazzScore = '99999999999'

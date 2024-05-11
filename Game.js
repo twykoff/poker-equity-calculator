@@ -1,243 +1,307 @@
-import CalculateHigh from './CalculateHigh';
-import CalculateRazz from './CalculateRazz';
-
-import { runTrialBigOh } from './BigOh'
-import { runTrialNLHE } from './NLHE'
-import { runTrialPLO4 } from './PLOH4.js'
-import { runTrialDBPLO4 } from './DBPLO4'
-import { runTrialBadacey } from './Badacey'
-import { runTrialStud } from './Stud.js';
-import { runTrialStud8 } from './Stud8.js';
-import { runTrialStudHiLoReg } from './StudHiLoReg.js';
-
-import { getRandomCards, setGameEquity, setUpPlayerBoardRandom } from './GameUtils';
-import { getBoardCards, getBoardCountSlice, getCardsPerBoard } from './src/Redux/boardSlice'
-import { getPlayerCards, getPlayerCount, getCardsPerPlayer, setEquity} from './src/Redux/playerSlice'
-import { showEquity, hideEquity } from './src/Redux/equitySlice';
-
-import {forwardRef, useImperativeHandle, useState, useMemo, useEffect, useRef} from 'react'
 
 
+const badacey     = require('./BadaceyBadeucey.js')
+const badugi     = require('./Badugi.js')
+  const omahaHL     = require('./OmahaHL.js')
+  const omahaHigh   = require('./OmahaHigh.js')
+  const dbOmahaHigh = require('./DBOmahaHigh.js')
+  const nlhe      = require('./NLHE.js')
+  const stud      = require('./Stud.js')
+  const stud8     = require('./Stud8.js')
+  const studHLReg = require('./StudHiLoReg.js')
 
-import { useDispatch, useSelector } from 'react-redux';
+  const gameProperties= require('./GameProperties.js')
 
-import { runGameServer } from './ServerCall.js'
-
-
-
-const Game = (props, ref) => {
-  const dispatch = useDispatch()
   
-  const playerCards = useSelector((state) => getPlayerCards(state))
-  const playerCount = useSelector((state) => getPlayerCount(state))
-  const cardsPerPlayer = useSelector((state) => getCardsPerPlayer(state))
-  const boardCards = useSelector((state) => getBoardCards(state))
-  const boardCount = useSelector((state) => getBoardCountSlice(state))
-  const cardsPerBoard = useSelector((state) => getCardsPerBoard(state))
+const gameUtils = require('./GameUtilsNJS.js')
 
-  const bigOhRef = useRef()
-  const NLHERef = useRef()
-  const PLO4Ref = useRef()
-  const PLO5Ref = useRef()
-  const PLO6Ref = useRef()
-  const DBPLO4Ref = useRef()
-  const badaceyRef = useRef()
+module.exports = {
+  runGame: (playerCards, boardCards, playerCount, cardsPerPlayer, boardCount, cardsPerBoard, gameName, numTrials) => 
+    runGame(playerCards, boardCards, playerCount, cardsPerPlayer, boardCount, cardsPerBoard, gameName, numTrials)
+}
+
+
+const runAllTrials = (cardArray, boardArray, randomSet, randomCount, playerCount, cardsPerPlayer, boardCount, cardsPerBoard, gameName) => {
+  let i, j, k, m
+
+  let playerWins = []
+  let playerScoop = []
+
+  let numTrials = 0
+
+  let playerOrBoard = []
+  let playerOrBoardNumber = []
+  let cardNumber = []
+
+  let randomCardCount = 0
+
+  let handResultStruct
+
+  for(i = 0; i < playerCount; i++) {
+    for(j = 0; j < cardsPerPlayer; j++) {
+      if(cardArray[i][j] < 0) {
+        playerOrBoard[randomCardCount] = 0
+        playerOrBoardNumber[randomCardCount] = i
+        cardNumber[randomCardCount++] = j
+      }
+    }
+  }
+
   
-  useImperativeHandle(ref, () => ({
-    calculateEquity: (gameName, path) => {calculateEquity(gameName, path)},
-    calculateEquityOnHardware: (gameName) => {calculateEquityOnHardware(gameName)}
-  }))
+  for(i = 0; i < boardCount; i++) {
+    for(j = 0; j < cardsPerBoard; j++) {
+      if(boardArray[i][j] < 0) {
+        playerOrBoard[randomCardCount] = 1
+        playerOrBoardNumber[randomCardCount] = i
+        cardNumber[randomCardCount++] = j
+      }
+    }
+  }
 
-  const runTestHigh = () => {
-    let a, b, c, d, e;
+  let firstSecondCardConnected = 0
+  let secondThirdCardConnected = 0
 
-    let cardArray = []
+  if(randomCardCount >= 2) {
+    if(playerOrBoard[0] == playerOrBoard[1] && playerOrBoardNumber[0] == playerOrBoardNumber[1])
+      firstSecondCardConnected = 1
+  }
 
-    let count = 0;
-    for(a = 0; a < 52; a++) {
-      for(b = a + 1; b < 52; b++) {
-        for(c = b + 1; c < 52; c++) {
-          for(d = c + 1; d < 52; d++) {
-            for(e = d + 1; e < 52; e++) {
-              cardArray[0] = a;
-              cardArray[1] = b;
-              cardArray[2] = c;
-              cardArray[3] = d;
-              cardArray[4] = e;
-              CalculateHigh(cardArray)
-              count++
-              //console.log(CalculateHigh(cardArray))
-            }
+  
+  if(randomCardCount == 3) {
+    if(playerOrBoard[1] == playerOrBoard[2] && playerOrBoardNumber[1] == playerOrBoardNumber[2])
+      secondThirdCardConnected = 1
+  }
+
+  for(i = 0; i < playerCount; i++) {
+    playerWins[i] = 0
+    playerScoop[i] = 0
+  }
+
+  let jStart, kStart
+
+  if(randomCardCount == 3) {
+    for(i = 0; i < randomCount; i++) {
+      if(playerOrBoard[0] == 0) {
+        cardArray[playerOrBoardNumber[0]][cardNumber[0]] = randomSet[i]
+      }
+      else {
+        boardArray[playerOrBoardNumber[0]][cardNumber[0]] = randomSet[i]
+      }
+      if(firstSecondCardConnected == 1) {
+        jStart = i + 1
+      }
+      else {
+        jStart = 0
+      }
+      for(j = jStart; j < randomCount; j++) {
+        if(i == j)
+          continue
+        if(playerOrBoard[1] == 0) {
+          cardArray[playerOrBoardNumber[1]][cardNumber[1]] = randomSet[j]
+        }
+        else {
+          boardArray[playerOrBoardNumber[1]][cardNumber[1]] = randomSet[j]
+        }
+        if(secondThirdCardConnected == 1) {
+          kStart = j + 1
+        }
+        else {
+          kStart = 0
+        }
+        for(k = kStart; k < randomCount; k++) {
+          if(i == k || j == k) 
+            continue
+          if(playerOrBoard[2] == 0) {
+            cardArray[playerOrBoardNumber[2]][cardNumber[2]] = randomSet[k]
           }
+          else {
+            boardArray[playerOrBoardNumber[2]][cardNumber[2]] = randomSet[k]
+          }
+          
+          handResultStruct = runTrial(cardArray, boardArray, playerCount, gameName)      
+          for(m = 0; m < playerCount; m++)
+          {
+            playerWins[m]   += handResultStruct.playerWins[m]
+            playerScoop[m]  += handResultStruct.playerScoop[m]
+          } 
+          numTrials++
         }
       }
     }
 
-    //console.log(count)
   }
 
-
-  async function calculateEquity(game, path) {
-
-   
-    dispatch(hideEquity())
-
-    /*
-    console.log("Cards: " + boardCards)
-    console.log("Count: " + boardCount)
-    console.log(cardsPerBoard)
-    */
-
-    let playerBoardRandom = setUpPlayerBoardRandom(playerCards, boardCards, playerCount, cardsPerPlayer, boardCount, cardsPerBoard)
-    
-    
-    let i, j
-    let d1 = Date.now()
-    let d2
-    let diff
-    
-    let randomSet = playerBoardRandom.randomSet
-    let cardArray = playerBoardRandom.cardArray
-    let randomCards = playerBoardRandom.randomCards
-    let totalCards = playerBoardRandom.totalCards
-    let randomCount = playerBoardRandom.randomCount
-    let boardArray = playerBoardRandom.boardArray
-
-    /*
-    console.log(game)
-    console.log(playerCount)
-    console.log(cardArray)
-    console.log(boardArray)
-    */
-
-    let promiseFromServer = []
-    promiseFromServer[0] = runGameServer(game, playerCount, cardArray, boardArray, path)
-
-    const equityFromServer = await Promise.all(promiseFromServer);
-
-    /*
-    console.log(equityFromServer[0])
-    console.log(equityFromServer[0].playerWins)
-    console.log(equityFromServer[0].playerScoop)
-    */
-
-    let equityStruct = setGameEquity(equityFromServer[0].playerWins, equityFromServer[0].playerScoop, equityFromServer[0].numTrials)
-
-    for(i = 0; i < playerCount; i++)
-      dispatch(setEquity({playerNumber: i, equity: getPercent(equityStruct.playerEquity[i]), 
-        scoops: getPercent(equityStruct.playerScoops[i])}))
-
-    d2 = Date.now()
-    console.log("TIME: " + Math.floor((d2-d1)/1000)); //in milliseconds)
-    console.log("TRIALS: " + equityFromServer[0].numTrials)
-    dispatch(showEquity())
-  }
-
-  const calculateEquityOnHardware = (gameName) => {
-
-   
-    dispatch(hideEquity())
-
-    //console.log("BOARD CARDS CEOH: " + boardCards)
-
-    let playerBoardRandom = setUpPlayerBoardRandom(playerCards, boardCards, playerCount, cardsPerPlayer, boardCount, cardsPerBoard)
-    
-    
-    let i, j
-    let numTrials = 1000
-    let d1 = Date.now()
-    let d2
-    let diff
-    
-    let randomSet = playerBoardRandom.randomSet
-    let cardArray = playerBoardRandom.cardArray
-    let randomCards = playerBoardRandom.randomCards
-    let totalCards = playerBoardRandom.totalCards
-    let randomCount = playerBoardRandom.randomCount
-    let boardArray = playerBoardRandom.boardArray
-
-    let playerWins = []
-    let playerScoop = []
-
-    
-    for(i = 0; i < playerCount; i++) {
-      playerWins[i] = 0
-      playerScoop[i] = 0
-    }
-
-    let newCardArray, newBoardArray
-    let newCardsStruct
-
-    let handResultStruct
-    for(i = 0; i < numTrials; i++) {
-        if(i% 1000 == 0)
-            console.log("Trial #: " + i);
-        newCardsStruct = getRandomCards(cardArray, boardArray, randomSet, randomCount, playerCount, cardsPerPlayer, boardCount, cardsPerBoard)
-
-        newCardArray = newCardsStruct.newCardArray
-        newBoardArray = newCardsStruct.newBoardCards
-        handResultStruct = runTrial(newCardArray, newBoardArray, playerCount, gameName)
+  if(randomCardCount == 2) {
+    for(i = 0; i < randomCount; i++) {
+      if(playerOrBoard[0] == 0) {
+        cardArray[playerOrBoardNumber[0]][cardNumber[0]] = randomSet[i]
+        //console.log("ADD PLAYER " + playerOrBoardNumber[0] + " CARD " + cardNumber[0] + " " + randomSet[i])
+      }
+      else {
+        boardArray[playerOrBoardNumber[0]][cardNumber[0]] = randomSet[i]
+        //console.log("ADD BOARD " + playerOrBoardNumber[0] + " CARD " + cardNumber[0] + " " + randomSet[i])
+      }
+      if(firstSecondCardConnected == 1) {
+        jStart = i + 1
+      }
+      else {
+        jStart = 0
+      }
+      for(j = jStart; j < randomCount; j++) {
+        if(i == j)
+          continue
+        if(playerOrBoard[1] == 0) {
+          cardArray[playerOrBoardNumber[1]][cardNumber[1]] = randomSet[j]
+          //console.log("ADD PLAYER " + playerOrBoardNumber[1] + " CARD " + cardNumber[1] + " " + randomSet[j])
+        }
+        else {
+          boardArray[playerOrBoardNumber[1]][cardNumber[1]] = randomSet[j]
+          //console.log("ADD BOARD " + playerOrBoardNumber[1] + " CARD " + cardNumber[1] + " " + randomSet[j])
+        }
         
-        for(j = 0; j < playerCount; j++)
+        handResultStruct = runTrial(cardArray, boardArray, playerCount, gameName) 
+        //console.log("CA " + cardArray)
+        //console.log("BA " + boardArray)     
+        //console.log(handResultStruct)
+        for(m = 0; m < playerCount; m++)
         {
-          playerWins[j]   += handResultStruct.playerWins[j]
-          playerScoop[j]  += handResultStruct.playerScoop[j]
-        }        
+          //console.log("M " + m)
+          playerWins[m]   += handResultStruct.playerWins[m]
+          playerScoop[m]  += handResultStruct.playerScoop[m]
+        } 
+        numTrials++
+      }
     }
-
-
-    let equityStruct = setGameEquity(playerWins, playerScoop, numTrials, playerCount)
-    for(i = 0; i < playerCount; i++)
-      dispatch(setEquity({playerNumber: i, equity: getPercent(equityStruct.playerEquity[i]), 
-        scoops: getPercent(equityStruct.playerScoops[i])}))
-
-    d2 = Date.now()
-    console.log("TIME: " + Math.floor((d2-d1)/1000)); //in milliseconds)
-    console.log("TRIALS: " + numTrials)
-    dispatch(showEquity())
-  }
-
-  const getPercent = (value) => {
-    let returnValue = (Math.round(value * 1000)/10) + "%"
-    //console.log("new equity: " + returnValue)
-    return returnValue
   }
 
 
-
- 
-  const runTrial = (cardArray, boardArray, playerCount, gameName) => {
-    if(gameName === 'BigOh') {
-      //console.log("RUN BIG OH")
-      return runTrialBigOh(cardArray, boardArray, playerCount)
+  if(randomCardCount == 1) {
+    for(i = 0; i < randomCount; i++) {
+      if(playerOrBoard[0] == 0) {
+        cardArray[playerOrBoardNumber[0]][cardNumber[0]] = randomSet[i]
+      }
+      else {
+        boardArray[playerOrBoardNumber[0]][cardNumber[0]] = randomSet[i]
+      }
+      
+      handResultStruct = runTrial(cardArray, boardArray, playerCount, gameName)      
+      for(m = 0; m < playerCount; m++)
+      {
+        playerWins[m]   += handResultStruct.playerWins[m]
+        playerScoop[m]  += handResultStruct.playerScoop[m]
+      } 
+      numTrials++
     }
-    if(gameName === 'NLHE'){
-      //console.log("RUN NHLE")
-      return runTrialNLHE(cardArray, boardArray, playerCount)
-    }
-    
-    if(gameName === 'PLO4')
-      return runTrialPLO4(cardArray, boardArray, playerCount)
-    if(gameName === 'DBPLO4')
-      return runTrialDBPLO4(cardArray, boardArray, playerCount)
-    if(gameName === 'Badacey' || gameName === 'Badeucey')
-      return runTrialBadacey(cardArray, playerCount, gameName)
-    if(gameName === 'Stud')
-      return runTrialStud(cardArray, playerCount)
-    if(gameName === 'Stud8')
-      return runTrialStud8(cardArray, playerCount)
-    if(gameName === 'StudHiLoReg')
-      return runTrialStudHiLoReg(cardArray, playerCount)
-    /*
-    if(gameName === 'PLO5')
-      PLO5Ref.current.runTrial()
-    if(gameName === 'PLO6')
-      PLO6Ref.current.runTrial()
-    */
-    
   }
-  
 
+  let equity = {playerWins: playerWins,
+    playerScoop: playerScoop,
+    numTrials: numTrials
+  }
+
+  return equity
 }
 
-export default forwardRef(Game)
+const runGame = (playerCards, boardCards, playerCount, cardsPerPlayer, boardCount, cardsPerBoard, gameName, numTrials) => {
+  console.log(playerCards[0])
+  console.log(playerCards[1])
+  console.log(boardCards[0])
+  
+  let playerBoardRandom = gameUtils.setUpPlayerBoardRandom(playerCards, boardCards, playerCount, cardsPerPlayer, boardCount, cardsPerBoard, numTrials)
+      
+      
+  let i, j
+  let d1 = Date.now()
+  let d2
+  let diff
+
+  let randomSet = playerBoardRandom.randomSet
+  let cardArray = playerBoardRandom.cardArray
+  let randomCards = playerBoardRandom.randomCards
+  let randomCardCount = playerBoardRandom.randomCardCount
+  let totalCards = playerBoardRandom.totalCards
+  let randomCount = playerBoardRandom.randomCount
+  let boardArray = playerBoardRandom.boardArray
+
+  let playerWins = []
+  let playerScoop = []
+
+
+  for(i = 0; i < playerCount; i++) {
+    playerWins[i] = 0
+    playerScoop[i] = 0
+  }
+
+  let newCardArray, newBoardArray
+  let newCardsStruct
+
+  let handResultStruct
+
+  console.log("RCC" + randomCardCount)
+
+  if(randomCardCount <= 3) {
+    return runAllTrials(cardArray, boardArray, randomSet, randomCount, playerCount, cardsPerPlayer, boardCount, cardsPerBoard, gameName)
+  }
+
+  for(i = 0; i < numTrials; i++) {
+      if(i% 1000 == 0)
+          console.log("Trial #: " + i);
+      newCardsStruct = gameUtils.getRandomCards(cardArray, boardArray, randomSet, randomCount, playerCount, cardsPerPlayer, boardCount, cardsPerBoard)
+
+      newCardArray = newCardsStruct.newCardArray
+      newBoardArray = newCardsStruct.newBoardCards
+      handResultStruct = runTrial(newCardArray, newBoardArray, playerCount, gameName)
+      
+      for(j = 0; j < playerCount; j++)
+      {
+        playerWins[j]   += handResultStruct.playerWins[j]
+        playerScoop[j]  += handResultStruct.playerScoop[j]
+      }        
+  } 
+
+  let equity = {playerWins: playerWins,
+    playerScoop: playerScoop,
+    numTrials: numTrials
+  }
+
+  return equity
+}
+
+const runTrial = (cardArray, boardArray, playerCount, gameName) => {
+  if(gameName === gameProperties.gameNames.holdEm){
+    return nlhe.runTrial(cardArray, boardArray, playerCount)
+  }
+  if(gameName === gameProperties.gameNames.omahaHigh4)
+    return omahaHigh.runTrial(cardArray, boardArray, playerCount, 4)
+  
+  if(gameName === gameProperties.gameNames.omahaHigh5)
+    return omahaHigh.runTrial(cardArray, boardArray, playerCount, 5)
+  if(gameName === gameProperties.gameNames.omahaHigh6)
+    return omahaHigh.runTrial(cardArray, boardArray, playerCount, 6)
+  
+  
+  if(gameName === gameProperties.gameNames.omahaHL4)
+    return omahaHL.runTrial(cardArray, boardArray, playerCount, 4)
+  
+  if(gameName === gameProperties.gameNames.omahaHL5)
+    return omahaHL.runTrial(cardArray, boardArray, playerCount, 5)
+  if(gameName === gameProperties.gameNames.omahaHL6)
+    return omahaHL.runTrial(cardArray, boardArray, playerCount, 6)
+  if(gameName === gameProperties.gameNames.omahaDBHigh4)
+    return dbOmahaHigh.runTrial(cardArray, boardArray, playerCount, 4)
+  if(gameName === gameProperties.gameNames.omahaDBHigh5)
+    return dbOmahaHigh.runTrial(cardArray, boardArray, playerCount, 5)
+  
+  if(gameName === gameProperties.gameNames.omahaDBHigh6)
+    return dbOmahaHigh.runTrial(cardArray, boardArray, playerCount, 6)
+  if(gameName === gameProperties.gameNames.badacey || gameName === gameProperties.gameNames.badeucey)
+    return badacey.runTrial(cardArray, playerCount, gameName)
+  if(gameName === gameProperties.gameNames.badugi)
+    return badugi.runTrial(cardArray, playerCount)
+  if(gameName === gameProperties.gameNames.stud)
+    return stud.runTrial(cardArray, playerCount)
+  if(gameName === gameProperties.gameNames.stud8)
+    return stud8.runTrial(cardArray, playerCount)
+  if(gameName === gameProperties.gameNames.studHL)
+    return studHLReg.runTrial(cardArray, playerCount)
+}

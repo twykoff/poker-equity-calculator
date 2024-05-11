@@ -1,153 +1,58 @@
+gameProperties = require('./GameProperties.js')
 
+module.exports = {
+    getPlayerCardCount: (game) => getPlayerCardCount(game),
+    getBoardCount: (game) => getBoardCount(game),
+    getCardsPerBoard: (game) => getCardsPerBoard(game),
+    setGameEquity: (playerWins, playerScoop, numTrials) => setGameEquity(playerWins, playerScoop, numTrials),
+    getRandomCards: (cardArray, boardCards, randomSet, randomCount, playerCount, cardCount, boardCount, cardsPerBoard) =>
+        getRandomCards(cardArray, boardCards, randomSet, randomCount, playerCount, cardCount, boardCount, cardsPerBoard),
+    setUpPlayerBoardRandom: (playerCardsParam, boardCardsParam, playerCountParam, cardCountParam, boardCountParam, boardCardsCountParam) =>
+        setUpPlayerBoardRandom(playerCardsParam, boardCardsParam, playerCountParam, cardCountParam, boardCountParam, boardCardsCountParam),
+    getRandomCards2Boards: (boardCards, randomSet, randomCount) => getRandomCards2Boards(boardCards, randomSet, randomCount),
+    getCard: (cardString) => getCard(cardString),
+    getCardReverse: (cardNumber) => getCardReverse(cardNumber)
 
-export const getPlayerCardCount = (game) => {
-    if(game === 'NLHE')
-        return 2
-    if(game === 'BigOh')
-        return 5
-    if(game === 'PLO8')
-        return 4
-    if(game === 'PLO4')
-        return 4
-    if(game === 'PLO5')
-        return 5
-    if(game === 'PLO6')
-        return 6
-    if(game === 'DBPLO4')
-        return 4
-    if(game === 'DBPLO5')
-        return 5
-    if(game === 'DBPLO6')
-        return 6
-    if(game === 'Best Best 4')
-        return 4
-    if(game === 'Best Best 5')
-        return 5
-    if(game === 'Derailment 4')
-        return 4
-    if(game === 'Derailment 5')
-        return 5
-    if(game === 'Badacey')
-        return 5
-    if(game === 'Badeucey')
-        return 5
-    if(game === 'Badugi')
-        return 4
-    if(game === 'Stud')
-        return 7
-    if(game === 'Stud 8 or Better')
-        return 7
-    if(game === 'Stud Hi Lo')
-        return 7
-    if(game === 'Razz')
-        return 7
-    if(game === '2 To 7')
-        return 5    
-    if(game === '5 Card Draw')
-        return 5    
-    if(game === 'Ace to 5 Draw')
-        return 5    
 }
 
-export const getBoardCount = (game) => {
-    if(game === 'NLHE')
-        return 1
-    if(game === 'BigOh')
-        return 1
-    if(game === 'PLO8')
-        return 1
-    if(game === 'PLO4')
-        return 1
-    if(game === 'PLO5')
-        return 1
-    if(game === 'PLO6')
-        return 1
-    if(game === 'DBPLO4')
-        return 2
-    if(game === 'DBPLO5')
-        return 2
-    if(game === 'DBPLO6')
-        return 2
-    if(game === 'Best Best 4')
-        return 2
-    if(game === 'Best Best 5')
-        return 2
-    if(game === 'Derailment 4')
-        return 3
-    if(game === 'Derailment 5')
-        return 3
-    if(game === 'Badacey')
-        return 0
-    if(game === 'Badeucey')
-        return 0
-    if(game === 'Badugi')
-        return 0
-    if(game === 'Stud')
-        return 0
-    if(game === 'Stud 8 or Better')
-        return 0
-    if(game === 'Stud Hi Lo')
-        return 0
-    if(game === 'Razz')
-        return 0
-    if(game === '2 To 7')
-        return 0
-    if(game === '5 Card Draw')
-        return 0    
-    if(game === 'Ace to 5 Draw')
-        return 0  
+const getPlayerCardCount = (game) => {
+
+    let playerCardCount = gameProperties.gameProperties[game].cardsPerPlayer
+
+    if(playerCardCount != null) {
+        console.log("GAME: " + game)
+        console.log("PCC: " + playerCardCount)
+    
+        return playerCardCount
+    }
+    
 }
 
-export const getCardsPerBoard = (game) => {
-    if(game === 'NLHE')
-        return 5
-    if(game === 'BigOh')
-        return 5
-    if(game === 'PLO8')
-        return 5
-    if(game === 'PLO4')
-        return 5
-    if(game === 'PLO5')
-        return 5
-    if(game === 'PLO6')
-        return 5
-    if(game === 'DBPLO4')
-        return 5
-    if(game === 'DBPLO5')
-        return 5
-    if(game === 'DBPLO6')
-        return 5
-    if(game === 'Best Best 4')
-        return 5
-    if(game === 'Best Best 5')
-        return 5
-    if(game === 'Derailment 4')
-        return 5
-    if(game === 'Derailment 5')
-        return 5
-    if(game === 'Badacey')
-        return 0
-    if(game === 'Badeucey')
-        return 0
-    if(game === 'Badugi')
-        return 0
-    if(game === 'Stud')
-        return 0
-    if(game === 'Stud 8 or Better')
-        return 0
-    if(game === 'Stud Hi Lo')
-        return 0
-    if(game === 'Razz')
-        return 0
-    if(game === '2 To 7')
-        return 0
-    if(game === '5 Card Draw')
-        return 0    
-    if(game === 'Ace to 5 Draw')
-        return 0  
+const getBoardCount = (game) => {
+    let boardCount = gameProperties.gameProperties[game].boardCount
+
+    if(boardCount != null) {
+        console.log("GAME: " + game)
+        console.log("PCC: " + boardCount)
+    
+        return boardCount
+    }
+    
 }
 
-export const setGameEquity = (playerWins, playerScoop, numTrials) => {
+const getCardsPerBoard = (game) => {
+    let boardCardCount = gameProperties.gameProperties[game].cardsPerBoard
+
+    if(boardCardCount != null) {
+        console.log("GAME: " + game)
+        console.log("PCC: " + boardCardCount)
+    
+        return boardCardCount
+    }
+    
+}
+
+const setGameEquity = (playerWins, playerScoop, numTrials) => {
     let playerEquity = []
     let playerScoops = []
 
@@ -160,13 +65,6 @@ export const setGameEquity = (playerWins, playerScoop, numTrials) => {
       scoopTotal += playerScoop[i]
     }
 
-    /*
-    console.log("PC: " + playerCount)
-    console.log("NT: " + numTrials)
-    console.log("PW: " + playerWins)
-    console.log("PS: " + playerScoop)
-    */
-
     for(i = 0; i < playerCount; i++) {
       playerEquity[i] = ((playerWins[i])/(winSum))
       playerScoops[i] = ((playerScoop[i])/(numTrials))
@@ -176,8 +74,8 @@ export const setGameEquity = (playerWins, playerScoop, numTrials) => {
   }
 
 
-export const getRandomCards = (cardArray, boardCards, randomSet, randomCount, playerCount, cardCount, boardCount, cardsPerBoard) => {
-    //need to return number of randomCards
+const getRandomCards = (cardArray, boardCards, randomSet, randomCount, playerCount, cardCount, boardCount, cardsPerBoard) => {
+    //need to return number of random cards
     let used = []
     let i, j
 
@@ -234,7 +132,7 @@ export const getRandomCards = (cardArray, boardCards, randomSet, randomCount, pl
     return {newBoardCards: newBoardCards, newCardArray: newCardArray}
 }
 
-export const setUpPlayerBoardRandom = (playerCardsParam, boardCardsParam, playerCountParam, cardCountParam, boardCountParam, boardCardsCountParam) => {
+const setUpPlayerBoardRandom = (playerCardsParam, boardCardsParam, playerCountParam, cardCountParam, boardCountParam, boardCardsCountParam) => {
 
     let randomCards = []
     let cardArray = []
@@ -245,6 +143,8 @@ export const setUpPlayerBoardRandom = (playerCardsParam, boardCardsParam, player
     let randomCount = 0
 
     let randomSet = []
+
+    let randomCardCount = 0
 
     /*
     console.log("BC\n" + boardCardsParam)
@@ -263,6 +163,10 @@ export const setUpPlayerBoardRandom = (playerCardsParam, boardCardsParam, player
                 randomCards[cardArray[i][j]] = true
                 totalCards++
             }
+            else {
+                randomCardCount++
+                //console.log(card)
+            }
         }
     }
      
@@ -280,6 +184,9 @@ export const setUpPlayerBoardRandom = (playerCardsParam, boardCardsParam, player
           randomCards[boardArray[i][j]] = true
           totalCards++
         }
+        else {
+            randomCardCount++
+        }
       }
     }
 
@@ -292,12 +199,10 @@ export const setUpPlayerBoardRandom = (playerCardsParam, boardCardsParam, player
     //console.log("THIS IS THE BOARDARRAY: " + boardArray)
     
     return {randomSet: randomSet, cardArray: cardArray, randomCards: randomCards, totalCards: totalCards,
-      randomCount: randomCount, boardArray: boardArray}
-  }
+      randomCount: randomCount, boardArray: boardArray, randomCardCount: randomCardCount}
+}
 
-
-
-export const getRandomCards2Boards = (boardCards, randomSet, randomCount) => {
+const getRandomCards2Boards = (boardCards, randomSet, randomCount) => {
     let used = []
     let i
 
@@ -332,7 +237,7 @@ export const getRandomCards2Boards = (boardCards, randomSet, randomCount) => {
     return newBoardCards
 }
 
-export const getCard = (cardString) => {
+const getCard = (cardString) => {
     
     
     if(cardString == null)
@@ -447,7 +352,7 @@ export const getCard = (cardString) => {
     return -1
     
 }
-export const getCardReverse = (cardNumber) => {
+const getCardReverse = (cardNumber) => {
     returnArray = [
         '2d', '3d', '4d', '5d', '6d', '7d', '8d', '9d', 'Td', 'Jd', 'Qd', 'Kd', 'Ad',
         '2c', '3c', '4c', '5c', '6c', '7c', '8c', '9c', 'Tc', 'Jc', 'Qc', 'Kc', 'Ac',

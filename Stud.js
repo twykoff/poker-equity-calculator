@@ -1,11 +1,11 @@
 const calculateHigh = require('./CalculateHigh.js');
 
 
-import {getCardReverse} from './GameUtils'
+module.exports = {
+  runTrial: (cardArray, boardArray, playerCount) => runTrial(cardArray, boardArray, playerCount)
+}
 
-
-
-export const runTrialStud = (cardArray, playerCount) => {
+const runTrial = (cardArray, playerCount) => {
   let i
 
   

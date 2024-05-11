@@ -1,22 +1,17 @@
 const calculateHigh = require('./CalculateHigh.js');
 
 
+module.exports = {
+  runTrial: (cardArray, boardArray, playerCount, playerCardCount) => runTrial(cardArray, boardArray, playerCount, playerCardCount)
+}
 
 
+  const runTrial = (cardArray, boardArray, playerCount, playerCardCount) => {
 
-  export const runTrialPLO4 = (cardArray, boardArray, playerCount) => {
-    let displayLowScores = false
-    let displayHighScores = false
-
-    /*
-    console.log(cardArray)
-    console.log(boardArray)
-    console.log(playerCount)
-    */
 
     let playerHighScore = []
     for(i = 0; i < playerCount; i++) {
-      playerHighScore[i] = calculatePlayerScore(cardArray[i], boardArray[0])
+      playerHighScore[i] = calculateHigh.calculateHighOmahaFull(cardArray[i], boardArray[0], playerCardCount)
     }
 
     let maxHighScore = '00000000000'

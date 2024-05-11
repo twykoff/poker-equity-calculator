@@ -1,25 +1,24 @@
-const calculateHigh = require('./CalculateHigh.js');
+const calculateHigh = require('./CalculateHigh.js')
+const calculateRazz = require('./CalculateRazz.js')
 
-import CalculateRazz, { CalculateLow8OrBetterXCards } from './CalculateRazz';
-import {Calculate8BetterFull} from './CalculateRazz'
+module.exports = {
+  runTrial: (cardArray, playerCount) => runTrial(cardArray, playerCount)
+}
 
 
 
-
-  export const runTrialStud8 = (cardArray, boardArray, playerCount) => {
-    let displayLowScores = true
-    let displayHighScores = true
+  const runTrial = (cardArray, playerCount) => {
 
     let playerHighScore = []
     for(i = 0; i < playerCount; i++) {
       playerHighScore[i] = calculateHigh.calculateHighXCards(cardArray[i], 7)
-      //playerHighScore[i] = '10000000000'
     }
 
     
     let playerLowScore = []
     for(i = 0; i < playerCount; i++) {
-      playerLowScore[i] = CalculateLow8OrBetterXCards(cardArray[i], 7)
+      playerLowScore[i] = calculateRazz.calculateLow8OrBetterXCards(cardArray[i], 7)
+      console.log(i + " " + playerLowScore[i])
     }
 
 

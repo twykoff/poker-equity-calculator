@@ -1,6 +1,8 @@
-import CalculateHigh, { CalculateHighFull, getRank, getSuit } from '../CalculateHigh';
-import CalculateRazz, {CalculateLow8OrBetter, CalculateLowOmaha8} from '../CalculateRazz';
-import { calculatePlayerScore } from '../NLHE';
+const calculateHigh = require('../CalculateHigh.js')
+const calculateRazz = require('../CalculateRazz.js')
+const game = require('../Game.js')
+const gameProperties= require('../GameProperties.js')
+
 
 export const testOmaha6 = () => {
 
@@ -61,7 +63,7 @@ export const testOmaha6 = () => {
         scoreBruteForce = calculatePlayerScorePLO6(playerCard, boardCard)
 
         d2 = Date.now()
-        scoreFull = CalculateHighFull(playerCard, boardCard, 6)
+        scoreFull = calculateHigh.calculateHighOmahaFull(playerCard, boardCard, 6)
 
         d3 = Date.now()
 
@@ -87,6 +89,99 @@ export const testOmaha6 = () => {
     console.log("TIME BF: " + totalBF)
     console.log("TIME CV: " + totalClever)
     console.log("TIME: " + Math.floor((totalBF - totalClever)/1000)); //in milliseconds)
+
+    console.log("TRIALS: " + numTrials)
+    console.log("INCORR: " + incorrectCount)
+    console.log("FAIL %: " + incorrectCount/numTrials)
+}
+
+export const testNLHEFull = () => {
+
+    console.log("TEST OM 6")
+    let cardIsGood = []
+    let i
+    let j
+    let k
+    let numTrials = 1000
+    let isGood
+    let rando
+    let playerCard = []
+    let boardCard = []
+    let scoreRandom
+    let scoreFull
+    let totalBF = 0
+    let totalClever = 0
+    let incorrectCount = 0
+
+
+
+    for(i = 0; i < numTrials; i++) {
+        for(j = 0; j < 52; j++) {
+            cardIsGood[j] = true
+        }
+
+        //get randomCards for player
+        for(k = 0; k < 2; k++) {
+            playerCard[k] = []
+            for(j = 0; j < 2; j++) {
+                isGood = false
+                while(isGood == false) {
+                    rando = Math.floor(Math.random() * 52)
+                    if(cardIsGood[rando]) {
+                        playerCard[k][j] = rando
+                        cardIsGood[rando] = false
+                        isGood = true
+                    }
+                }
+            }
+        }
+
+        boardCard[0] = []
+        for(j = 0; j < 4; j++) {
+            isGood = false
+            while(isGood == false) {
+                rando = Math.floor(Math.random() * 52)
+                if(cardIsGood[rando]) {
+                    boardCard[0][j] = rando
+                    cardIsGood[rando] = false
+                    isGood = true
+                }
+            }
+        }
+
+        boardCard[0][4] = -1
+        
+
+
+        //numTrials = 1000
+        let d1, d2, d3
+        
+        d1 = Date.now()
+        game.runGame(playerCard, boardCard, 2, 2, 1, 5, gameProperties.gameNames.holdEm, 1000)
+
+        d2 = Date.now()
+
+
+        totalBF += d2 - d1
+
+
+        /*
+        if(scoreFull != scoreRandom) {
+            incorrectCount++
+            console.log("TRIAL NUMBER: " + i)
+            console.log("playerCard = [" + playerCard + "]\n\tboardCard = [" + boardCard + "]")
+            console.log("PLAYER: ")
+            console.log(printCards(playerCard))
+            console.log("WHAT UND ")
+            console.log("BOARD:  ")
+            console.log(printCards(boardCard))
+            console.log("BRUTE FORCE: " + scoreBruteForce)
+            console.log("SCORE CLEVR: " + scoreFull)
+        }
+        */
+    }
+
+    console.log("TIME BF: " + totalBF)
 
     console.log("TRIALS: " + numTrials)
     console.log("INCORR: " + incorrectCount)
@@ -151,7 +246,7 @@ export const testLow = () => {
         scoreBruteForce = calculatePlayerScoreLow(playerCard, boardCard)
 
         d2 = Date.now()
-        scoreFull = CalculateLowOmaha8(playerCard, boardCard, 6)
+        scoreFull = calculateRazz.calculateLowOmahaFull(playerCard, boardCard, 6)
 
         d3 = Date.now()
 
@@ -183,6 +278,82 @@ export const testLow = () => {
     console.log("FAIL %: " + incorrectCount/numTrials)
 }
 
+export const testStudRegLow = () => {
+
+    console.log("TEST STUD REG LOW")
+    let cardIsGood = []
+    let i
+    let j
+    let numTrials = 10
+    let isGood
+    let rando
+    let playerCard = []
+    let boardCard = []
+    let scoreBruteForce
+    let scoreFull
+    let totalBF = 0
+    let totalClever = 0
+    let incorrectCount = 0
+
+
+
+    for(i = 0; i < numTrials; i++) {
+        for(j = 0; j < 52; j++) {
+            cardIsGood[j] = true
+        }
+
+        //get randomCards for player
+        for(j = 0; j < 7; j++) {
+            isGood = false
+            while(isGood == false) {
+                rando = Math.floor(Math.random() * 52)
+                if(cardIsGood[rando]) {
+                    playerCard[j] = rando
+                    cardIsGood[rando] = false
+                    isGood = true
+                }
+            }
+        }
+
+        
+        console.log(playerCard)
+
+        let d1, d2, d3
+        
+        d1 = Date.now()
+        scoreBruteForce = calculatePlayerScoreRegLow(playerCard)
+
+        d2 = Date.now()
+        scoreFull = calculateRazz.calculateRazz7Cards(playerCard)
+
+        d3 = Date.now()
+
+        totalBF += d2 - d1
+        totalClever += d3 - d2
+
+        let firstDigit = scoreBruteForce.charAt(0)
+
+        if(scoreFull != scoreBruteForce) {
+            incorrectCount++
+            console.log("TRIAL NUMBER: " + i)
+            console.log("playerCard = [" + playerCard + "]")
+            console.log("PLAYER: ")
+            console.log(printCards(playerCard))
+            console.log("BRUTE FORCE: " + scoreBruteForce)
+            console.log("SCORE CLEVR: " + scoreFull)
+        }
+    }
+
+    console.log("TIME BF: " + totalBF)
+    console.log("TIME CV: " + totalClever)
+    console.log("TIME: " + Math.floor((totalBF - totalClever)/1000)); //in milliseconds)
+
+    console.log("TRIALS: " + numTrials)
+    console.log("INCORR: " + incorrectCount)
+    console.log("FAIL %: " + incorrectCount/numTrials)
+}
+
+
 const calculatePlayerScoreLow = (cardArray, boardArray) => {
     let returnScore;
     let i;
@@ -205,8 +376,47 @@ const calculatePlayerScoreLow = (cardArray, boardArray) => {
                     sendArray[3] = boardArray[m];
                     for(n = m + 1; n < 5; n++) {
                         sendArray[4] = boardArray[n];
-                        score = CalculateLow8OrBetter(sendArray);
+                        score = calculateRazz.calculateLow8OrBetter(sendArray);
                         sentAmount++
+                        if(score < returnScore) {
+                            returnScore = score;
+                        }
+                        
+                    }
+                }
+            }
+        }
+    }
+    return returnScore;
+}
+
+const calculatePlayerScoreRegLow = (cardArray) => {
+    let returnScore;
+    let i;
+    let j;
+    let score;
+    returnScore = '99999999999';
+
+    sendArray = [0,0,0,0,0]
+
+    let cardsPerPlayer = 7
+    let sentAmount = 0
+
+    for(i = 0; i < cardsPerPlayer - 4; i++) {
+        sendArray[0] = cardArray[i];
+        for(j = i + 1; j < cardsPerPlayer - 3; j++) {
+            sendArray[1] = cardArray[j];
+            for(k = j + 1; k < cardsPerPlayer - 2; k++) {
+                sendArray[2] = cardArray[k];
+                for(m = k + 1; m < cardsPerPlayer - 1; m++) {
+                    sendArray[3] = cardArray[m];
+                    for(n = m + 1; n < cardsPerPlayer; n++) {
+                        sendArray[4] = cardArray[n];
+                        score = calculateRazz.calculateRazz(sendArray);
+                        //console.log(score)
+                        sentAmount++
+                        //if(score == '10000000000')
+                            //console.log("THE SCORE HERE\n\nTHERKE")
                         if(score < returnScore) {
                             returnScore = score;
                         }
@@ -241,7 +451,7 @@ const calculatePlayerScorePLO6 = (cardArray, boardArray) => {
                     sendArray[3] = boardArray[m];
                     for(n = m + 1; n < 5; n++) {
                         sendArray[4] = boardArray[n];
-                        score = CalculateHigh(sendArray);
+                        score = calculateHigh.calculateHigh(sendArray);
                         sentAmount++
                         if(score > returnScore) {
                             returnScore = score;
@@ -288,18 +498,14 @@ const printCards = (cards) => {
  
 
     for(i = 0; i < cards.length; i++) {
-        ranksPlayer[getRank(cards[i])]++
-        suitsPlayer[getSuit(cards[i])]++
-        ranksBoard[i] = getRank(cards[i])
-        suitsBoard[i] = getSuit(cards[i])
+        ranksPlayer[calculateHigh.getRank(cards[i])]++
+        suitsPlayer[calculateHigh.getSuit(cards[i])]++
     }
 
 
 
     console.log("Ranks: " + ranksPlayer)
     console.log("Suits: " + suitsPlayer)
-    console.log("Ranks: " + ranksBoard)
-    console.log("Suits: " + suitsBoard)
 }
 
 export const testNLHE = () => {
@@ -314,7 +520,7 @@ export const testNLHE = () => {
             for(k = j + 1; k < cardCount - 2; k++) {
                 for(m = k + 1; m < cardCount -1; m++) {
                     for(n = m + 1; n < cardCount; n++) {
-                        score = CalculateHigh([i,j,k,m,n])
+                        score = calculateHigh.calculateHigh([i,j,k,m,n])
                         scoreFirstDigit[score.charAt(0)]++
                     }
                 }
@@ -366,7 +572,7 @@ export const testLow8 = () => {
             for(k = j + 1; k < cardCount - 2; k++) {
                 for(m = k + 1; m < cardCount -1; m++) {
                     for(n = m + 1; n < cardCount; n++) {
-                        score = CalculateLow8OrBetter([i,j,k,m,n])
+                        score = calculateRazz.calculateLow8OrBetter([i,j,k,m,n])
                         if(score.charAt(0) == '1') {
                             countLow++
                         }

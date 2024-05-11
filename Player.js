@@ -13,7 +13,6 @@ import {getShowEquity, getEquity,  getScoop, getChops, hideEquity} from './src/R
 import UsableCard from './UsableCard';
 
 
-const arr = [0,1,2,3,4,5,6,7,8,9]
 const Player = (props, ref) => {
 
   
