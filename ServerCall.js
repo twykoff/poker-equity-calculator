@@ -4,20 +4,23 @@ import axios from 'axios'
 
 
 
-export async function runGameServer (game, playerCount, cardArray, boardArray, path) {
-  return await postTodo(game,playerCount, cardArray, boardArray, path)
+export async function runGameServer (playerCards, boardCards, playerCount, cardsPerPlayer, boardCount, cardsPerBoard, game, path) {
+  return await postTodo(playerCards, boardCards, playerCount, cardsPerPlayer, boardCount, cardsPerBoard, game, path)
 
-  function postTodo(game, playerCount, cardArray, boardArray, path) {
+  function postTodo(playerCards, boardCards, playerCount, cardsPerPlayer, boardCount, cardsPerBoard, game, path) {
       //return fetch('http://18.188.193.162:3000/',
       return axios.post(path,
       
       {
           
           body:JSON.stringify( {
-            game: game, 
-            playerCount: playerCount, 
-            playerCards: cardArray,
-            boardCards: boardArray
+            playerCards: playerCards,
+            boardCards: boardCards,
+            playerCount: playerCount,
+            cardsPerPlayer: cardsPerPlayer,
+            boardCount: boardCount,
+            cardsPerBoard: cardsPerBoard,
+            game: game
           })
       })
       //.then(data => theText = data.json())
@@ -25,6 +28,8 @@ export async function runGameServer (game, playerCount, cardArray, boardArray, p
         //Alert.alert(response)
         console.log(response)
         console.log(response.data.numTrials)
+        console.log(response.data.playerWins)
+        console.log(response.data)
         return response.data
       })
       .catch(function (error) {

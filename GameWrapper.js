@@ -65,6 +65,10 @@ const GameWrapper = (props, ref) => {
         console.log("EQ STRUCT ")
         //console.log(equityStruct[0].playerWins)
     
+        console.log("RESULT")
+        console.log(equityFromServer[0].playerWins[0])
+        console.log(equityFromServer[0].playerScoop[0])
+        console.log(equityFromServer[0].numTrials)
         equityStruct = gameUtils.setGameEquity(equityFromServer[0].playerWins, equityFromServer[0].playerScoop, equityFromServer[0].numTrials)
     }
 

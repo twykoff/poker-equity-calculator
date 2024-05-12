@@ -8,7 +8,7 @@ module.exports = {
 }
 
 
-  export const runTrial = (cardArray, playerCount, gameName) => {
+  const runTrial = (cardArray, playerCount, gameName) => {
 
     let playerRazzScore = []
     for(i = 0; i < playerCount; i++) {

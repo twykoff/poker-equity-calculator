@@ -207,7 +207,7 @@ const runGame = (playerCards, boardCards, playerCount, cardsPerPlayer, boardCoun
   console.log(playerCards[1])
   console.log(boardCards[0])
   
-  let playerBoardRandom = gameUtils.setUpPlayerBoardRandom(playerCards, boardCards, playerCount, cardsPerPlayer, boardCount, cardsPerBoard, numTrials)
+  let playerBoardRandom = gameUtils.setUpPlayerBoardRandom(playerCards, boardCards, playerCount, cardsPerPlayer, boardCount, cardsPerBoard)
       
       
   let i, j
