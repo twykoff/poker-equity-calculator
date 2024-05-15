@@ -3,7 +3,7 @@ module.exports = {
 }
 
 
-function getRank(card, game) {
+const getRank = (card, game) => {
     if(game == 'Badacey') {
         if(card % 13 == 12)
             return 0
@@ -14,7 +14,7 @@ function getRank(card, game) {
 
 
 
-export const getSuit = (card) => {
+const getSuit = (card) => {
     if(card < 13)
         return 0;
     if(card < 26)
