@@ -2,6 +2,9 @@ module.exports = {
     gameNames: {
     
         holdEm: 'Hold Em', 
+        holdEmDB: 'Hold Em Double Board', 
+        lazyPineapple: 'Lazy Pineapple', 
+        holdEmShortDeck: 'Hold Em Short Deck', 
         omahaHigh4: 'Omaha High 4 Cards',
         omahaHigh5: 'Omaha High 5 Cards',
         omahaHigh6: 'Omaha High 6 Cards',
@@ -17,6 +20,9 @@ module.exports = {
         derailment4: 'Derailment 4 Cards',
         derailment5: 'Derailment 5 Cards',
         derailment6: 'Derailment 6 Cards',
+        dramaha: 'Dramaha',
+        dramadugi: 'Dramadugi',
+        dramaDeuceToSeven: 'Drama 2 to 7',
         badacey: 'Badacey',
         badeucey: 'Badeucey',
         badugi: 'Badugi',
@@ -24,6 +30,7 @@ module.exports = {
         stud8: 'Stud 8 or Better',
         studHL: 'Stud High Low',
         razz: 'Razz',
+        deuceToSevenRazz: '2 to 7 Razz',
         deuceToSeven: '2 to 7',
         fiveCardDraw: '5 Card Draw',
         aceToFiveDraw: 'Ace to 5 Draw'
@@ -31,6 +38,9 @@ module.exports = {
     },
     gameProperties: {
         'Hold Em': {cardsPerPlayer: 2, boardCount: 1, cardsPerBoard: 5},
+        'Hold Em Double Board': {cardsPerPlayer: 2, boardCount: 2, cardsPerBoard: 5},
+        'Hold Em Double Board': {cardsPerPlayer: 2, boardCount: 2, cardsPerBoard: 5},
+        'Hold Em Short Deck': {cardsPerPlayer: 2, boardCount: 1, cardsPerBoard: 5},
         'Omaha High 4 Cards': {cardsPerPlayer: 4, boardCount: 1, cardsPerBoard: 5},
         'Omaha High 5 Cards': {cardsPerPlayer: 5, boardCount: 1, cardsPerBoard: 5},
         'Omaha High 6 Cards': {cardsPerPlayer: 6, boardCount: 1, cardsPerBoard: 5},
@@ -46,6 +56,9 @@ module.exports = {
         'Derailment 4 Cards': {cardsPerPlayer: 4, boardCount: 3, cardsPerBoard: 5},
         'Derailment 5 Cards': {cardsPerPlayer: 5, boardCount: 3, cardsPerBoard: 5},
         'Derailment 6 Cards': {cardsPerPlayer: 6, boardCount: 3, cardsPerBoard: 5},
+        'Dramaha': {cardsPerPlayer: 5, boardCount: 1, cardsPerBoard: 5},
+        'Dramadugi': {cardsPerPlayer: 5, boardCount: 1, cardsPerBoard: 5},
+        'Drama 2 to 7': {cardsPerPlayer: 5, boardCount: 1, cardsPerBoard: 5},
         'Badacey': {cardsPerPlayer: 5, boardCount: 0, cardsPerBoard: 0},
         'Badeucey': {cardsPerPlayer: 5, boardCount: 0, cardsPerBoard: 0},
         'Badugi': {cardsPerPlayer: 4, boardCount: 0, cardsPerBoard: 0},
@@ -53,6 +66,7 @@ module.exports = {
         'Stud 8 or Better': {cardsPerPlayer: 7, boardCount: 0, cardsPerBoard: 0},
         'Stud High Low': {cardsPerPlayer: 7, boardCount: 0, cardsPerBoard: 0},
         'Razz': {cardsPerPlayer: 7, boardCount: 0, cardsPerBoard: 0},
+        '2 to 7 Razz': {cardsPerPlayer: 7, boardCount: 0, cardsPerBoard: 0},
         '2 to 7': {cardsPerPlayer: 5, boardCount: 0, cardsPerBoard: 0},
         '5 Card Draw': {cardsPerPlayer: 5, boardCount: 0, cardsPerBoard: 0},
         'Ace to 5 Draw': {cardsPerPlayer: 5, boardCount: 0, cardsPerBoard: 0}

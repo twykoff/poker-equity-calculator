@@ -8,6 +8,8 @@ export async function runGameServer (playerCards, boardCards, playerCount, cards
   return await postTodo(playerCards, boardCards, playerCount, cardsPerPlayer, boardCount, cardsPerBoard, game, path)
 
   function postTodo(playerCards, boardCards, playerCount, cardsPerPlayer, boardCount, cardsPerBoard, game, path) {
+      console.log(path)
+      console.log("AFT PATH")
       //return fetch('http://18.188.193.162:3000/',
       return axios.post(path,
       

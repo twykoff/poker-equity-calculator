@@ -1,4 +1,4 @@
-const calculateHigh = require('./CalculateHigh.js');
+const calculateRazz = require('./CalculateRazz.js');
 
 
 module.exports = {
@@ -9,28 +9,28 @@ const runTrial = (cardArray, playerCount) => {
   let i
 
   
-  let playerHighScore = []
+  let playerLowScore = []
   for(i = 0; i < playerCount; i++) {
-    playerHighScore[i] = calculateHigh.calculateHighXCards(cardArray[i], 7)
+    playerLowScore[i] = calculateRazz.calculateRazz7Cards(cardArray[i])
   }
   
-  let maxHighScore = '00000000000'
+  let minLowScore = '99999999999'
 
   for(i = 0; i < playerCount; i++) {
-    if(playerHighScore[i] > maxHighScore)
-      maxHighScore = playerHighScore[i]
+    if(playerLowScore[i] < minLowScore)
+      minLowScore = playerLowScore[i]
   }
 
-  let isHighScore = []
-  let countHighScores = 0
+  let isLowScore = []
+  let countLowScores = 0
 
   for(i = 0; i < playerCount; i++) {
-    if(playerHighScore[i] == maxHighScore) {
-      isHighScore[i] = 1
-      countHighScores++
+    if(playerLowScore[i] == minLowScore) {
+      isLowScore[i] = 1
+      countLowScores++
     }
     else
-      isHighScore[i] = 0
+      isLowScore[i] = 0
   }
 
   let playerWins = []
@@ -42,9 +42,9 @@ const runTrial = (cardArray, playerCount) => {
   }
 
   for(i = 0; i < playerCount; i++) {
-    if(isHighScore[i] == 1) {
-      playerWins[i] += 1/countHighScores
-      if(countHighScores == 1)
+    if(isLowScore[i] == 1) {
+      playerWins[i] += 1/countLowScores
+      if(countLowScores == 1)
         playerScoop[i]++
     }
   }

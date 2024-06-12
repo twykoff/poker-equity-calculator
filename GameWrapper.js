@@ -53,13 +53,14 @@ const GameWrapper = (props, ref) => {
     let equityStruct
     let equityFromServer
 
-    if(randomCardCount <= 2) {
+    if(randomCardCount <= -1) {
         //run exhaustive on hardware
     }
     else {
 
         let promiseFromServer = []
-        promiseFromServer[0] = runGameServer(gameName, playerCount, cardArray, boardArray, path)
+        promiseFromServer[0] = runGameServer(playerCards, boardCards, playerCount, cardsPerPlayer, boardCount, cardsPerBoard, 
+          gameName, path)
     
         equityFromServer = await Promise.all(promiseFromServer)
         console.log("EQ STRUCT ")
@@ -88,7 +89,7 @@ const GameWrapper = (props, ref) => {
   }
 
   async function calculateEquityOnHardware(gameName) {
-
+    const numTrials = 1000000
    
     dispatch(hideEquity())
 
@@ -98,7 +99,7 @@ const GameWrapper = (props, ref) => {
     d1 = Date.now()
 
     
-    let equity = game.runGame(playerCards, boardCards, playerCount, cardsPerPlayer, boardCount, cardsPerBoard, gameName, 1000)
+    let equity = game.runGame(playerCards, boardCards, playerCount, cardsPerPlayer, boardCount, cardsPerBoard, gameName, numTrials)
 
     let equityStruct = gameUtils.setGameEquity(equity.playerWins, equity.playerScoop, equity.numTrials)
     for(i = 0; i < playerCount; i++)

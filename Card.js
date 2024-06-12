@@ -13,6 +13,7 @@ const Card = (props, ref) => {
     useImperativeHandle(ref, () => ({
         // methods connected to `ref`
         clearCard: () => { clearCard() },
+        disableCard: () => { disableCard() },
         clearSpecificCard: (clearCardValue) => { clearSpecificCard(clearCardValue) }
     }))
 
@@ -28,6 +29,10 @@ const Card = (props, ref) => {
 
     const clearCard = () => {
         setCardDisabled(false)
+    }
+
+    const disableCard = () => {
+        setCardDisabled(true)
     }
 
     const clearSpecificCard = (clearCardValue) => {

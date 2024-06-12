@@ -7,7 +7,7 @@ module.exports = {
 }
 
 
-  export const runTrial = (cardArray, playerCount) => {
+  const runTrial = (cardArray, playerCount) => {
 
 
 
@@ -15,7 +15,7 @@ module.exports = {
     let playerBadugiScore = []
     for(i = 0; i < playerCount; i++) {
       playerBadugiScore[i] = calculateBadugi.calculateBadugi(cardArray[i], 'Badacey')
-      console.log("I " + i + ": " + playerBadugiScore[i])
+      //console.log("I " + i + ": " + playerBadugiScore[i])
     }
 
     let minBadugiScore = '999999999'

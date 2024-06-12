@@ -28,12 +28,11 @@ const Player = (props, ref) => {
   const showEquity = useSelector((state) => getShowEquity(state))
   const equityText = useSelector((state) => getPlayerEquity(state, playerNumber))
   const scoopText = useSelector((state) => getPlayerScoops(state, playerNumber))
-  const equityText2 = useSelector((state) => (getEquity, playerNumber))
-  const scoopText2 = useSelector((state) => (getScoop, playerNumber))
 
 
   useImperativeHandle(ref, () => ({
     // methods connected to `ref`
+    haha: () => {haha()},
     clearCards: () => { clearCards() },
     newCardCount: (cardCountParam) => {newCardCount(cardCountParam)},
     setCard: (cardValue, cardNumber) => {setCard(cardValue, cardNumber)},
@@ -45,6 +44,13 @@ const Player = (props, ref) => {
     addShowPlayer: () => {addShowPlayer()},
     removeShowPlayer: () => {removeShowPlayer()}
   }))
+
+  const haha = () => {
+    const showP = showPlayer
+
+    setShowPlayer(!showP)
+    setShowPlayer(showP)
+  }
 
   const addPlayer = (cardCountParam) => {
     addShowPlayer()
@@ -145,6 +151,7 @@ const Player = (props, ref) => {
           <UsableCard cardNumber={9} ref={el => usableCardRef.current[9] = el} removeCard={removeCard} cardCount={cardCount}/>
 
           {showEquity && <View><View><Text>Equity: {equityText}</Text></View>
+          {console.log("RENDER PLAYER SHOW EQ: " + showEquity)}
           <View><Text>Scoop: {scoopText}</Text></View></View>}
         
         </View>

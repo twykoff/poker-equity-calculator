@@ -1,9 +1,11 @@
-const calculateHigh = require('./CalculateHigh.js');
+const calculateHigh = require('./CalculateHigh.js')
 
 
 module.exports = {
   runTrial: (cardArray, playerCount) => runTrial(cardArray, playerCount)
 }
+
+
 
 const runTrial = (cardArray, playerCount) => {
   let i
@@ -11,9 +13,10 @@ const runTrial = (cardArray, playerCount) => {
   
   let playerHighScore = []
   for(i = 0; i < playerCount; i++) {
-    playerHighScore[i] = calculateHigh.calculateHighXCards(cardArray[i], 7)
+    playerHighScore[i] = calculateHigh.calculateHigh(cardArray[i])
   }
-  
+
+
   let maxHighScore = '00000000000'
 
   for(i = 0; i < playerCount; i++) {
@@ -56,4 +59,7 @@ const runTrial = (cardArray, playerCount) => {
     playerScoop: playerScoop}
 }
  
+const getCardArray = (cardArray, boardArray) => {
+  return [cardArray[0], cardArray[1], boardArray[0], boardArray[1], boardArray[2], boardArray[3], boardArray[4]]
+}
 

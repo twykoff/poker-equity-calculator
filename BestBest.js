@@ -1,29 +1,60 @@
 const calculateHigh = require('./CalculateHigh.js')
 const calculateRazz = require('./CalculateRazz.js')
 
+//need to 
 module.exports = {
-  runTrial: (cardArray, playerCount) => runTrial(cardArray, playerCount)
+  runTrial: (cardArray, boardArray, playerCount, playerCardCount) => runTrial(cardArray, boardArray, playerCount, playerCardCount)
 }
 
-
-
-  const runTrial = (cardArray, playerCount) => {
+  const runTrial = (cardArray, boardArray, playerCount, playerCardCount) => {
+    let displayLowScores = false
+    let displayHighScores = false
 
     let playerHighScore = []
+
+    let score1
+    let score2
+    let i
+    
     for(i = 0; i < playerCount; i++) {
-      playerHighScore[i] = calculateHigh.calculateHighXCards(cardArray[i], 7)
+      //console.log("I " + i + ": " + cardArray[i])
+      score1 = calculateHigh.calculateHighOmahaFull(cardArray[i], boardArray[0], playerCardCount)
+      score2 = calculateHigh.calculateHighOmahaFull(cardArray[i], boardArray[1], playerCardCount)
+      if(score1 > score2)
+        playerHighScore[i] = score1
+      else
+        playerHighScore[i] = score2
+      //console.log("HIGH: " + playerHighScore[i])
     }
 
     
     let playerLowScore = []
     for(i = 0; i < playerCount; i++) {
-      playerLowScore[i] = calculateRazz.calculateLow8OrBetterXCards(cardArray[i], 7)
-      //console.log(i + " " + playerLowScore[i])
+      //console.log("I " + i + ": " + cardArray[i])
+      score1 = calculateRazz.calculateLowOmahaFull(cardArray[i], boardArray[0], playerCardCount)
+      score2 = calculateRazz.calculateLowOmahaFull(cardArray[i], boardArray[1], playerCardCount)
+      if(score1 < score2)
+        playerHighScore[i] = score1
+      else
+        playerHighScore[i] = score2
+      //console.log("LOW: " + playerLowScore[i])
     }
 
 
     
-
+    if(displayHighScores || displayLowScores) {
+      console.log(cardArray)
+      console.log(boardArray)
+    }
+    
+    if(displayHighScores) {
+      console.log("P1S: " + playerHighScore[0])
+      console.log("P2S: " + playerHighScore[1])
+    }
+    if(displayLowScores) {
+      console.log("P1L: " + playerLowScore[0])
+      console.log("P2L: " + playerLowScore[1])
+    }
 
     let maxHighScore = '00000000000'
 
@@ -93,56 +124,4 @@ module.exports = {
     return {
       playerWins: playerWins,
       playerScoop: playerScoop}
-  }
-  
-
-
-  const calculatePlayerScore = (cardArray, boardArray, game) => {
-    let returnScore;
-    let i;
-    let j;
-    let score;
-
-    let localBoardArray, localCardArray
-    if(game == 'high')
-      returnScore = '00000000000';
-    else {
-      returnScore = '99999999999';
-    }
-    sendArray = [0,0,0,0,0]
-    localCardArray = [cardArray[0], cardArray[1], cardArray[2], cardArray[3], cardArray[4]]
-    localBoardArray = [boardArray[0], boardArray[1], boardArray[2], boardArray[3], boardArray[4]]
-    
-    for(i = 0; i < 4; i++) {
-      sendArray[0] = localCardArray[i];
-      for(j = i + 1; j < 5; j++) {
-        sendArray[1] = localCardArray[j];
-        for(k = 0; k < 3; k++) {
-          sendArray[2] = localBoardArray[k];
-          for(m = k + 1; m < 4; m++) {
-            sendArray[3] = localBoardArray[m];
-            for(n = m + 1; n < 5; n++) {
-              sendArray[4] = localBoardArray[n];
-              if(game == 'high') {
-                score = calculateHigh.calculateHigh(sendArray);
-                //score = '10000000000'
-                if(score > returnScore) {
-                  returnScore = score;
-                }
-              }
-              else {
-                score = CalculateRazz(sendArray);
-                //score = '10000000000'
-                if(score < returnScore) {
-                  returnScore = score;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-
-    return returnScore;
   }

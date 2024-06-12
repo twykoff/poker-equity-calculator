@@ -10,7 +10,7 @@ import { Provider } from 'react-redux';
 import { useDispatch, useSelector } from 'react-redux';
 import {getPlayerCards, getPlayerCount, getPlayerCountSet, getPlayersSet, setCardsPerPlayerSlice} from './src/Redux/playerSlice'
 import {getBoardCards, getBoardsSet, setCardsPerBoard, setBoardCountFunc} from './src/Redux/boardSlice'
-import { getNumTrials, getShowEquity } from './src/Redux/equitySlice';
+import { getNumTrials, getShowEquity, hideEquity } from './src/Redux/equitySlice';
 
 
 import CardGrid from './CardGrid';
@@ -26,7 +26,6 @@ import { showEquity } from './src/Redux/equitySlice';
 
 const gameUtils = require('./GameUtilsNJS.js')
 const {gameNames} = require('./GameProperties.js')
-const {gameProperties} = require('./GameProperties.js')
 
 
 
@@ -88,7 +87,7 @@ const App = () => {
 
   
   function calculateEquityLocal() {
-    
+    dispatch(hideEquity())    
     gameRef.current.calculateEquity(currentGame, localPath)
 
   }  
@@ -100,7 +99,8 @@ const App = () => {
   }  
 
   function calculateEquityOnHardware() {
-    
+    dispatch(hideEquity())
+    playerGridRef.current.haha()
     gameRef.current.calculateEquityOnHardware(currentGame)
 
   }
@@ -110,7 +110,6 @@ const App = () => {
     }
     else {
       setCurrentGame(props)
-      clearCards()
 
       const newCardCount = gameUtils.getPlayerCardCount(props)
       setCardsPerPlayer(newCardCount)
@@ -128,6 +127,9 @@ const App = () => {
       dispatch(setCardsPerBoard({cardsPerBoard:newCardsPerBoard}))
       boardGridRef.current.setCardsPerBoard(newCardsPerBoard)
 
+      clearCards()
+      if(props == gameNames.holdEmShortDeck)
+        cardGridRef.current.clearShortDeck()
       setPlayerFocus()
     }
 
@@ -153,7 +155,14 @@ const App = () => {
     playerGridRef.current.clearCards()
     boardGridRef.current.clearCards()
     setPlayerFocus()
+    if(currentGame == gameNames.holdEmShortDeck)
+      cardGridRef.current.clearShortDeck()
+    dispatch(hideEquity())
   }
+
+  const clearShortDeck = () => [
+
+  ]
 
   const pressedButton = (cardValue) => {
     if(focusOnBoard) {
@@ -185,9 +194,11 @@ const App = () => {
   }
 
   const setBoardFocus = () => {
-    boardGridRef.current.setBoardFocus()
-    playerGridRef.current.clearFocus()
-    setFocusOnBoard(true)
+    if(boardCount > 0) {
+      boardGridRef.current.setBoardFocus()
+      playerGridRef.current.clearFocus()
+      setFocusOnBoard(true)
+    }
   }
   const setPlayerFocus = () => {
     playerGridRef.current.setPlayerFocus()
@@ -204,7 +215,7 @@ const App = () => {
 
           <PlayerGrid removeCard={removeCardPlayer} setBoardFocus={setBoardFocus} setPlayerFocus={setPlayerFocus} 
             cardsPerPlayer={cardsPerPlayer} ref={playerGridRef}></PlayerGrid>
-          <Text visible={showEquity}>Number of Trials: {numTrials}</Text>
+          <Text visible={showEquity}>Number of Trials: {numTrials.toLocaleString()}</Text>
 
           <BoardGrid removeCard={removeCardBoard} setBoardFocus={setBoardFocus} ref={boardGridRef} boardCount={boardCount} cardsPerBoard="5"></BoardGrid>
 
@@ -223,13 +234,41 @@ const App = () => {
               <Button title={"Play " + gameNames.holdEm} onPress={() => chooseGame(gameNames.holdEm)}></Button>
               
               <Button title={"Play " + gameNames.omahaHigh4} onPress={() => chooseGame(gameNames.omahaHigh4)}></Button>
+              <Button title={"Play " + gameNames.omahaHigh5} onPress={() => chooseGame(gameNames.omahaHigh5)}></Button>
+              <Button title={"Play " + gameNames.omahaHigh6} onPress={() => chooseGame(gameNames.omahaHigh6)}></Button>
+              <Button title={"Play " + gameNames.omahaHL4} onPress={() => chooseGame(gameNames.omahaHigh4)}></Button>
+              <Button title={"Play " + gameNames.omahaHL5} onPress={() => chooseGame(gameNames.omahaHL5)}></Button>
+              <Button title={"Play " + gameNames.omahaHL6} onPress={() => chooseGame(gameNames.omahaHL6)}></Button>
               <Button title={"Play " + gameNames.omahaDBHigh4} onPress={() => chooseGame(gameNames.omahaDBHigh4)}></Button>
+              <Button title={"Play " + gameNames.omahaDBHigh5} onPress={() => chooseGame(gameNames.omahaDBHigh5)}></Button>
+              <Button title={"Play " + gameNames.omahaDBHigh6} onPress={() => chooseGame(gameNames.omahaDBHigh6)}></Button>
+              {/*
+
+              <Button title={"Play " + gameNames.bestBest4} onPress={() => chooseGame(gameNames.bestBest4)}></Button>
+              <Button title={"Play " + gameNames.bestBest5} onPress={() => chooseGame(gameNames.bestBest5)}></Button>
+              <Button title={"Play " + gameNames.bestBest6} onPress={() => chooseGame(gameNames.bestBest6)}></Button>
+  
+              <Button title={"Play " + gameNames.derailment4} onPress={() => chooseGame(gameNames.derailment4)}></Button>
+              <Button title={"Play " + gameNames.derailment5} onPress={() => chooseGame(gameNames.derailment5)}></Button>
+              <Button title={"Play " + gameNames.derailment6} onPress={() => chooseGame(gameNames.derailment6)}></Button>
+              
+              <Button title={"Play " + gameNames.dramaha} onPress={() => chooseGame(gameNames.dramaha)}></Button>
+              <Button title={"Play " + gameNames.dramadugi} onPress={() => chooseGame(gameNames.dramadugi)}></Button>
+              <Button title={"Play " + gameNames.dramaDeuceToSeven} onPress={() => chooseGame(gameNames.dramaDeuceToSeven)}></Button>
+              
+              */}
               <Button title={"Play " + gameNames.badacey} onPress={() => chooseGame(gameNames.badacey)}></Button>
               <Button title={"Play " + gameNames.badeucey} onPress={() => chooseGame(gameNames.badeucey)}></Button>
               <Button title={"Play " + gameNames.badugi} onPress={() => chooseGame(gameNames.badugi)}></Button>
               <Button title={"Play " + gameNames.stud} onPress={() => chooseGame(gameNames.stud)}></Button>
               <Button title={"Play " + gameNames.stud8} onPress={() => chooseGame(gameNames.stud8)}></Button>
               <Button title={"Play " + gameNames.studHL} onPress={() => chooseGame(gameNames.studHL)}></Button>
+              <Button title={"Play " + gameNames.razz} onPress={() => chooseGame(gameNames.razz)}></Button>
+              <Button title={"Play " + gameNames.deuceToSevenRazz} onPress={() => chooseGame(gameNames.deuceToSevenRazz)}></Button>
+              <Button title={"Play " + gameNames.deuceToSeven} onPress={() => chooseGame(gameNames.deuceToSeven)}></Button>
+              <Button title={"Play " + gameNames.fiveCardDraw} onPress={() => chooseGame(gameNames.fiveCardDraw)}></Button>
+              <Button title={"Play " + gameNames.aceToFiveDraw} onPress={() => chooseGame(gameNames.aceToFiveDraw)}></Button>
+              <Button title={"Play " + gameNames.holdEmShortDeck} onPress={() => chooseGame(gameNames.holdEmShortDeck)}></Button>
               <Button title="Close" onPress={() => hideGameChange()}></Button>
             </ScrollView>
           </Modal>

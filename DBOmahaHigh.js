@@ -10,7 +10,7 @@ module.exports = {
 
     let playerBoard1Score = []
     for(i = 0; i < playerCount; i++) {
-      playerBoard1Score[i] = calculateHigh.cal(cardArray[i], boardArray[0], playerCardCount)
+      playerBoard1Score[i] = calculateHigh.calculateHighOmahaFull(cardArray[i], boardArray[0], playerCardCount)
       //playerHighScore[i] = '10000000000'
     }
 
@@ -21,7 +21,7 @@ module.exports = {
 
     let playerBoard2Score = []
     for(i = 0; i < playerCount; i++) {
-      playerBoard2Score[i] = calculatePlayerScore(cardArray[i], boardArray[1])
+      playerBoard2Score[i] = calculateHigh.calculateHighOmahaFull(cardArray[i], boardArray[0], playerCardCount)
       //playerHighScore[i] = '10000000000'
     }
 

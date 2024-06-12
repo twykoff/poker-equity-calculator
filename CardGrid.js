@@ -69,12 +69,37 @@ const CardGrid = (props, ref) => {
   useImperativeHandle(ref, () => ({
     // methods connected to `ref`
     clearCards: () => { clearCards() },
+    clearShortDeck: () => { clearShortDeck() },
     addCardBack: (cardValue) => {addCardBack(cardValue)}
   }))
 
   
   const pressedButton = (cardValue) => {
     //console.log("cardGrid " + cardValue)
+  }
+
+   
+  const clearShortDeck = () => {
+    //console.log("clear cards")
+    cardGridRef5s.current.disableCard();
+    cardGridRef4s.current.disableCard();
+    cardGridRef3s.current.disableCard();
+    cardGridRef2s.current.disableCard();
+    
+    cardGridRef5h.current.disableCard();
+    cardGridRef4h.current.disableCard();
+    cardGridRef3h.current.disableCard();
+    cardGridRef2h.current.disableCard();
+    
+    cardGridRef5c.current.disableCard();
+    cardGridRef4c.current.disableCard();
+    cardGridRef3c.current.disableCard();
+    cardGridRef2c.current.disableCard();
+    
+    cardGridRef5d.current.disableCard();
+    cardGridRef4d.current.disableCard();
+    cardGridRef3d.current.disableCard();
+    cardGridRef2d.current.disableCard();
   }
 
   

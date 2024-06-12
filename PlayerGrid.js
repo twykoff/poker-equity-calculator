@@ -4,9 +4,11 @@ import React, {useImperativeHandle, forwardRef, useRef, useState} from 'react';
 
 import Player from './Player';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {setPlayerCountFunc, setCardsPerPlayer} from './src/Redux/playerSlice'
+import {getBoardCountSlice} from './src/Redux/boardSlice'
+import { hideEquity } from './src/Redux/equitySlice';
 
 
 const PlayerGrid = (props, ref) => {
@@ -25,6 +27,7 @@ const PlayerGrid = (props, ref) => {
 
 
   const [hasBoard, setHasBoard] = useState(true)
+  const boardCount = useSelector((state) => getBoardCountSlice(state))
 
   
   const dispatch = useDispatch()
@@ -32,6 +35,7 @@ const PlayerGrid = (props, ref) => {
   
   useImperativeHandle(ref, () => ({
     // methods connected to `ref`
+    haha: () => {haha()},
     clearCards: () => { clearCards() },
     addCard: (cardValue) => {addCard(cardValue)},
     setPlayerFocus: () => {setPlayerFocus()},
@@ -42,6 +46,11 @@ const PlayerGrid = (props, ref) => {
     setCardsPerPlayer: (newCardsPerPlayer) => {setCardsPerPlayer(newCardsPerPlayer)}
   }))
   
+  const haha = () => {
+    let i
+    for(i = 1; i <= playerCount; i++)
+      playerRef.current[i].haha()
+  }
  
   const setCardsPerPlayer = (newCardsPerPlayer) => {
     let i
@@ -84,7 +93,7 @@ const PlayerGrid = (props, ref) => {
         newFocusCard = 0
       }
       else {
-        if(hasBoard) {
+        if(boardCount != 0) {
           clearFocus(currentFocusPlayer, currentFocusCard)
           setFocusCard(0)
           setFocusPlayer(0)
@@ -95,11 +104,19 @@ const PlayerGrid = (props, ref) => {
     }
     
     if(currentFocusCard != newFocusCard || currentFocusPlayer != newFocusPlayer) {
-      clearFocus(currentFocusPlayer, currentFocusCard)
-      if(newFocusPlayer <= playerCount)
-        addFocus(newFocusPlayer, newFocusCard)
-      else
-        props.setBoardFocus()
+      if(boardCount != 0) {
+        clearFocus(currentFocusPlayer, currentFocusCard)
+        if(newFocusPlayer <= playerCount)
+          addFocus(newFocusPlayer, newFocusCard)
+        else
+          props.setBoardFocus()
+      }
+      else {
+        if(newFocusPlayer <= playerCount) {
+          addFocus(newFocusPlayer, newFocusCard)
+          clearFocus(currentFocusPlayer, currentFocusCard)
+        }
+      }
     }
 
   }
@@ -143,6 +160,7 @@ const PlayerGrid = (props, ref) => {
   }
 
   const addPlayer = () => {
+    dispatch(hideEquity())
     setRemoveDisabled(false);
 
     const oldPlayerCount = playerCount
@@ -162,6 +180,7 @@ const PlayerGrid = (props, ref) => {
   }
 
   const removePlayer = () => {
+    dispatch(hideEquity())
     setAddDisabled(false);
 
     const oldPlayerCount = playerCount

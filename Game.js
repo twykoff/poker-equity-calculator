@@ -2,15 +2,16 @@
 
 const badacey     = require('./BadaceyBadeucey.js')
 const badugi     = require('./Badugi.js')
-  const omahaHL     = require('./OmahaHL.js')
-  const omahaHigh   = require('./OmahaHigh.js')
-  const dbOmahaHigh = require('./DBOmahaHigh.js')
-  const nlhe      = require('./NLHE.js')
-  const stud      = require('./Stud.js')
-  const stud8     = require('./Stud8.js')
-  const studHLReg = require('./StudHiLoReg.js')
+const omahaHL     = require('./OmahaHL.js')
+const omahaHigh   = require('./OmahaHigh.js')
+const dbOmahaHigh = require('./DBOmahaHigh.js')
+const nlhe      = require('./HoldEm.js')
+const shortDeck      = require('./HoldEmShortDeck.js')
+const stud      = require('./Stud.js')
+const stud8     = require('./Stud8.js')
+const studHLReg = require('./StudHiLoReg.js')
 
-  const gameProperties= require('./GameProperties.js')
+const gameProperties= require('./GameProperties.js')
 
   
 const gameUtils = require('./GameUtilsNJS.js')
@@ -78,6 +79,16 @@ const runAllTrials = (cardArray, boardArray, randomSet, randomCount, playerCount
   }
 
   let jStart, kStart
+
+  if(randomCardCount == 0) {
+    handResultStruct = runTrial(cardArray, boardArray, playerCount, gameName)      
+    for(m = 0; m < playerCount; m++)
+    {
+      playerWins[m]   += handResultStruct.playerWins[m]
+      playerScoop[m]  += handResultStruct.playerScoop[m]
+    } 
+    numTrials++    
+  }
 
   if(randomCardCount == 3) {
     for(i = 0; i < randomCount; i++) {
@@ -244,7 +255,7 @@ const runGame = (playerCards, boardCards, playerCount, cardsPerPlayer, boardCoun
   }
 
   for(i = 0; i < numTrials; i++) {
-      if(i% 1000 == 0)
+      if(i% 10000000 == 0)
           console.log("Trial #: " + i);
       newCardsStruct = gameUtils.getRandomCards(cardArray, boardArray, randomSet, randomCount, playerCount, cardsPerPlayer, boardCount, cardsPerBoard)
 
@@ -270,6 +281,9 @@ const runGame = (playerCards, boardCards, playerCount, cardsPerPlayer, boardCoun
 const runTrial = (cardArray, boardArray, playerCount, gameName) => {
   if(gameName === gameProperties.gameNames.holdEm){
     return nlhe.runTrial(cardArray, boardArray, playerCount)
+  }
+  if(gameName === gameProperties.gameNames.holdEmShortDeck){
+    return shortDeck.runTrial(cardArray, boardArray, playerCount)
   }
   if(gameName === gameProperties.gameNames.omahaHigh4)
     return omahaHigh.runTrial(cardArray, boardArray, playerCount, 4)

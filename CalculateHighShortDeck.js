@@ -187,8 +187,8 @@ const CalculateHighOmahaFull = (cardArray, boardArray, cardCount) => {
             boardCount -= ranksSuitBoard[i+4]
         }
 
-        playerCount += ranksSuitPlayer[12]
-        boardCount += ranksSuitBoard[12]
+        playerCount += ranksSuitPlayer[8]
+        boardCount += ranksSuitBoard[8]
 
         if(playerCount == 2 && boardCount == 3) {
             returnString = '90300000000'
@@ -255,7 +255,7 @@ const CalculateHighOmahaFull = (cardArray, boardArray, cardCount) => {
                         || (ranksPlayerM2[i] == 1 && ranksPlayerM2[j] >= 1 && ranksBoardM3[j] >= 1)
                         || (ranksPlayerM2[i] == 0 && ranksPlayerM2[j] >= 2)
                         ) {
-                        returnString = '7'
+                        returnString = '6'
                         if(i >= 10)
                             returnString += i
                         else
@@ -277,9 +277,9 @@ const CalculateHighOmahaFull = (cardArray, boardArray, cardCount) => {
 
     let singlePlayerCount = 0
     let singleBoardCount = 0
-    //check for flush (combined with straight flush check)
+    //check for flush 
     if(isFlush != -1) {
-        returnString = '6'
+        returnString = '7'
         for(i = 12; i >= 0 && (singlePlayerCount + singleBoardCount) < 5; i--) {
             if(singlePlayerCount < 2 && ranksSuitPlayer[i] > 0) {
                 singlePlayerCount++
@@ -362,9 +362,9 @@ const CalculateHighOmahaFull = (cardArray, boardArray, cardCount) => {
         return returnString
     }
 
-    playerCount += ranksPlayerM1[12]
-    boardCount += ranksBoardM1[12]
-    totalCount += ranksTotalM1[12]        
+    playerCount += ranksPlayerM1[8]
+    boardCount += ranksBoardM1[8]
+    totalCount += ranksTotalM1[8]        
     
     if(debugStraight == 1) {
         console.log("PC[" + i + "]: " + playerCount)
@@ -619,7 +619,7 @@ const CalculateHigh = (cards) => {
 
         isStraight = 0;
 
-        returnString = '6';
+        returnString = '7';
         for(i = 12; i >= 0; i--) {
             if(ranks[i] == 1) {
                 if(i < 10)
@@ -636,7 +636,7 @@ const CalculateHigh = (cards) => {
                 }
             }
             if(i == 3) {
-                if(ranks[i] == 1 && ranks[i-1] == 1 && ranks[i - 2] == 1 && ranks[i - 3] == 1 && ranks[12] == 1) {
+                if(ranks[i] == 1 && ranks[i-1] == 1 && ranks[i - 2] == 1 && ranks[i - 3] == 1 && ranks[8] == 1) {
                     
                     return '90300000000';
                 }
@@ -657,7 +657,7 @@ const CalculateHigh = (cards) => {
             }
         }
         if(i == 3) {
-            if(ranks[i] == 1 && ranks[i-1] == 1 && ranks[i - 2] == 1 && ranks[i - 3] == 1 && ranks[12] == 1) {
+            if(ranks[i] == 1 && ranks[i-1] == 1 && ranks[i - 2] == 1 && ranks[i - 3] == 1 && ranks[8] == 1) {
                 
                 return '50300000000';
             }
@@ -711,7 +711,7 @@ const CalculateHigh = (cards) => {
     }
     if(tripCount == 1 && pairCount == 1) {
         //is fullhouse
-        returnString = '7'
+        returnString = '6'
         if(tripDigit < 10) {
             returnString = returnString + '0'
         }
@@ -848,7 +848,7 @@ const CalculateHighXCards = (cards, cardCount) => {
             }
         }
 
-        returnString = '6';
+        returnString = '7';
         for(i = 12; i >= 0; i--) {
             if(ranksSuit[i] == 1 && suitCount < 5) {
                 if(i < 10)
@@ -866,7 +866,7 @@ const CalculateHighXCards = (cards, cardCount) => {
                 }
             }
             if(i == 3) {
-                if(ranksSuit[i] == 1 && ranksSuit[i-1] == 1 && ranksSuit[i - 2] == 1 && ranksSuit[i - 3] == 1 && ranksSuit[12] == 1) {
+                if(ranksSuit[i] == 1 && ranksSuit[i-1] == 1 && ranksSuit[i - 2] == 1 && ranksSuit[i - 3] == 1 && ranksSuit[8] == 1) {
                     
                     return '90300000000';
                 }
@@ -887,7 +887,7 @@ const CalculateHighXCards = (cards, cardCount) => {
             }
         }
         if(i == 3) {
-            if(ranks[i] == 1 && ranks[i-1] == 1 && ranks[i - 2] == 1 && ranks[i - 3] == 1 && ranks[12] == 1) {
+            if(ranks[i] == 1 && ranks[i-1] == 1 && ranks[i - 2] == 1 && ranks[i - 3] == 1 && ranks[8] == 1) {
                 
                 return '50300000000';
             }
@@ -941,7 +941,7 @@ const CalculateHighXCards = (cards, cardCount) => {
     }
     if(tripCount == 1 && pairCount == 1) {
         //is fullhouse
-        returnString = '7'
+        returnString = '6'
         if(tripDigit < 10) {
             returnString = returnString + '0'
         }
@@ -1037,7 +1037,7 @@ const CalculateHighXCards = (cards, cardCount) => {
 }
 
 const getRank = (card) => {
-    return (card % 13);
+    return (card % 13) - 4;
 }
 
 const getSuit = (card) => {
@@ -1100,7 +1100,7 @@ const CalculateHighVar = (card1, card2, card3, card4, card5) => {
 
         isStraight = 0;
 
-        returnString = '6';
+        returnString = '7';
         for(i = 12; i >= 0; i--) {
             if(ranks[i] == 1) {
                 if(i < 10)
@@ -1117,7 +1117,7 @@ const CalculateHighVar = (card1, card2, card3, card4, card5) => {
                 }
             }
             if(i == 3) {
-                if(ranks[i] == 1 && ranks[i-1] == 1 && ranks[i - 2] == 1 && ranks[i - 3] == 1 && ranks[12] == 1) {
+                if(ranks[i] == 1 && ranks[i-1] == 1 && ranks[i - 2] == 1 && ranks[i - 3] == 1 && ranks[8] == 1) {
                     
                     return '90300000000';
                 }
@@ -1138,7 +1138,7 @@ const CalculateHighVar = (card1, card2, card3, card4, card5) => {
             }
         }
         if(i == 3) {
-            if(ranks[i] == 1 && ranks[i-1] == 1 && ranks[i - 2] == 1 && ranks[i - 3] == 1 && ranks[12] == 1) {
+            if(ranks[i] == 1 && ranks[i-1] == 1 && ranks[i - 2] == 1 && ranks[i - 3] == 1 && ranks[8] == 1) {
                 
                 return '50300000000';
             }
@@ -1192,7 +1192,7 @@ const CalculateHighVar = (card1, card2, card3, card4, card5) => {
     }
     if(tripCount == 1 && pairCount == 1) {
         //is fullhouse
-        returnString = '7'
+        returnString = '6'
         if(tripDigit < 10) {
             returnString = returnString + '0'
         }

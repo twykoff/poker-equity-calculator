@@ -25,10 +25,18 @@ export const equitySlice = createSlice({
         },
 
         showEquity: (state) => {
-            state.showEquity = true
+            console.log("SHIW STATE: " + JSON.stringify(state))
+            const newState = {...state, showEquity: true}
+            console.log("SHOW NEW STATE: " + JSON.stringify(newState)) 
+            return newState
         },
         hideEquity: (state) => {
-            state.showEquity = false
+            
+            console.log("STATE: " + JSON.stringify(state))
+            const newState = {...state, showEquity: false}
+            console.log("NEW STATE: " + JSON.stringify(newState)) 
+            return newState
+            //state.showEquity = false
         },
 
         clearEquity: (state, actions) => {
