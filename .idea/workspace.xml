@@ -5,22 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="be8f4ddb-43c8-445e-b04c-defa28a4a4df" name="Changes" comment="hopefully can merge now">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Badugi.js" beforeDir="false" afterPath="$PROJECT_DIR$/Badugi.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CalculateHigh.js" beforeDir="false" afterPath="$PROJECT_DIR$/CalculateHigh.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Card.js" beforeDir="false" afterPath="$PROJECT_DIR$/Card.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CardGrid.js" beforeDir="false" afterPath="$PROJECT_DIR$/CardGrid.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DBOmahaHigh.js" beforeDir="false" afterPath="$PROJECT_DIR$/DBOmahaHigh.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AceToFiveDraw.js" beforeDir="false" afterPath="$PROJECT_DIR$/AceToFiveDraw.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/Game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameProperties.js" beforeDir="false" afterPath="$PROJECT_DIR$/GameProperties.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GameWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/GameWrapper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NLHE.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Player.js" beforeDir="false" afterPath="$PROJECT_DIR$/Player.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PlayerGrid.js" beforeDir="false" afterPath="$PROJECT_DIR$/PlayerGrid.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerCall.js" beforeDir="false" afterPath="$PROJECT_DIR$/ServerCall.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Stud8.js" beforeDir="false" afterPath="$PROJECT_DIR$/Stud8.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/equitySlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/equitySlice.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StudHiLoReg.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

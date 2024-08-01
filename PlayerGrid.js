@@ -210,6 +210,8 @@ const PlayerGrid = (props, ref) => {
 
   
   
+  .3
+  .
   return (
     <SafeAreaView>
       <Text>PlayerGrid</Text>

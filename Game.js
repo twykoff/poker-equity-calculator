@@ -1,15 +1,21 @@
 
-
-const badacey     = require('./BadaceyBadeucey.js')
-const badugi     = require('./Badugi.js')
-const omahaHL     = require('./OmahaHL.js')
-const omahaHigh   = require('./OmahaHigh.js')
-const dbOmahaHigh = require('./DBOmahaHigh.js')
-const nlhe      = require('./HoldEm.js')
-const shortDeck      = require('./HoldEmShortDeck.js')
-const stud      = require('./Stud.js')
-const stud8     = require('./Stud8.js')
-const studHLReg = require('./StudHiLoReg.js')
+const aceToFiveDraw       = require('./AceToFiveDraw.js')
+const BadaceyBadeucey = require('./BadaceyBadeucey.js')
+const badugi          = require('./Badugi.js')
+const bestBest        = require('./BestBest.js')
+const dbOmahaHigh     = require('./DBOmahaHigh.js')
+const derailment      = require('./Derailment.js')
+const deuceToSeven    = require('./DeuceToSeven.js')
+const deuceToSevenRazz  = require('./DeuceToSevenRazz.js')
+const fiveCardDraw    = require('./FiveCardDraw.js')
+const holdEm          = require('./HoldEm.js')
+const holdEmShortDeck = require('./HoldEmShortDeck.js')
+const omahaHigh       = require('./OmahaHigh.js')
+const omahaHL         = require('./OmahaHL.js')
+const razz            = require('./Razz.js')
+const stud            = require('./Stud.js')
+const stud8           = require('./Stud8.js')
+const studHiLowReg    = require('./StudHiLowReg.js')
 
 const gameProperties= require('./GameProperties.js')
 
@@ -280,14 +286,14 @@ const runGame = (playerCards, boardCards, playerCount, cardsPerPlayer, boardCoun
 
 const runTrial = (cardArray, boardArray, playerCount, gameName) => {
   if(gameName === gameProperties.gameNames.holdEm){
-    return nlhe.runTrial(cardArray, boardArray, playerCount)
+    return holdEm.runTrial(cardArray, boardArray, playerCount)
   }
   if(gameName === gameProperties.gameNames.holdEmShortDeck){
-    return shortDeck.runTrial(cardArray, boardArray, playerCount)
+    return holdEmShortDeck.runTrial(cardArray, boardArray, playerCount)
   }
+
   if(gameName === gameProperties.gameNames.omahaHigh4)
     return omahaHigh.runTrial(cardArray, boardArray, playerCount, 4)
-  
   if(gameName === gameProperties.gameNames.omahaHigh5)
     return omahaHigh.runTrial(cardArray, boardArray, playerCount, 5)
   if(gameName === gameProperties.gameNames.omahaHigh6)
@@ -301,21 +307,35 @@ const runTrial = (cardArray, boardArray, playerCount, gameName) => {
     return omahaHL.runTrial(cardArray, boardArray, playerCount, 5)
   if(gameName === gameProperties.gameNames.omahaHL6)
     return omahaHL.runTrial(cardArray, boardArray, playerCount, 6)
+
   if(gameName === gameProperties.gameNames.omahaDBHigh4)
     return dbOmahaHigh.runTrial(cardArray, boardArray, playerCount, 4)
   if(gameName === gameProperties.gameNames.omahaDBHigh5)
     return dbOmahaHigh.runTrial(cardArray, boardArray, playerCount, 5)
-  
   if(gameName === gameProperties.gameNames.omahaDBHigh6)
     return dbOmahaHigh.runTrial(cardArray, boardArray, playerCount, 6)
+
   if(gameName === gameProperties.gameNames.badacey || gameName === gameProperties.gameNames.badeucey)
-    return badacey.runTrial(cardArray, playerCount, gameName)
+    return BadaceyBadeucey.runTrial(cardArray, playerCount, gameName)
   if(gameName === gameProperties.gameNames.badugi)
     return badugi.runTrial(cardArray, playerCount)
+
   if(gameName === gameProperties.gameNames.stud)
     return stud.runTrial(cardArray, playerCount)
   if(gameName === gameProperties.gameNames.stud8)
     return stud8.runTrial(cardArray, playerCount)
   if(gameName === gameProperties.gameNames.studHL)
-    return studHLReg.runTrial(cardArray, playerCount)
+    return studHiLowReg.runTrial(cardArray, playerCount)
+
+  if(gameName === gameProperties.gameNames.razz)
+    return razz.runTrial(cardArray, playerCount)
+  if(gameName === gameProperties.gameNames.deuceToSevenRazz)
+    return deuceToSevenRazz.runTrial(cardArray, playerCount)
+
+  if(gameName === gameProperties.gameNames.fiveCardDraw)
+    return fiveCardDraw.runTrial(cardArray, playerCount)
+  if(gameName === gameProperties.gameNames.deuceToSeven)
+    return deuceToSeven.runTrial(cardArray, playerCount)
+  if(gameName === gameProperties.gameNames.aceToFiveDraw)
+    return aceToFiveDraw.runTrial(cardArray, playerCount)
 }

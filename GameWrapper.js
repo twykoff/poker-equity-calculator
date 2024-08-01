@@ -89,7 +89,7 @@ const GameWrapper = (props, ref) => {
   }
 
   async function calculateEquityOnHardware(gameName) {
-    const numTrials = 1000000
+    const numTrials = 10000
    
     dispatch(hideEquity())
 

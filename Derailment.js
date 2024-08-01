@@ -100,15 +100,15 @@ module.exports = {
     for(i = 0; i < playerCount; i++) {
       //console.log("I " + i + ": " + cardArray[i])
       if(allow1 == 1)
-        score1 = calculateHigh.calculateLowOmahaFull(cardArray[i], boardArray[0], playerCardCount)
+        score1 = calculateRazz.calculateLowOmahaFull(cardArray[i], boardArray[0], playerCardCount)
       else
         score1 = '99999999999'
       if(allow2 == 1)
-        score2 = calculateHigh.calculateLowOmahaFull(cardArray[i], boardArray[1], playerCardCount)
+        score2 = calculateRazz.calculateLowOmahaFull(cardArray[i], boardArray[1], playerCardCount)
       else
         score2 = '99999999999'
       if(allow3 == 1)
-        score3 = calculateHigh.calculateLowOmahaFull(cardArray[i], boardArray[2], playerCardCount)
+        score3 = calculateRazz.calculateLowOmahaFull(cardArray[i], boardArray[2], playerCardCount)
       else
         score3 = '99999999999'
       if(score1 < score2){
@@ -126,27 +126,19 @@ module.exports = {
         playerLowScore[i] = score3
       
       if(allow1 == 0 && allow2 == 0 && allow3 == 0) {
+
         //need to fix but no low for now
+        if(playerCardCount == 4) {
+          playerLowScore[i] = '99999999999'
+        }
+        else {
+          calculateRazz.calculateLow8OrBetterXCards(cardArray[i], playerCardCount)
+        }
         //playerLowScore = calculateHigh.calculateHighXCards(cardArray[i], playerCardCount)
       }
     }
     
 
-
-    
-    if(displayHighScores || displayLowScores) {
-      console.log(cardArray)
-      console.log(boardArray)
-    }
-    
-    if(displayHighScores) {
-      console.log("P1S: " + playerHighScore[0])
-      console.log("P2S: " + playerHighScore[1])
-    }
-    if(displayLowScores) {
-      console.log("P1L: " + playerLowScore[0])
-      console.log("P2L: " + playerLowScore[1])
-    }
 
     let maxHighScore = '00000000000'
 

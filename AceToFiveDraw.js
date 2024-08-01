@@ -20,7 +20,7 @@ const runTrial = (cardArray, playerCount) => {
   let minLowScore = '99999999999'
 
   for(i = 0; i < playerCount; i++) {
-    if(playerHighScore[i] < minLowScore)
+    if(playerLowScore[i] < minLowScore)
       minLowScore = playerLowScore[i]
   }
 
