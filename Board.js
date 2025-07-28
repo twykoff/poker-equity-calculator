@@ -110,9 +110,9 @@ const Board = (props, ref) => {
   return (
     <SafeAreaView>
 
-      {showBoard && 
+      {/*showBoard && 
         <View><Text>Board {boardNumber}</Text></View>
-      }
+      */}
       {showBoard && 
           <View style={styles.flexContainer}>
             <UsableCard cardNumber={0} ref={el => usableCardRef.current[0] = el} removeCard={removeCard} cardCount={cardCount}/>

@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, SafeAreaView, View, TextInput, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, ScrollView, TextInput, Button, TouchableOpacity } from 'react-native';
 import React, {useImperativeHandle, forwardRef, useRef, useState} from 'react';
 
 import Player from './Player';
@@ -210,11 +210,10 @@ const PlayerGrid = (props, ref) => {
 
   
   
-  .3
-  .
+
   return (
     <SafeAreaView>
-      <Text>PlayerGrid</Text>
+      {/*<Text>PlayerGrid</Text>*/}
       <Player playerNumber="1" cardCount={cardCount} removeCard={removeCard} showPlayer={true} 
         ref={el => playerRef.current[1] = el}></Player>
       <Player playerNumber="2" cardCount={cardCount} removeCard={removeCard} showPlayer={true} 
@@ -232,10 +231,10 @@ const PlayerGrid = (props, ref) => {
       <Player playerNumber="8" cardCount={cardCount} removeCard={removeCard} showPlayer={false} 
         ref={el => playerRef.current[8] = el}></Player>
       
-      
-      <Button title="Add Player" onPress={() => addPlayer()} disabled={addDisabled}></Button>
-      <Button title="Remove Player" onPress={() => removePlayer()} disabled={removeDisabled}></Button>
-
+      <ScrollView style={styles.buttonContainer}>
+        <Button title="Add Player" onPress={() => addPlayer()} disabled={addDisabled}></Button>
+        <Button title="Remove Player" onPress={() => removePlayer()} disabled={removeDisabled}></Button>
+      </ScrollView>
     </SafeAreaView>
   )}
   
@@ -245,6 +244,9 @@ const PlayerGrid = (props, ref) => {
       flexWrap: 'wrap',
       padding: 2,
     },
+    buttonContainer: {
+      width: 200,
+    }, 
     buttonStyle: {
       minWidth: '13%',
       maxWidth: '13%',

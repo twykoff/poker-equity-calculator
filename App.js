@@ -3,15 +3,17 @@ import { useState, useRef} from 'react'
 import { StyleSheet, Text, SafeAreaView, TextInput, Button, ScrollView, Platform, StatusBar, Modal} from 'react-native';
 
 
-
+import { Amplify } from 'aws-amplify';
+import awsconfig from './src/aws-exports'; // This file is generated after `amplify init`.
 
 import { store } from './src/Redux/store';
 import { Provider } from 'react-redux';
 import { useDispatch, useSelector } from 'react-redux';
-import {getPlayerCards, getPlayerCount, getPlayerCountSet, getPlayersSet, setCardsPerPlayerSlice} from './src/Redux/playerSlice'
-import {getBoardCards, getBoardsSet, setCardsPerBoard, setBoardCountFunc} from './src/Redux/boardSlice'
+import { getPlayerCards, getPlayerCount, getPlayerCountSet, getPlayersSet, setCardsPerPlayerSlice } from './src/Redux/playerSlice'
+import { getBoardCards, getBoardsSet, setCardsPerBoard, setBoardCountFunc } from './src/Redux/boardSlice'
 import { getNumTrials, getShowEquity, hideEquity } from './src/Redux/equitySlice';
 
+import LoginScreen from './LoginScreen.js';
 
 import CardGrid from './CardGrid';
 
@@ -23,6 +25,10 @@ import { getPlayerCardCount, getBoardCount, getCardsPerBoard } from './GameUtils
 
 import { testNLHE, testOmaha6, testLow, testLow8, testStudRegLow, testNLHEFull } from './Test/BasicTest';
 import { showEquity } from './src/Redux/equitySlice';
+
+
+
+Amplify.configure(awsconfig);
 
 const gameUtils = require('./GameUtilsNJS.js')
 const {gameNames} = require('./GameProperties.js')
@@ -208,6 +214,7 @@ const App = () => {
   
 
   return (
+    
       <SafeAreaView style={styles.container}>
         <ScrollView>
 
@@ -219,29 +226,42 @@ const App = () => {
 
           <BoardGrid removeCard={removeCardBoard} setBoardFocus={setBoardFocus} ref={boardGridRef} boardCount={boardCount} cardsPerBoard="5"></BoardGrid>
 
-        {/**/}
+        {/*}
           <Button title="Calculate Equity from Server" onPress={() => calculateEquityRemote()}></Button>
           <Button title="Calculate Equity from Local" onPress={() => calculateEquityLocal()}></Button>
-        {/**/}
-          <Button title="Calculate Equity" onPress={() => calculateEquityOnHardware()}></Button>
-          <Button title="Clear Cards" onPress={() => clearCards()}></Button>
-          <Button title="Change Game" onPress={() => showGameChange()} ></Button>    
-          <Button title="Test" onPress={() => test()} ></Button>       
+        {*/}
+          <ScrollView style={styles.buttonContainer}>
+            <Button title="Calculate Equity" onPress={() => calculateEquityOnHardware()}
+              style={styles.buttonStyle}></Button>
+            <Button title="Clear Cards" onPress={() => clearCards()}
+              style={styles.buttonStyle}></Button>
+            <Button title="Change Game" onPress={() => showGameChange()}
+              style={styles.buttonStyle}></Button>    
+          </ScrollView>   
             
           <CardGrid pressedButton={pressedButton} ref={cardGridRef}></CardGrid>
           <Modal visible={isGameChangeVisible} onRequestClose={() => hideGameChange()}>
             <ScrollView>
-              <Button title={"Play " + gameNames.holdEm} onPress={() => chooseGame(gameNames.holdEm)}></Button>
-              
-              <Button title={"Play " + gameNames.omahaHigh4} onPress={() => chooseGame(gameNames.omahaHigh4)}></Button>
-              <Button title={"Play " + gameNames.omahaHigh5} onPress={() => chooseGame(gameNames.omahaHigh5)}></Button>
-              <Button title={"Play " + gameNames.omahaHigh6} onPress={() => chooseGame(gameNames.omahaHigh6)}></Button>
-              <Button title={"Play " + gameNames.omahaHL4} onPress={() => chooseGame(gameNames.omahaHigh4)}></Button>
-              <Button title={"Play " + gameNames.omahaHL5} onPress={() => chooseGame(gameNames.omahaHL5)}></Button>
-              <Button title={"Play " + gameNames.omahaHL6} onPress={() => chooseGame(gameNames.omahaHL6)}></Button>
-              <Button title={"Play " + gameNames.omahaDBHigh4} onPress={() => chooseGame(gameNames.omahaDBHigh4)}></Button>
-              <Button title={"Play " + gameNames.omahaDBHigh5} onPress={() => chooseGame(gameNames.omahaDBHigh5)}></Button>
-              <Button title={"Play " + gameNames.omahaDBHigh6} onPress={() => chooseGame(gameNames.omahaDBHigh6)}></Button>
+              <Button title={"Play " + gameNames.holdEm} onPress={() => chooseGame(gameNames.holdEm)}
+                style={styles.buttonStyle}></Button>
+              <Button title={"Play " + gameNames.omahaHigh4} onPress={() => chooseGame(gameNames.omahaHigh4)}
+                style={styles.buttonStyle}></Button>
+              <Button title={"Play " + gameNames.omahaHigh5} onPress={() => chooseGame(gameNames.omahaHigh5)}
+                style={styles.buttonStyle}></Button>
+              <Button title={"Play " + gameNames.omahaHigh6} onPress={() => chooseGame(gameNames.omahaHigh6)}
+                style={styles.buttonStyle}></Button>
+              <Button title={"Play " + gameNames.omahaHL4} onPress={() => chooseGame(gameNames.omahaHigh4)}
+                style={styles.buttonStyle}></Button>
+              <Button title={"Play " + gameNames.omahaHL5} onPress={() => chooseGame(gameNames.omahaHL5)}
+                style={styles.buttonStyle}></Button>
+              <Button title={"Play " + gameNames.omahaHL6} onPress={() => chooseGame(gameNames.omahaHL6)}
+                style={styles.buttonStyle}></Button>
+              <Button title={"Play " + gameNames.omahaDBHigh4} onPress={() => chooseGame(gameNames.omahaDBHigh4)}
+                style={styles.buttonStyle}></Button>
+              <Button title={"Play " + gameNames.omahaDBHigh5} onPress={() => chooseGame(gameNames.omahaDBHigh5)}
+                style={styles.buttonStyle}></Button>
+              <Button title={"Play " + gameNames.omahaDBHigh6} onPress={() => chooseGame(gameNames.omahaDBHigh6)}
+                style={styles.buttonStyle}></Button>
               {/*
 
               <Button title={"Play " + gameNames.bestBest4} onPress={() => chooseGame(gameNames.bestBest4)}></Button>
@@ -257,19 +277,32 @@ const App = () => {
               <Button title={"Play " + gameNames.dramaDeuceToSeven} onPress={() => chooseGame(gameNames.dramaDeuceToSeven)}></Button>
               
               */}
-              <Button title={"Play " + gameNames.badacey} onPress={() => chooseGame(gameNames.badacey)}></Button>
-              <Button title={"Play " + gameNames.badeucey} onPress={() => chooseGame(gameNames.badeucey)}></Button>
-              <Button title={"Play " + gameNames.badugi} onPress={() => chooseGame(gameNames.badugi)}></Button>
-              <Button title={"Play " + gameNames.stud} onPress={() => chooseGame(gameNames.stud)}></Button>
-              <Button title={"Play " + gameNames.stud8} onPress={() => chooseGame(gameNames.stud8)}></Button>
-              <Button title={"Play " + gameNames.studHL} onPress={() => chooseGame(gameNames.studHL)}></Button>
-              <Button title={"Play " + gameNames.razz} onPress={() => chooseGame(gameNames.razz)}></Button>
-              <Button title={"Play " + gameNames.deuceToSevenRazz} onPress={() => chooseGame(gameNames.deuceToSevenRazz)}></Button>
-              <Button title={"Play " + gameNames.deuceToSeven} onPress={() => chooseGame(gameNames.deuceToSeven)}></Button>
-              <Button title={"Play " + gameNames.fiveCardDraw} onPress={() => chooseGame(gameNames.fiveCardDraw)}></Button>
-              <Button title={"Play " + gameNames.aceToFiveDraw} onPress={() => chooseGame(gameNames.aceToFiveDraw)}></Button>
-              <Button title={"Play " + gameNames.holdEmShortDeck} onPress={() => chooseGame(gameNames.holdEmShortDeck)}></Button>
-              <Button title="Close" onPress={() => hideGameChange()}></Button>
+              <Button title={"Play " + gameNames.badacey} onPress={() => chooseGame(gameNames.badacey)}
+                style={styles.buttonStyle}></Button>
+              <Button title={"Play " + gameNames.badeucey} onPress={() => chooseGame(gameNames.badeucey)}
+                style={styles.buttonStyle}></Button>
+              <Button title={"Play " + gameNames.badugi} onPress={() => chooseGame(gameNames.badugi)}
+                style={styles.buttonStyle}></Button>
+              <Button title={"Play " + gameNames.stud} onPress={() => chooseGame(gameNames.stud)}
+                style={styles.buttonStyle}></Button>
+              <Button title={"Play " + gameNames.stud8} onPress={() => chooseGame(gameNames.stud8)}
+                style={styles.buttonStyle}></Button>
+              <Button title={"Play " + gameNames.studHL} onPress={() => chooseGame(gameNames.studHL)}
+                style={styles.buttonStyle}></Button>
+              <Button title={"Play " + gameNames.razz} onPress={() => chooseGame(gameNames.razz)}
+              style={styles.buttonStyle}></Button>
+              <Button title={"Play " + gameNames.deuceToSevenRazz} onPress={() => chooseGame(gameNames.deuceToSevenRazz)}
+                style={styles.buttonStyle}></Button>
+              <Button title={"Play " + gameNames.deuceToSeven} onPress={() => chooseGame(gameNames.deuceToSeven)}
+                style={styles.buttonStyle}></Button>
+              <Button title={"Play " + gameNames.fiveCardDraw} onPress={() => chooseGame(gameNames.fiveCardDraw)}
+                style={styles.buttonStyle}></Button>
+              <Button title={"Play " + gameNames.aceToFiveDraw} onPress={() => chooseGame(gameNames.aceToFiveDraw)}
+                style={styles.buttonStyle}></Button>
+              <Button title={"Play " + gameNames.holdEmShortDeck} onPress={() => chooseGame(gameNames.holdEmShortDeck)}
+                style={styles.buttonStyle}></Button>
+              <Button title="Close" onPress={() => hideGameChange()}
+                style={styles.buttonStyle}></Button>
             </ScrollView>
           </Modal>
           <GameWrapper ref={gameRef}/>
@@ -285,7 +318,14 @@ const styles = StyleSheet.create({
   container: {
     //flex:1,w
      paddingTop:Platform.OS === "android" ? StatusBar.currentHeight : 0,
-  },
+  },    
+  buttonStyle: {
+    minWidth: 200,
+    maxWidth: 300,
+  },  
+  buttonContainer: {
+    width: 200,
+  }, 
 })
 ;
 

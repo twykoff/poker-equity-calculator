@@ -1,5 +1,13 @@
 //todo as of 7/24
 
+/* 
+    DEALER TRAINING
+    Need to build game libraries to return high/low separately
+    Need to build interface
+    Can do who wins/who wins high and low/who wins
+    What player gets (full pot, 1/2, 1/2, 1/4, 3/4)
+*/
+
 /*
     SERVER CONNECTION ISSUE
 

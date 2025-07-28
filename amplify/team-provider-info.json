@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-pokerequitycalculato-dev-0040d-authRole",
+      "UnauthRoleArn": "arn:aws:iam::029238204748:role/amplify-pokerequitycalculato-dev-0040d-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::029238204748:role/amplify-pokerequitycalculato-dev-0040d-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-pokerequitycalculato-dev-0040d-deployment",
+      "UnauthRoleName": "amplify-pokerequitycalculato-dev-0040d-unauthRole",
+      "StackName": "amplify-pokerequitycalculato-dev-0040d",
+      "StackId": "arn:aws:cloudformation:us-east-1:029238204748:stack/amplify-pokerequitycalculato-dev-0040d/d1cf4240-c2cd-11ef-886a-0ec83d2248e9",
+      "AmplifyAppId": "dl9iui4faoysb"
+    },
+    "categories": {
+      "auth": {
+        "pokerequitycalculato90614481": {}
+      }
+    }
+  }
+}
